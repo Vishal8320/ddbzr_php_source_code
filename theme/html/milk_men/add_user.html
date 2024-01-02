@@ -1,0 +1,1074 @@
+<style>
+    .cam-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cam-btn {
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+<div class="row-body">
+<div class="grid-container">
+<div class="grid-content">
+    
+    <div class="page-container">
+     <div class="page-content">   
+        
+            <div class="message-form-content">
+                <div class="message-form-header" id="window_scroll">
+                    <div class="message-form-user">{$profile_pic}</div>
+                    Register Your New Customer.
+                    <div class="message-form-private"></div>
+                    <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                    
+                </div>
+                     {$message}
+                <div class="page-inner">
+                    <div class="step-wizard">
+                        <ul class="step-wizard-list">
+                            <li id="item_1" class="step-wizard-item current-item">
+                                <span class="progress-count ">1</span>
+                                <span class="progress-label">Basic Info</span>
+                            </li>
+                            <li id="item_2" class="step-wizard-item">
+                                <span class="progress-count">2</span>
+                                <span class="progress-label">Customer Photo</span>
+                            </li>
+                            <li id="item_3" class="step-wizard-item">
+                                <span class="progress-count">3</span>
+                                <span class="progress-label">Success</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- modalbox for sms -->
+                   
+
+                      <!-- modal box ended -->
+
+                    <form action="" id="customer-form" method="post" autocomplete="off">
+                 <!-- customer 1st name -->
+                 
+                    <div id = "step_1" style="font-size: 16px;">
+                    <div id="step1_error"></div>    
+                    <div class="page-input-container">
+                        <div class="page-input-title">{$lng->c-fname}</div>
+                            <div class="page-input-content">
+                                <input type="text" id="fname_id" limit="{$name}" placeholder="{$lng->c-fname}" name="fname" onkeyup="check_step1(1,{$name})">
+                                <div class="page-input-sub-error" id="fname_error" style="font-size: 14px;"></div>
+                            <div class="page-input-sub">{$lng->c-fname_des}</div>
+                            </div>
+                        </div>
+
+                        <!-- customer lname optional -->
+                    <div class="page-input-container">
+                        <div class="page-input-title">{$lng->c-lname}</div>
+                            <div class="page-input-content">
+                                <input type="text" id="lname_id" limit="{$name}" placeholder="{$lng->c-lname_optional}" name="lname"onkeyup="check_step1(2,{$name})">
+                                <div class="page-input-sub-error" id="lname_error" style="font-size: 14px;"></div>
+                            <div class="page-input-sub">{$lng->c-lname_des}</div>
+                            </div>
+                        </div>
+
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->c-p_num}</div>
+                                <div class="page-input-content">
+                                    <input type="number" name="p_number" id="p_number_id" placeholder="[Optional - No OTP]"  onkeyup="check_step2(1)">
+                                    <div class="page-input-sub-error" id="p_number_error" style="font-size: 14px;"></div>
+                                    <div id="p_num_true" class="d-none"></div>
+                                <div class="page-input-sub">{$lng->c-p_number_des}</div>
+                                </div>
+                            </div>
+
+                            
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->c-username}</div>
+                                <div class="page-input-content">
+                                    <input type="text" name="uname" id="uname_id" placeholder="{$lng->c-enter_uname}" onkeyup="check_step2(2,{$uname})">
+                                    <div class="page-input-sub-error" id="uname_error" style="font-size: 14px;"></div>
+                                <div class="page-input-sub">{$lng->c-username_des}</div>
+                                </div>
+                            </div>
+
+
+                            <div class="page-input-container">
+                                <div class="page-input-title">{$lng->c-pincode}</div>
+                                    <div class="page-input-content">
+                                        <input type="number" id="pincode_id" name="pincode" onkeyup="get_suggestion('pincode_','#pincode_search_history','{$user_id}',this)" placeholder="{$lng->c_enter-pincode}">
+                                        <div id="pincode_search_history" style="position: absolute;"></div>
+                                        <div id="pincode_error"></div>
+                                    <div class="page-input-sub">{$lng->c-pincode_des}</div>
+                                    </div>
+                                    
+                                    </div>
+                                
+
+                                <!-- Here Customer Locality: -->
+                                <div class="page-input-container">
+                                    <div class="page-input-title">{$lng->c-enter_town}</div>
+                                        <div class="page-input-content">
+                                            <input type="text" id="locality_id" name="locality" onkeyup="get_suggestion('locality_','#search_history','{$user_id}',this)" placeholder="{$lng->c-town}">
+                                            <div id="search_history" style="position: absolute;"></div>
+                                            <div id="locality_error"></div>
+                                            
+                                        <div class="page-input-sub">{$lng->c-location_des}</div>
+                                        <div class="page-input-sub" style="color: #aca7b4;">{$lng->c-location_des2}</div>
+                                        </div>
+                                    </div>
+                        <center>
+                        <div class="next_btn" id="next_btn_1" onclick="next_btn(1,2,['#fname_id','#lname_id',{$name},{$uname},'#p_number_id','#uname_id','#pincode_id','#locality_id'])"><div class="c-w-icon-right arrow_next"></div>{$lng->next}</div>
+                        </center>
+                    </div>  <!---Step1 end-->
+                   
+                    
+                    
+
+                    <!-- customer profile_pic -->
+                    <!-- Here form to take Picture From Webcam for Customer -->
+                    <div id = "step_2" style="display:none">
+                            <center>{$lng->c-upload_pic}</center>
+                              
+                                
+                                <small>{$lng->c-upload_pic_des}</small>
+                                <div class="page-input-sub_info">{$lng->c-upload_pic_optional}</div>
+                                
+                          
+                           
+                            <div class="cam-container">
+                                <div class="btn-wide btn-normal" id="profile_pic"><i class="fa-solid fa-camera" style="margin:0 10px"></i> Webcam</div>
+                                <label class="btn-wide btn-normal">
+                                    <i class="fa-solid fa-camera" style="margin:0 5px"></i><b>+</b>
+                                    <i class="fa-solid fa-mobile-screen" style="margin:0 5px"></i>
+                                    <input type="file" accept="image/*" capture="camera" onchange="handleImage(this)" style="display: none;">
+                                    Device</label>
+                              </div>
+                                
+                        <div class="cam-container" style="margin: 10px;">      
+                        <div id="show-camera" class="cam-box d-none"></div>
+                        <div id="show-photo" class="cam-box d-none"></div>
+                        </div>
+
+                       
+                        <div class="cam-container">
+                        <div class="btn-wide btn-normal d-none" id="take_snap">{$lng->take_snap}</div>
+                        <div class="btn-wide btn-normal d-none" id="reset_snap" style="width: 100px;">{$lng->reset}</div>
+                        </div>
+                        <input type="hidden" id="store_snap" name="store-snap" value="">
+                        
+                        
+                        <div class="modal-overlay-cal" style="z-index:11;display: none;">
+                          <div class="modal-container modal-fix-cal" tabindex="-1" role="dialog" aria-hidden="true">
+                              <div class="modal-inner" style="text-align: center;">
+                                  <b>Processing...</b>
+                                  <div class="modal-title">Please Wait For response.</div>
+                              </div>
+                              <div id="ajax-process"></div>
+                              <div id="final-error"></div>
+
+                              <div class="button-section">
+                              <span class="bb" style="margin:9px; background-color:rgb(240, 74, 74); color:white;" id="close-modal" onclick="remove_items_cal('.modal-overlay-cal')">Close</span>
+                              </div>
+                              
+                          </div> </div> 
+                        <div class="button-section">
+                            <div class="pre_btn" id="pre_btn_4" onclick="pre_btn(2,1)"><div class="c-w-icon-left arrow_pre"></div>{$lng->previous}</div>
+                        </div>
+                        <div class="button-section">
+                            <button class="register-button-new" id="next_btn_4" onclick="create_c_acc('#customer-form')"><div class="c-w-icon-right arrow_next"></div>Create Account</button>
+                        </div>
+                    </div>  <!---Step2 end-->
+
+                    
+
+                    
+                   <!---Step3 start-->
+
+                    <div id = "step_3" style="display:none">
+
+                        <div class="page-input-container">
+                            <div id="created-success" style="display: none;">
+
+                                <div id="success-check"> </div>
+                                <div class="c_reg_note">
+                                    Please Note down this information on your Notebook, Record-Diary, or others. This information is very important!
+                                </div>
+                                <table style="margin: 16px auto; width: 287px;">
+        
+                                    <tr>
+                                        <th>Name:</th>
+                                        <td id="td_name">NuLL</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Username</th>
+                                        <td id="td_uname">NuLL</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Phone no.</th>
+                                        <td id="td_p_num">*********NuLL</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Locality</th>
+                                        <td id="td_locality">NuLL</td>
+                                      </tr>
+                                  </table>
+                                <div class="success-title">
+                                    Account Created Successfully!
+                                </div>
+                                <center><div class="pre_btn" id="pre_btn_1" onclick="location.reload();"><div class="c-w-icon-left arrow_pre"></div>Create New</div></center>
+                            </div>
+                                
+                            </div>
+                    </div>  <!---Step4 end-->
+
+                    
+                    <!-- <center><button type="submit" style="margin:10px auto;" name="crt-acc">{$lng->crt-c-acc} </button></center> -->
+                  </form>
+                </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- sidebar start -->
+
+<div class="grid-sidebar">
+
+
+<div class="sidebar-container widget welcome">
+    <div class="sidebar-content">
+    <div class="sidebar-header">Customers you Don't Create But a Relation with you.</div>
+    <div class="sidebar-inner">{$relationship_customers}</div>
+</div></div>
+
+{$sidebar1}
+</div>
+
+<!-- sidebar end -->
+</div>
+</div>
+<script>
+
+// function start_form(form_id) {
+//   $('#' + form_id + ' :input').val('');
+//   $('#step_2').hide();
+//   $('#step_3').hide();
+//   $('#step_4').hide();
+//   $('#step_5').hide();
+//   $('#step_6').hide();
+//   $('#created-success').hide();
+// }
+
+function create_c_acc(form_id) {
+  $(document).off('submit', form_id).on('submit', form_id, function(e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    var fname = $('#fname_id').val();
+    var lname = $('#lname_id').val();
+    var p_num_val = $('#p_number_id').val();
+    if(p_num_val){
+      var p_num = filter_number($('#p_number_id').val());
+    }else{
+      var p_num = 'No Phone Number';
+    }
+    
+    var uname = $('#uname_id').val();
+    var pincode_id = '#pincode_id';
+    var pincode = $(pincode_id).val();
+
+    var locality_id = '#locality_id';
+    var locality = $('#locality_id').val();
+    var name = fname + ' ' + lname;
+
+    $('.modal-overlay-cal').show();
+    if (!navigator.onLine) {
+      var msg = "No Internet Connection";
+      var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+      $('#ajax-process').html(internet_error);
+      return false; // Abort the AJAX request
+    } else {
+      var loader_msg = 'Please do not exit while we process your Data...';
+      var loader = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+      $('#ajax-process').html(loader);
+   $.ajax({
+        url: baseUrl + "/request/api.php?query=add_customer",
+        type: "POST",
+        cache: false,
+        data: formData,
+        dataType: 'json',
+        success: function(data) {
+          if (data.status == true) {
+            $('.modal-overlay-cal').hide();
+            next_btn(2, 3);
+            var responseData = JSON.parse(data.sms);
+            var returnStatus = responseData.return;
+           
+            $('#td_name').text(name);
+            $('#td_uname').text(uname);
+            $('#td_p_num').text(p_num);
+            $('#td_locality').text(locality);
+
+            $('#created-success').show();
+            $('#success-check').html(data.message);
+            let type1 = checkInputType(pincode);
+            let type2 = checkInputType(locality);
+            let type3 = checkInputType(uname);
+            let type4 = checkInputType(p_num_val);
+
+            put_into_local('pincode_'+pincode,type1,'{$user_id}',pincode);
+            put_into_local('locality_'+locality,type2,'{$user_id}',locality);
+            put_into_local('customer_'+uname,type2,'{$user_id}',uname);
+            put_into_local('customer_'+p_num_val,type2,'{$user_id}',p_num_val);
+
+            if (returnStatus === true) {
+              $('#success').after("<div class='success-title'>Notify thought SMS.</div>");
+            }
+          } else if (data.status == false) {
+            $('#final-error').html(data.message);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // Display the error code
+          console.log('Error code: ' + jqXHR.status);
+        },
+        complete: function() {
+            $('#ajax-process').empty();
+        }
+      });
+    }
+  });
+}
+
+
+function filter_number(number) {
+  // Check if the number is valid and has at least 10 digits
+  if (typeof number !== 'string' || number.length < 10) {
+    return 'Invalid number';
+  }
+
+  // Extract the first digit, last three digits, and middle number
+  var firstDigit = number.charAt(0);
+  var lastThreeDigits = number.slice(-3);
+  var middleNumber = number.slice(1, -3);
+
+  // Replace the middle number with asterisks
+  var asterisks = '*'.repeat(middleNumber.length);
+
+  // Concatenate the filtered number
+  var filteredNumber = firstDigit + asterisks + lastThreeDigits;
+
+  return filteredNumber;
+}
+
+
+
+function handleImage(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const img = new Image();
+      img.src = e.target.result;
+
+      img.onload = function() {
+        const maxSizeBytes = 700 * 1024; // 700KB in bytes
+        const desiredResolution = 1024; // Desired resolution
+        const aspectRatio = img.width / img.height;
+        const targetWidth = Math.min(desiredResolution, img.width);
+        const targetHeight = targetWidth / aspectRatio;
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Reduce image quality iteratively to meet the target size
+        let quality = 0.9; // Start with high quality
+        let resizedDataUrl = canvas.toDataURL("image/jpeg", quality);
+        let base64String = resizedDataUrl.split(',')[1];
+
+        while (base64String.length > maxSizeBytes) {
+          quality -= 0.05; // Reduce quality by 5% in each iteration
+          resizedDataUrl = canvas.toDataURL("image/jpeg", quality);
+          base64String = resizedDataUrl.split(',')[1];
+        }
+
+        // Display the resized photo as an image
+        const imgElement = '<img src="' + resizedDataUrl + '" class="d-block" style="height: 240px;width: 320px;"/>';
+        $('#show-photo').html(imgElement);
+        $('#show-photo').removeClass('d-none');
+
+
+        $('#show-camera').removeClass('d-block');
+        $('#show-camera').addClass('d-none');
+
+        $('#take_snap').removeClass('d-block');
+        $('#take_snap').addClass('d-none');
+
+        $('#reset_snap').removeClass('d-block');
+        $('#reset_snap').addClass('d-none');
+
+        // Set the resized image base64 string as the value of the form field
+        $('#store_snap').val(base64String);
+      };
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+
+
+
+
+
+
+$(document).ready(function() {
+  Webcam.set({
+    width: 320,
+    height: 240,
+    image_format: 'png',
+    jpeg_quality: 100
+  });
+
+  $('#profile_pic').on('click', function() {
+    if (navigator.mediaDevices.getUserMedia) {
+      let constraints = {
+        video: true, // Remove facingMode parameter
+        audio: false
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+          attachCamera(stream);
+        })
+        .catch(function(err) {
+          console.log("Camera access denied");
+          alert("Please allow camera access to take profile picture.");
+          console.log('The following error occurred: ' + err);
+        });
+    } else {
+      console.log("getUserMedia is not supported by this browser");
+      alert('getUserMedia is not supported by this browser');
+    }
+  });
+
+  // Take snapshot function
+  $('#take_snap').on('click', take_snapshot);
+
+  // Reset snap function
+  $('#reset_snap').on('click', function() {
+    console.log("Resetting snap...");
+    $('#show-camera').addClass('d-block');
+    $('#show-camera').removeClass('d-none');
+    $('#show-photo').addClass('d-none');
+    $('#take_snap').addClass('d-block');
+    $('#take_snap').removeClass('d-none');
+    $('#reset_snap').addClass('d-none');
+    $('#reset_snap').removeClass('d-block');
+  });
+
+  function attachCamera(stream) {
+    Webcam.attach('#show-camera');
+    $("#show-camera").addClass("d-block");
+    $("#show-camera").removeClass("d-none");
+
+    $("#show-photo").addClass("d-none");
+
+    $("#float-container").removeClass("float-container");
+    $("#take_snap").removeClass("d-none");
+  }
+});
+
+
+function take_snapshot() {
+  // Get video element and canvas element
+  const video = document.querySelector('#show-camera video');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  // Set canvas dimensions to desired aspect ratio and resolution
+  const aspectRatio = 1; // 1:1 aspect ratio
+  const resolution = 1024; // High resolution max 2048 min 1024
+  canvas.width = resolution;
+  canvas.height = resolution * aspectRatio;
+
+  // Calculate scale factors for drawing video frame onto canvas
+  const scaleX = canvas.width / video.videoWidth;
+  const scaleY = canvas.height / video.videoHeight;
+
+  // Draw video frame onto canvas with desired scale factors
+  context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, canvas.width, canvas.height);
+
+  // Convert canvas image to base64 encoded string
+  let quality = 0.9; // Start with high quality
+  const maxSizeBytes = 700 * 1024; // 700KB in bytes
+  let dataURL, base64String;
+
+  do {
+    const resizedCanvas = document.createElement('canvas');
+    const resizedContext = resizedCanvas.getContext('2d');
+    resizedCanvas.width = canvas.width * quality;
+    resizedCanvas.height = canvas.height * quality;
+    resizedContext.drawImage(canvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+    
+    dataURL = resizedCanvas.toDataURL('image/jpeg', quality);
+    base64String = dataURL.split(',')[1];
+    
+    quality -= 0.05; // Reduce quality by 5% in each iteration
+  } while (base64String.length > maxSizeBytes);
+
+  // Display the captured photo as an image
+  const imgElement = '<img src="' + dataURL + '" class="d-block" style="height: 240px;width: 320px;"/>';
+  $('#show-photo').html(imgElement);
+
+  // Reset camera view and show captured photo
+  $('#show-camera').removeClass('d-block');
+  $('#show-camera').addClass('d-none');
+  $('#show-photo').removeClass('d-none');
+  $('#take_snap').removeClass('d-block');
+  $('#take_snap').addClass('d-none');
+  $('#reset_snap').removeClass('d-none');
+  $('#reset_snap').addClass('d-block');
+
+  // Set the base64 string as the value of the form field
+  $('#store_snap').val(base64String);
+}
+
+
+     function step_1_addr(pincode,locality){
+            var pin = $(pincode).val();
+            var loc = $(locality).val();
+            var pinlen = {$pincode}
+            var loclen = {$locality}
+            var alphab = /^[A-Za-z0-9\s]+$/;
+
+
+                if(!pin){
+
+                    $(pincode).css({
+                    'border-color': 'red',
+                    'border-width': '1px',
+                    'border-style': 'solid'
+                });
+                } 
+            
+            if (!$.isNumeric(pin)) {
+                $(pincode).css({
+                    'border-color': 'red',
+                    'border-width': '1px',
+                    'border-style': 'solid'
+                });
+                $('#pincode_error').html('<div class="step3-error">{$lng->pincode_numeric}</div>');
+            }else if(pin.length != pinlen){
+                $(pincode).css({
+                    'border-color': 'red',
+                    'border-width': '1px',
+                    'border-style': 'solid'
+                });
+                $('#pincode_error').html('<div class="step3-error">{$lng->pincode_len}</div>');
+                return 0;
+            }
+            if(loc == ''){
+                    $(locality).css({
+                    'border-color': 'red',
+                    'border-width': '1px',
+                    'border-style': 'solid'
+                  });
+                  $('#locality_error').html('<div class="step3-error">{$lng->locality_empty}</div>');
+            }else if (!loc.match(alphab)) {
+                $(locality).css({
+                    'border-color': 'red',
+                    'border-width': '1px',
+                    'border-style': 'solid'
+                });
+                $('#locality_error').html('<div class="step3-error">{$lng->locality_alphan}</div>');
+            }else if(loc.length > loclen || loc.length < 3){
+               
+                $(locality).css({
+                    'border-color': 'red',
+                    'border-width': '1px',
+                    'border-style': 'solid'
+                });
+                $('#locality_error').html('<div class="step3-error">{$lng->locality_len}</div>');
+            }else{
+                $('#pincode_error').html('');
+                $('#locality_error').html('');
+
+                $(pincode).removeAttr('style');
+                $(locality).removeAttr('style');
+
+                return 1;
+            }
+     }
+     function step_pic_sub(id,d_class){
+    $(d_class).css({'display':'block'});
+    var p_num = $('#p_number_id').val();
+    if ($("#show-photo").is(':empty') || ($("#show-photo img").attr("src") === undefined || $("#show-photo img").attr("src") === "")) {
+               var profile_pic = 'null'; 
+            }else{
+                var profile_pic = 'notnull';
+            }
+    if(profile_pic == 'nonull'){
+        $('#pic_submitted').html('<b style="color:green">You Choosed your Customer Profile Pic</b>');
+    }else if(profile_pic=='null'){
+        $('#pic_submitted').html('<b style="color:red">You do not Choosed your Customer Profile Photo. you have chance to upload it.</b>');
+    }
+    if(p_num){
+        $('#otp_num').html('<b style="color:green">confirm '+p_num+' is a correct mobile number.');
+    }else{
+        $('#otp_num').html('<b style="color:red">Sorry do not find your mobile number.<b>');
+    }     
+
+ }
+
+
+
+
+    function next_btn(hide_id,show_id,array){
+        switch(hide_id){
+            case 1:
+
+             var fname = $(array[0]).val();
+             var lname = $(array[1]).val();
+             var limit = array[2];
+             var max_val = array[3];
+             var p_num = $(array[4]).val();
+             var uname = $(array[5]).val();
+             var pincode = $(array[6]).val();
+             var locality = $(array[7]).val();
+
+             var step1_fname = check_step1(1,limit);
+             var step1_lname = check_step1(2,limit);
+             var step1_addr = step_1_addr(array[6],array[7]);
+
+               // username and phone number checking
+                var max_val = array[2];
+                var step2_a = check_step2(1);
+                var step2_b = check_step2(2,max_val);
+                var p_num = $(array[0]).val();
+                var uname = $(array[1]).val();
+                step2_a.then(function(result) {
+                 step2_a_result = result;
+                });
+
+
+                
+               // checking last name 
+               
+                var isValid = /^[a-zA-Z]+(\s[a-zA-Z]+)*$/.test(lname.trim()); // check if lname contains only alphabets
+    
+                if ((lname != '') && !(lname.length > limit) && !(lname.length < 3) && (isValid) && !($.trim(fname) === $.trim(lname))) {
+                    x = 1;
+                }else if(lname == ''){
+                    x = 2;
+                }else{
+                    x = 0;
+                }
+                
+             if(!(step1_fname ==1) || !(step1_addr == 1)){
+
+                alert('{$lng->alert_all_fields}');
+             }else if(step1_fname ==1 && (x == 1 || x == 2)){
+              
+                Promise.all([step2_a, step2_b]).then(function(results) {
+                var step2_a_result =  results[0];
+                var step2_b_result = results[1];
+                var p_num = $(array[4]).val();
+                var uname = $(array[5]).val();
+
+                console.log( step2_a_result);
+                console.log( step2_b_result);
+
+
+                if( uname == ''){
+                    alert('Username can\'t be Empty');
+                }else if(p_num !== '' && (isNaN(p_num) || p_num.length !== 10)){
+                   alert('Phone number should be numeric and have a length of 10 digits, or it can be blank.')
+                }else if(step2_a_result == 1 && step2_b_result == 1){
+                  
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    // var targetElement = $("#item_"+show_id);
+                    var targetElement = $("#window_scroll");
+                if (targetElement.length > 0) {
+                    $("html, body").animate({
+                    scrollTop: targetElement.offset().top
+                    }, 300); // Animation duration in milliseconds (e.g., 1000 = 1 second)
+                }
+  
+                }else if(step2_a_result == 2){
+                    alert("{$lng->alert_c_p_num_already}");
+                }else{
+                    alert('Please fix Phone Number and Username Errors');
+                }
+            
+            });
+               
+
+            }else{
+               alert('{$lng->alert_fix_error}');
+            }
+           
+            break;
+            case 2:
+
+            var p_number = $("#p_number_id").val();
+
+                if ($("#show-photo").is(':empty') || ($("#show-photo img").attr("src") === undefined || $("#show-photo img").attr("src") === "")) {
+                alert('Customer Profile Pic is Empty');
+            }
+
+             $("#item_"+hide_id).removeClass('current-item');
+             $("#item_"+show_id).addClass('current-item');
+             $("#step_"+hide_id).hide();
+             $("#step_"+show_id).show();
+            
+            
+            break;
+
+            case 3:
+
+            $("#step_"+hide_id).hide();
+            $("#step_"+show_id).show();
+            
+            break;
+
+        }
+        
+    }
+    function pre_btn(hide_id,show_id){
+                switch(hide_id){
+                    case 1:
+                    // $("#item_"+hide_id).removeClass('current-item');
+                    // $("#item_"+show_id).addClass('current-item');
+                    // $("#step_"+hide_id).hide();
+                    // $("#step_"+show_id).show();
+                    break;
+                    case 2:
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    break;
+                    case 3:
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    break;
+                }
+                
+            }
+
+  function check_step1(type,limit){
+    var fname = $("#fname_id").val();
+    var lname = $("#lname_id").val();
+    if(type==1){
+        //var isValid = /^[a-zA-Z ]+$/.test(fname); // check if fname contains only alphabets
+        isValid = /^[a-zA-Z]+\s*$/.test(fname.trim()); // Check if fname contains only alphabets and optional trailing spaces // check if fname contains only alphabets
+    
+    if (fname.length > limit || fname.length < 3) {
+        $(this).css('border', '1px solid red');
+        $('#fname_error').text('{$lng->fname_min_max}');
+        return 0;
+    } else if (!isValid) {
+        $(this).css('border', '1px solid red');
+        $('#fname_error').text('{$lng->fname_contain}');
+        return 0;
+    } else if(fname != ''){
+        $(this).css('border', '');
+        $('#fname_error').text('');
+        return 1;
+      }
+    }else if(type==2){
+        // var isValid = /^[a-zA-Z ]+$/.test(lname); // check if lname contains only alphabets
+        var isValid =  /^[a-zA-Z]+(\s[a-zA-Z]+)*$/.test(lname.trim());
+    if (lname.length > limit || lname.length < 3) {
+        $(this).css('border', '1px solid red');
+        $('#lname_error').text('{$lng->lname_min_max}');
+
+    } else if (!isValid) {
+        $(this).css('border', '1px solid red');
+        $('#lname_error').text('{$lng->lname_contain}');
+
+    } else if(lname == '') {
+        $(this).css('border', '')
+        $('#lname_error').text('');
+        return 1;
+    } else if($.trim(fname) === $.trim(lname)){
+        $(this).css('border', '1px solid red');
+        $('#lname_error').text("{$lng->fname_lname_same}");
+    }else{
+        $(this).css('border', '')
+        $('#lname_error').text('');
+    }
+    }
+
+     
+   
+
+  }
+
+  function check_step2(type,max){
+    var deferred = $.Deferred();
+    var p_number = $("#p_number_id").val();
+    var uname = $("#uname_id").val();
+    var u_id = $("#uname_id");
+    var p_id = $("#p_number_id");
+    var p_error = $("#p_number_error");
+    var p_available = $("#p_num_true");
+    var u_error = $("#uname_error");
+    if(type==1){
+            if( p_number.trim() !== '' && p_number.length < 10){
+            $(p_available).addClass('d-none');
+            $(p_id).css('border', '1px solid red');
+            $(p_error).text('{$lng->p_num_less}');
+
+          }else if(p_number.length > 10){
+            $(p_available).addClass('d-none');
+            $(p_id).css('border', '1px solid red');
+            $(p_error).text('{$lng->p_num_greater}');
+          
+        }else{
+            $.ajax({
+                url:  baseUrl+"/request/api.php?query=add_customer&b=p_num",
+                type: "POST",
+                data: {p_number:p_number},
+                dataType: 'json',
+                cache: false,
+                success: function(data){
+                    if(data != 1 && data != 2){
+                     $(p_id).css('border', '1px solid red');
+                     $(p_available).addClass('d-none');  
+                     $(p_error).text(data);
+                     deferred.resolve(0);
+                    }else if(data == 2){
+                        $(p_id).css('border', '1px solid red');
+                        $(p_available).removeClass('d-none');   
+                        $(p_available).text("{$lng->p_num_already}");
+                        deferred.resolve(2);
+                    }else{
+                        deferred.resolve(1);
+                    }
+                },
+            });
+
+            $(p_id).css('border', '');
+            (p_error).text('');
+        }
+        // deferred.promise().done(function(result) {
+        //     console.log(result);
+        // });
+        return deferred.promise();   
+  
+    }else if(type==2){
+
+    if (uname.length > max || uname.length < 3) {
+        $(u_id).css('border', '1px solid red');
+      $(u_error).text('{$lng->uname_max_less}');
+
+     }else if(/^_+$/.test(uname)){
+        $(u_id).css('border', '1px solid red');
+      $(u_error).text('{$lng->uname_underscore}');
+
+    }else if (!/^[a-zA-Z0-9_]+$/.test(uname)) {
+        $(u_id).css('border', '1px solid red');
+      $(u_error).text('{$lng->uname_contain_js}');
+
+    }else if (/^\d+$/.test(uname)) {
+      $(u_id).css('border', '1px solid red');
+      $(u_error).text('{$lng->uname_numeric_js}');
+
+   }else{
+    $.ajax({
+                url:  baseUrl+"/request/api.php?query=add_customer&b=uname",
+                type: "POST",
+                data: {uname:uname},
+                dataType: 'json',
+                cache: false,
+                success: function(data){
+                    if(data != 1 && data !=2){
+                     $(u_id).css('border', '1px solid red');   
+                     $(u_error).html(data);
+                    }else if(data==1){
+                        $(u_id).css('border', '');   
+                        $(u_error).html('<font color="green"><b>{$lng->uname_available}</b></h3>');
+                         deferred.resolve(1);
+                    }else if(data==2){
+                        deferred.resolve(2);
+                    }
+                },
+            });
+        }        
+  return deferred.promise();
+  }
+
+
+    }
+
+
+// create_cookie("waiting_time", "5", 5);
+
+
+// var waitingTime = parseInt(getCookie("waiting_time"));
+
+function getWaitingTime(element) {
+  const waitingTime = parseInt($(element).attr('waiting_time'));
+  if (!waitingTime || waitingTime <= 0) {
+    return false;
+  }
+  return waitingTime;
+}
+
+function send_otp(resend_otp){
+  var waiting_time = getWaitingTime(resend_otp);
+  if (waiting_time == false) {
+  process_otp("#p_number_id","#uname_id");
+  $(resend_otp).addClass('disabled');
+   
+}
+
+}
+function process_otp(num,name) {
+
+    if (!navigator.onLine) {
+      var msg = "No Internet Connection";
+      var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+      $('#final-error').html(internet_error);
+      return false; // Abort the AJAX request
+    } else {
+      var loader_msg = 'Please do not exit while we process your Data';
+      var loader = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+      $('#final-error').html(loader);
+
+
+   var p_num = $(num).val();
+   var uname = $(name).val();
+  $.ajax({
+    url: baseUrl+"/request/api.php?query=add_customer&b=otp_verification",
+    type: "POST",
+    cache: false,
+    data: {p_number: p_num,uname:uname},
+    dataType: 'json',
+    success: function(data) {
+          waiting_time = 100;
+        if(data.return == true){
+            $('.modal-message-axz').html("OTP sent to <b>"+p_num+".</b> Please wait 5 to 60 seconds.");
+            console.log('true');
+            sms_pop(5000);
+            get_captcha();
+            start_countdown(waiting_time);
+        }else if(data.return == false){
+            $('.modal-message-axz').html("<font color='red'>Could not Sent message it is our fault Error: "+data.status_code+ "</font>");
+             sms_pop(5000);
+             get_captcha();
+        }else{
+            alert('May be Phone Number or Username Empty')
+            sms_pop(5000);
+            get_captcha();
+            start_countdown(waiting_time)
+        }
+        
+       
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+    // Display the error code
+    console.log('Error code: ' + jqXHR.status);
+    },complete: function() {
+        $('#final-error').empty();
+        }
+  });
+}
+}
+
+function start_countdown(remaining) {
+    $('#resend_otp').attr('waiting_time', remaining);
+  var timerOn = true;
+  function timer() {
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+
+    m = m < 10 ? '0' + m : m;
+    s = s < 10 ? '0' + s : s;
+    $('#resend_otp').text('Resend OTP after ' + m + ':' + s);
+
+    remaining -= 1;
+
+    if (remaining >= 0 && timerOn) {
+      setTimeout(function() {
+        timer();
+      }, 1000);
+    //   if(remaining_old > remaining){
+    //     new_remaining = remaining_old - remaining;
+    //   }
+      return;
+    }
+    $('#resend_otp').removeClass('disabled');
+    $('#resend_otp').html('<b>Resend OTP</b>');
+    $('#resend_otp').attr('waiting_time', 0);
+
+  }
+
+  timer();
+}
+
+
+
+
+
+function getCookie(name) {
+  var cookieArr = document.cookie.split(";");
+  for (var i = 0; i < cookieArr.length; i++) {
+    var cookiePair = cookieArr[i].split("=");
+    if (name == cookiePair[0].trim()) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return null;
+}
+
+
+  function setCookie(name, value, add_minutes) {
+  var expiry = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), new Date().getUTCHours(), new Date().getUTCMinutes() + add_minutes, new Date().getUTCSeconds()));
+  document.cookie = name + "=" + value + "; expires=" + expiry.toUTCString() + "; path=/";
+}
+
+function sms_pop(duration) {
+    var modal = $(".modal-axz");
+    modal.show();
+    setTimeout(function() {
+        
+        modal.removeClass("fade-out");
+        modal.removeClass("slide-up");
+        setTimeout(function() {
+            modal.addClass("fade-out");
+            setTimeout(function() {
+                modal.addClass("slide-up");
+                setTimeout(function() {
+                    modal.hide();
+                }, 300);
+            }, 300);
+        }, duration);
+    }, 0);
+}
+function get_captcha(){
+            $('#captcha_id').css('background-image', 'url(' + baseUrl + '/captcha/captcha.php?' +  new Date().getTime()+ ')');
+        }
+
+
+
+    </script>

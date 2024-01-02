@@ -1,0 +1,217 @@
+<div class="row-body">
+    <div class="grid-container">
+    <div class="grid-content">
+        
+        <div class="message-container">
+                <div class="message-form-content">
+                    <div class="message-form-header">
+                        <div class="message-form-user">{$profile_pic}</div>
+                       Hello welcome Milkman Here all your milk Data we Apeared.
+                        <div class="message-form-private"></div>
+                        <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                        
+                    </div>
+                    <div id="error"></div>           
+                    
+                        <div class='message-form-inner'>
+                            <div class="message-form-des">
+                          
+                            <div class="border-set">
+                            <div class="flex-container">
+                               
+                            <div class="flex-items">
+                               <label for="date">From Date:</label> 
+                                <input type="text" class="date" id="from_date" name="from-date" date_type="dashboard" value="{$from_date}" required="required"/>
+                              </div>
+                              <div class="flex-items">
+                                <label for="date"> To Date:</label>
+                                <input type="text" class="date" id="to_date" name="to-date" date_type="dashboard" value="{$to_date}" required="required"/>
+                              </div>
+                              
+                            </div>
+                            <center><button type="button" role="switch" name="is_cleared" id="is_cleared" aria-checked="false" style="font-size: 15px; height: 2.5em;margin-bottom: 10px;width: 10em;padding: 2px 4px 5px 5px;" onclick="toggleButtonSwitch('is_cleared')">
+                             <div class="switch-adjust">
+                                <span class="label">Cleared :</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="36">
+                                  <rect class="container" x="1" y="1" width="34" height="18" rx="4"></rect>
+                                  <rect class="off" x="4" y="4" width="12" height="12" rx="4"></rect>
+                                  <rect class="on" x="20" y="4" width="12" height="12" rx="4"></rect>
+                                </svg>
+                                <span class="on" aria-hidden="true">On</span>
+                                <span class="off" aria-hidden="true">Off</span>
+                                </div>
+                              </button></center>
+                           <center> <span class="apply_filter" onclick='analytics("#from_date","#to_date")''>Apply Filter</span></center></div>
+
+                            <div class="flex-container">
+                                <div class="flex-items">
+                                  <div class="liter_title" id="t_liter">Null liter bought</div>
+                                  <div class="total_bought" id="t_total">Rs. 0.00</div>
+                                  </div>
+                                <div class="flex-items">
+                                  <div class="liter_title" id="g_liter">Null liter sold</div>
+                                    <div class="total_sold"id="g_total">Rs. 0.00</div>
+                                  </div>
+                             </div>
+                             <div id="analytics"><div class="analytics">As Filtered Date <b>Null</b> liter stock now and you Earn <b>Rs. 0.00</b></div></div>
+
+                            <div id="preloader" class="preloader-center preloader d-none"></div>
+                            <div id="no_more_data" class="no_more_data d-none">No More Data</div> 
+                           
+
+
+
+                            <div class="modal-container d-none" id="dialog-box" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-inner" style="text-align: center;">
+                                Data is Loaded For 1 specific User:
+                                    <div class="modal-title">Here Customer Name:</div>
+                                </div>
+                                
+                                <div class="modal-inner">
+                                <div id="calculate_table"></div>    
+                                <div id="calculation"></div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    </div>
+                    
+                </div>
+            
+        
+    
+    
+    </div>
+    
+    <div class="grid-sidebar">
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">Recently Analytics Record</div>
+        
+        <div class="sidebar-inner">
+            <div id="last_analytics"></div>
+          </div>
+          
+    </div></div>
+    
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">{$subs_header}</div>
+        <div class="sidebar-inner">
+          <div class="subs_content"> 
+          {$subs_contain}
+          </div>
+          <div class="message-divider"></div>
+          <div class="subs_desclaimer"> {$subs_desclaimer}</div>
+        
+         
+        </div>
+    </div></div>
+    
+    </div>
+    </div>
+    </div>
+
+    <script>
+
+$(document).ready(function() {
+
+$(function() {
+  $('input[name="from-date"]').daterangepicker({
+    // set the minimum year to 20 years ago
+    // minDate: moment().subtract(2, 'years'),
+    minDate: moment('2023-01-01'),
+    // set the maximum date to today's date
+    maxDate: moment(),
+    // set the date format
+    locale: {
+      format: 'DD-MM-YYYY'
+    },
+    // set the size of the datepicker
+    opens: 'center',
+    drops: 'down',
+    // startDate: moment('{$past_date}'),
+    // startDate: [
+    //   // moment('{$past_date}', 'DD-MM-YYYY'),
+    //   // moment('{$current_date}', 'DD-MM-YYYY')
+    //   moment($('input[name="from-date"]').val(), 'DD-MM-YYYY'),
+    //   moment($('input[name="to-date"]').val(), 'DD-MM-YYYY')
+    // ],
+    startDate: moment('{$from_date}'),
+    autoApply: false,
+    linkedCalendars: false,
+    showCustomRangeLabel: false,
+    singleDatePicker: true,
+  });
+});
+                $(function() {
+  $('input[name="to-date"]').daterangepicker({
+    // set the minimum year to 20 years ago
+    // minDate: moment().subtract(2, 'years'),
+    minDate: moment('2023-01-01'),
+    // set the maximum date to today's date
+    maxDate: moment(),
+    // set the date format
+    locale: {
+      format: 'DD-MM-YYYY'
+    },
+    // set the size of the datepicker
+    opens: 'center',
+    drops: 'down',
+    startDate: moment('{$to_date}'),
+    autoApply: false,
+    linkedCalendars: false,
+    showCustomRangeLabel: false,
+    singleDatePicker: true,
+    // ranges: {
+    //     'This Month': [moment().startOf('month'), moment().endOf('month')],
+    //     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+    //     'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
+    //     'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
+    //     'This Year': [moment().startOf('year'), moment().endOf('year')]
+    // }
+  });
+});
+
+    
+   });
+   analytics("#from_date","#to_date","#is_cleared");
+
+   function analytics(from_date,to_date,){
+          from_date = $(from_date).val();
+          to_date = $(to_date).val();
+          is_cleared = $('button[name="is_cleared"]').attr('aria-checked');
+    $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=home_analytics",
+                data: {from_date:from_date,to_date:to_date,is_cleared:is_cleared},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+
+                  $("#t_liter").text(data.buying_milk_weight);
+                  $("#t_total").text(data.buying_milk_total);
+                  $("#g_liter").text(data.selling_milk_weight);
+                  $("#g_total").text(data.selling_milk_total);
+
+
+                  // print headline
+                  $("#analytics").html(data.headline);
+                }
+              });
+   }
+   function last_analytics(){
+    $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=home_analytics&b=last_analytics",
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+                  $('#last_analytics').html(data);
+                }
+              });
+   }
+   last_analytics();
+   
+      </script>

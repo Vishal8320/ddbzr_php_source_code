@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CAPTCHA</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1>CAPTCHA</h1>
+	<div>
+		<img id="captcha_img" src="captcha.php" alt="CAPTCHA">
+		<input id="captcha_input" type="text" name="captcha" placeholder="Enter CAPTCHA">
+		<button id="captcha_refresh">Refresh CAPTCHA</button>
+	</div>
+	<script>
+		$(document).ready(function() {
+			$("#captcha_refresh").click(function() { // Refresh CAPTCHA on button click
+				$("#captcha_img").attr("src", "captcha.php?" + new Date().getTime());
+			});
+
+			$("#captcha_input").keyup(function() { // Validate CAPTCHA on input keyup
+				var captcha = $("#captcha_input").val();
+				$.ajax({
+					type: "POST",
+					url: "captcha_validate.php",
+					data: {captcha: captcha},
+					success: function(response) {
+						if (response == "success") {
+							alert("CAPTCHA validated!");
+						} else {
+							alert("CAPTCHA invalid, please try again.");
+						}
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>

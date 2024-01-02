@@ -1,0 +1,336 @@
+
+<div class="message-form-header">Milk Rates Setting</div>
+<form action="{$form_url}" method="post" id="form-id">
+<div class="page-inner">
+            
+
+	
+	   <center><h2>Buying Milk Rates</h2></center>
+	   
+       
+	   <div class ="table-data" id="setting-table-input-fields">
+		<div id="taking_inputs">
+		<div id="loading_bar" class="preloader preloader-center"></div>
+	   <!-- <table class="stg-table" id="table_fields">
+		<tr>
+			<th> Choose </th>
+			<th> Direct Milk </th>
+			<th>By Fat</th>
+			<th>Action</th>
+		</tr>
+		 <tr>
+            <td><select id='m_animals' name='t_animal[]'>
+				<option>Select Animal</option>
+			 </select></td>
+			<td>
+				<input type='number' id="dm1" name='t_dm[]'  value='' step='any'>
+				<div id="msg_1" class="page-input-sub-error"></div>
+			   </td>
+			<td><input type='number' id="mf1" name='t_mf[]'  value='' step='any'>
+				<div id="msg1" class="page-input-sub-error"></div>
+			    </td>
+			<td><div class="add_more" id="add_more">Add More</div></td>
+		 </tr>
+	   </table> -->
+		</div>
+
+       </div>
+            <center><div id="taking_setting_data"></div></center>
+
+			<div class="divider"></div>
+			<div id="submit-message"></div>
+			<center><h2>Selling Milk Rates</h2></center>
+            <div class = "table-data" id="setting-table-input-fields">
+				<div id="giving_inputs">
+			<!-- <table class="stg-table" id="table_fields_g">
+				<tr>
+					<th> Choose </th>
+					<th> Direct Milk </th>
+					<th>By Fat</th>
+					<th>Action</th>
+				</tr>
+				 <tr>
+					<td><select id='m_animals' name='g_animal[]'>
+						<option>Select Animal</option>
+					 </select></td>
+					<td><input type='number' id="dm2" name='g_dm[]'  value='' step='any'>
+						<div id="msg_2" class="page-input-sub-error"> </div>
+					    </td>
+					<td><input type='number' id="mf2" name='g_mf[]'  value='' step='any'>
+						<div id="msg2" class="page-input-sub-error"></div>
+					</td>
+					<td><div class="add_more" id="add_more_g">Add More</div></td>
+				 </tr>
+			   </table> -->
+			</div>
+			</div>
+			<center><div id="giving_setting_data"></div></center>
+	        	   <div class="divider"></div>
+			
+			<br>
+			<b>{$lng->desc_val}</b> <br><br>
+
+			 <b>
+
+				<font color="#259928;">
+					Milk fat rates are typically represented as &#8377;80, &#8377;85, or &#8377;100. However, to ensure the accuracy of your calculation, let's express it in the following format:
+
+					<ul>
+					  <li>&#8377;80 = 8.0</li>
+					  <li>&#8377;85 = 8.5</li>
+					  <li>&#8377;100 = 10.0</li>
+					</ul>
+
+				</font>
+
+			</b>
+			{$lng->setting_agree}
+			<br>
+
+			
+
+			<div class="page-input-containers">
+				<div class="page-input-title">
+					* Your Password</div>
+
+				<div class="page-input-content">
+					<div class="input-container">
+						<input type="password" name="pass" placeholder="**********" style="
+						width: 171px;
+						height: 40px;
+						border: 2px dotted #000000;
+						background: #ebebeb;
+						margin: 0 10px;
+						padding-left: 24px;
+					">
+					</div>
+					<div class="page-input-sub">At last Confirm your Password before saving your Updates.</div>
+				</div>
+			</div>
+			
+			<center style="padding-top: 10px;">
+			<input type="submit" id="submit" name="setting_submit" value="{$lng->save_change}">
+			</center>
+			
+			
+
+</div>
+
+</form>
+
+<script>
+
+
+
+ $(document).ready(function(){
+
+					user_setting();
+					setting_inputs();
+
+					var rowid = '';
+					
+					$("#form-id").on('submit', function(event){ 
+					event.preventDefault();
+					// var data = new FormData(this);
+					var data = $(this).serialize();
+					// $(':input, select').val('');
+					// $('select').prop('selectedIndex', 0);
+					var inputs = $('input').not('[id="submit"]');
+  
+					// Check if all remaining inputs are empty
+					var allEmpty = inputs.filter(function() {
+						return this.value.trim() !== '';
+					}).length === 0;
+
+					$.ajax({
+					type: 'POST',
+					url: baseUrl+"/request/api.php?query=ad_setting",
+					data: data,
+					dataType: 'json',
+					success: function(result){
+						        // Display the message in the target element
+								id = 1;
+								x = 1;
+								$("#submit-message").html(result.message);
+								$('#submit-message').scrollIntoView({ behavior: "instant" });
+							// Clear the message after 2 seconds
+							setTimeout(function() {
+								$("#submit-message").empty();
+							}, 10000);
+							
+						
+						setting_inputs();
+						user_setting();
+					}
+
+				   });
+				   return false;
+				});
+					
+			});	// document ready script end
+
+
+        function delete_stg(id,type){
+
+						$.ajax({
+						url: baseUrl+'/request/api.php?query=ad_setting&b=delete',
+						method: 'POST',
+						dataType: 'text',
+						data: { rowid: id, table:type },
+						success: function(data) {
+							setting_inputs();
+							user_setting();
+							user_max_val();
+						},
+						error: function() {
+							console.log('Error');
+						}
+						});
+					}
+				check_mf("#mfr1","#msg1");
+				check_mf("#mfr2","#msg2");
+
+			     check_dm("#dm1","#msg_1");
+			     check_dm("#dm2","#msg_2");
+
+				
+				// var bm_max,sm_max = '';
+				var x=1;
+				var y=1;
+				function add_inputs(type,array){
+					var bm_max = array[0];
+					var sm_max = array[1];
+					var html = '';
+					
+				    var randomNumber = Math.floor(Math.random() * 100); // generates a random number between 0 and 99
+				   if(randomNumber < 10) {
+				   randomNumber = '0' + randomNumber; // if the number is less than 10, add a leading zero
+				   }
+
+				   if(type==1){
+					id = x;
+				    html = "<tr><td><select id='m_animal"+randomNumber+"' name='t_animal[]'><option>Select Animal</option></select></td><td><input type='number' id='dm_id"+randomNumber+"' name='b_dm[]'  value='' step='any'><div id='msg_id"+randomNumber+"' class='page-input-sub-error'></div</td><td><input type='number' id='mfr_id"+randomNumber+"' name='b_mfr[]'  value='' placeholder='optional' step='any'><div id='msg_id2"+randomNumber+"' class='page-input-sub-error'></td><td><div style='margin: 4px 16px;color: #f81102d6;' id='remove' onclick='remove_inputs(\"#remove\",1)'><i class='fa fa-window-close fa-2x' aria-hidden='true'></i></div></td></tr>";
+					html_table = '#table_fields';
+
+				   }else if(type==2){
+					id = y;
+					html = "<tr><td><select id='m_animal"+randomNumber+"' name='g_animal[]'><option>Select Animal</option></select></td><td><input type='number' id='s_dm_id"+randomNumber+"' name='s_dm[]'  value='' step='any'><div id='s_msg_id"+randomNumber+"' class='page-input-sub-error'></td><td><input type='number' id='s_mfr_id"+randomNumber+"' name='s_mfr[]'  value='' placeholder='optional' step='any'><div id='s_msg_id2"+randomNumber+"' class='page-input-sub-error'></td><td><div  style='margin: 4px 16px;color: #f81102d6;' id='remove_s' onclick='remove_inputs(\"#remove_s\",2)'><i class='fa fa-window-close fa-2x' aria-hidden='true'></i></div></td></tr>";
+					html_table = '#table_fields_s';
+				   }
+				   if(id <= bm_max){
+
+					$(html_table).append(html);
+
+					$.ajax({
+					url: baseUrl+"/request/api.php?query=animal",
+                    type: "POST",
+					dataType: "json",
+					success: function(data){
+						$("#m_animal"+randomNumber).append(data.animal);
+					}
+					
+				    });
+					check_dm("#dm_id"+randomNumber,"#msg_id"+randomNumber);
+					check_dm("#s_dm_id"+randomNumber,"#msg_id"+randomNumber);
+					check_mf("#mfr_id"+randomNumber,"#msg_id2"+randomNumber);
+					check_mf("#s_mfr_id"+randomNumber,"#s_msg_id2"+randomNumber);
+					if(type==1){
+					   x++;
+					}else if(type==2){
+						y++;
+					}
+				   }
+				}
+			  function remove_inputs(id,type){
+				$(id).closest("tr").remove();
+				if(type == 1){
+					x--;
+				}else if(type==2){
+					y--;
+				}
+				
+			  }
+
+	
+	function check_mf(id,print_id){
+    $(document).delegate(id,"keyup",function(){
+    var value = $(this).val();
+    var decimalPlaces = (value.split('.')[1] || '').length;
+    if (value < 2.0 || value > 20.0 || decimalPlaces > 1) {
+      $(print_id).text("Please enter a number between 2.0 and 20.0 with at most 1 decimal place.");
+	  $(id).css("border","#ff0000 solid 1px");
+	//   $("#submit").prop("disabled", true).css({"cursor": "not-allowed"});
+    } else {
+      $(print_id).text("");
+	  $(id).css("border","black solid 2px");
+	//   $("#submit").prop("disabled", false).css({"cursor": "pointer"});
+    }
+     });
+  }
+
+
+  function check_dm(id,print_id){
+	$(document).delegate(id,"keyup",function(){ 
+
+    var value = $(this).val();
+    if (value < 20 || value > 200) {
+      $(print_id).text("Please enter a number between 20 and 200.");
+	  $(id).css("border","#ff0000 solid 1px");
+	//   $("#submit").prop("disabled", true).css({"cursor": "not-allowed"});
+    } else {
+      $(print_id).text("");
+	  $(id).css("border","black solid 2px");
+	//   $("#submit").prop("disabled", false).css({"cursor": "pointer"});
+    }
+    });
+  }
+
+
+  
+				
+			function setting_inputs(){
+				//jquery("#loading_bar").html('<div class="preloader preloader-center"></div>'); // Show the loading bar
+
+				$.ajax({
+					url: baseUrl+'/request/api.php?query=ad_setting&b=stg_inputs',
+					method: 'POST',
+					dataType: 'json',
+					// beforeSend: function(){
+					// 		setTimeout(function(){
+					// 			$("#loading_bar").html('<div class="preloader preloader-center"></div>');
+					// 		}, 10000);
+					// 	},
+					success: function(data) {
+						if(data.buying_input){
+							$("#taking_inputs").html(data.buying_input);
+						}
+						if(data.selling_input){
+							$("#giving_inputs").html(data.selling_input);
+						}
+						
+					},
+					error: function() {
+						console.log('Error to load input fields');
+					},
+					complete: function() {
+						$("#loading_bar").hide(); // Hide the loading bar
+					}
+				});
+			}
+
+  function user_setting(){
+	   $.ajax({
+					type: 'POST',
+					url: baseUrl+"/request/api.php?query=ad_setting&b=stg_data",
+					dataType: 'json',
+					success: function(result){
+						$("#taking_setting_data").html(result.buying_stg);
+						$("#giving_setting_data").html(result.selling_stg);
+					}
+
+				   });
+      }
+
+
+
+</script>

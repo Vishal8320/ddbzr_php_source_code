@@ -1,0 +1,31 @@
+{$message}
+<div class="page-inner">
+	<div class="page-input-container">
+		<div><strong>{$lng->at_a_glance}</strong></div>
+			<!-- <div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$mmen_today}</div>{$lng->mmen}</div><div class="dash-half"><ul class="chart"></ul></div></div> -->
+
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$mmen_today}</div>{$lng->mmen}       {$mmen_percentage}        </div><div class="dash-half"><ul class="chart">{$mmen_stats}        </ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$m_customers_today}</div>{$lng->m_customers}       {$m_customers_percentage}        </div><div class="dash-half"><ul class="chart">{$m_customers_stats}        </ul></div></div>   
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$bought_milk_today}</div>{$lng->bought_milk}       {$bought_milk_percentage}  </div><div class="dash-half"><ul class="chart">{$bought_milk_stats}      </ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$sold_milk_today}</div>{$lng->sold_milk}       {$sold_milk_percentage}  </div><div class="dash-half"><ul class="chart">{$sold_milk_stats}   </ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$bought_milk_mf_today}</div>{$lng->bought_milk_mf} {$bought_milk_mf_percentage}</div><div class="dash-half"><ul class="chart">{$bought_milk_mf_stats}       </ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$bought_milk_dm_today}</div>{$lng->bought_milk_dm} {$bought_milk_dm_percentage}</div><div class="dash-half"><ul class="chart">{$bought_milk_dm_stats}        </ul></div></div>		
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$sold_milk_mf_today}</div>{$lng->sold_milk_mf} {$sold_milk_mf_percentage}</div><div class="dash-half"><ul class="chart">{$sold_milk_mf_stats}        </ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$sold_milk_dm_today}</div>{$lng->sold_milk_dm} {$sold_milk_dm_percentage}</div><div class="dash-half"><ul class="chart">{$sold_milk_dm_stats}       </ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$update_milk_today}</div>{$lng->update_milk} {$update_milk_percentage}</div><div class="dash-half"><ul class="chart">{$update_milk_stats}</ul></div></div>
+			<div class="dash-stats columns"><div class="dash-half"><div class="dash-values">{$cleared_today}</div>{$lng->cleared} {$cleared_percentage}</div><div class="dash-half"><ul class="chart">{$cleared_stats}</ul></div></div>
+			<div class="dashboard-info"></div>
+	</div>
+</div>
+<div class="message-divider"></div>
+<div class="page-inner">
+	<div class="page-input-container">
+		<div><strong>{$lng->site_info}</strong></div>
+		<div class="dashboard-info">
+			Doodhbazar (beta)
+		</div>
+		<div class="dashboard-info">
+			<!-- {$site_loaded} -->
+		</div>
+	</div>
+</div>

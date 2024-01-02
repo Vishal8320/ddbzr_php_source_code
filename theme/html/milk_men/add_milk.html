@@ -1,0 +1,1150 @@
+<style>
+
+
+
+  /*Css for checkbox */
+  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    .form-checkbox input[type=checkbox] {
+      --active: #275EFE;
+      --active-inner: #fff;
+      --focus: 2px rgba(39, 94, 254, .3);
+      --border: #BBC1E1;
+      --border-hover: #275EFE;
+      --background: #fff;
+      --disabled: #F6F8FF;
+      --disabled-inner: #E1E6F9;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      height: 21px;
+      outline: none;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      margin: 0;
+      cursor: pointer;
+      border: 1px solid var(--bc, var(--border));
+      background: var(--b, var(--background));
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    }
+    .form-checkbox input[type=checkbox]:after {
+      content: "";
+      display: block;
+      left: 0;
+      top: 0;
+      position: absolute;
+      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+    }
+    .form-checkbox input[type=checkbox]:checked {
+      --b: var(--active);
+      --bc: var(--active);
+      --d-o: .3s;
+      --d-t: .6s;
+      --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+    }
+    .form-checkbox input[type=checkbox]:disabled {
+      --b: var(--disabled);
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+    .form-checkbox input[type=checkbox]:disabled:checked {
+      --b: var(--disabled-inner);
+      --bc: var(--border);
+    }
+    .form-checkbox input[type=checkbox]:disabled + label {
+      cursor: not-allowed;
+    }
+    .form-checkbox input[type=checkbox]:hover:not(:checked):not(:disabled) {
+      --bc: var(--border-hover);
+    }
+    .form-checkbox input[type=checkbox]:focus {
+      box-shadow: 0 0 0 var(--focus);
+    }
+    .form-checkbox input[type=checkbox]:not(.switch) {
+      width: 21px;
+    }
+    .form-checkbox input[type=checkbox]:not(.switch):after {
+      opacity: var(--o, 0);
+    }
+    .form-checkbox input[type=checkbox]:not(.switch):checked {
+      --o: 1;
+    }
+    .form-checkbox input[type=checkbox] + label {
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .form-checkbox input[type=checkbox]:not(.switch) {
+      border-radius: 7px;
+    }
+    .form-checkbox input[type=checkbox]:not(.switch):after {
+      width: 5px;
+      height: 9px;
+      border: 2px solid var(--active-inner);
+      border-top: 0;
+      border-left: 0;
+      left: 7px;
+      top: 4px;
+      transform: rotate(var(--r, 20deg));
+    }
+    .form-checkbox input[type=checkbox]:not(.switch):checked {
+      --r: 43deg;
+    }
+    .form-checkbox input[type=checkbox].switch {
+      width: 38px !important;
+      border-radius: 11px;
+    }
+    .form-checkbox input[type=checkbox].switch:after {
+    left: 1px;
+    top: 2px;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: var(--ab, var(--border));
+    transform: translateX(var(--x, 0));
+    }
+    .form-checkbox input[type=checkbox].switch:checked {
+      --ab: var(--active-inner);
+      --x: 17px;
+    }
+    .form-checkbox input[type=checkbox].switch:disabled:not(:checked):after {
+      opacity: 0.6;
+    }
+  }
+
+  .form-checkbox * {
+    box-sizing: inherit;
+  }
+  .form-checkbox *:before,
+  .form-checkbox *:after {
+    box-sizing: inherit;
+  }
+    /* CSS Styles */
+    
+    .profile-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .profile-details {
+      flex-grow: 1;
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .profile-username {
+      font-size: 16px;
+      color: #999;
+    }
+
+    .profile-phone {
+      font-size: 16px;
+      color: #999;
+    }
+
+    .profile-locality {
+      font-size: 16px;
+      color: #999;
+    }
+
+    .search-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .search-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #337ab7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit_btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #337ab7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .select-box {
+      width: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .input-box {
+      width: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .button-section {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .save-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #51b415;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .delete-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .custom-button {
+      display: inline-block;
+      width: 150px;
+      height: 40px;
+      background-color: #F5F5F5;
+      border: none;
+      border-radius: 3px;
+      margin: 0 auto;
+      color: #6B6B6B;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      line-height: 40px;
+      transition: background-color 0.3s ease;
+      outline: none;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+    .custom-button:hover {
+      background-color: #E1E1E1;
+    }
+    .search-section input, .form-section input {
+        height: 30px;
+        font-size: 15px;
+        }
+    .form-section input{
+        width: 120px !important;
+    }
+    .form-section select{
+        height: 35px;
+    } 
+    #error_msg b {
+      font-weight: 500;
+      font-size: 16px;
+      color: #ff0000;
+    }
+    .w_error_msg{
+    font-weight: 500;
+    font-size: 16px;
+    color: #ff0000;
+    }
+    
+
+
+
+
+
+/* CSS class for alternating background colors */
+.users-bg-blue {
+    background-color: #e9deff;
+    border-radius: 5px;
+    margin: 4px;
+   }
+.users-bg-red {
+    background-color: #f5e0e0;
+    border-radius: 5px;
+    margin: 4px;
+}
+
+
+  </style>
+
+<div class="row-body">
+    <div class="grid-container">
+    <div class="grid-content">
+        
+        <div class="message-container-self">
+                <div class="message-form-content">
+                    <div class="message-form-header">
+                        <div class="message-form-user">{$profile_pic}</div>
+                        Milk delivered through Wishlist & Masterlist
+                        <div class="message-form-private"></div>
+                        <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                        <div class="edit-menu" style="display: inline-block;">
+                          
+                              <div class="edit-menu-item edit-menu-item-active" id="load_history" onclick="changeTab(this, '#milk_history',['#milk_history','#wishlist_forms','#masterlist_forms'])">History</div>
+                              <div class="edit-menu-item" id="load_analytics" onclick="changeTab(this, '#wishlist_forms',['#milk_history','#wishlist_forms','#masterlist_forms'])">Wishlist</div>
+                              <div class="edit-menu-item" id="load_masterlist" onclick="changeTab(this, '#masterlist_forms',['#milk_history','#wishlist_forms','#masterlist_forms'])">Masterlist</div>
+                        </div>
+                    </div>
+                    
+                        
+                    
+                    
+                        <div class='message-form-inner'>
+                            <div class="message-form-des">
+                                <div id="milk_history" style="overflow: auto;">
+                                 <small>Last 3 milk delivered histoy from you.</small>
+                                   <div id="history_loader"></b> Currently! We Don't found your Histoy</b>
+                                  <center><span class='loader-circle'></span></center><div class='loader-title'>We Are Loading your request</div>
+                                   </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Sr.N</th>
+                                                <th>type</th>
+                                                <th>Date</th>
+                                                <th>Entry</th>
+                                                <th>Customers</th>
+                                            </tr>
+                                            
+                                        </thead>
+                                        <tbody id="wishlist_history_table">
+                                            <!-- The fetched data will be dynamically inserted here using JavaScript -->
+                                        
+                                        
+                                        </tbody>
+                                        
+                                    </table>
+                                    
+                                    <!-- The dialog box HTML -->
+                                    <div class="modal-overlay-count" id="dialog-box-users" style="display: none;">
+                                        <div class="modal-container-view-milk modal-fix" id="dialog-box-users" role="dialog" aria-hidden="true">
+                                            <div class="modal-inner">
+                                                Wishlist Delivery Status:
+                                                <span class="close-btn2" id="close-modal" onclick="remove_items_cal('#dialog-box-users')">Cls</span>
+                                                <div class="modal-title1">all users username where you past delivered milk.</div>
+                                            </div>
+                                            <div class="message-form-des">
+                                                <div id="count_uname" style="font-size: 16px; margin: 5px;color: blue;"></div>
+                                                <div id="users_unames" style="max-height: 200px;">
+                                                    <!-- The list of users will be dynamically inserted here using JavaScript -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                </div>
+                                 
+                                  <div id="wishlist_forms" style="display: none;">
+                                   <!-- here we all wishlist code we appeared -->
+                                   <form method="post" id="wishlist_submit" autocomplete="off">
+                                    <input type="hidden" name="already_submitted" id="already_submitted" value="">
+                                   <div id="load_wishlist">
+                                    Currently! We Don't found your Customer List
+                                    <center><span class='loader-circle'></span></center><div class='loader-title'>We Are Loading your request</div>
+                                   </div>
+
+                                   <div class="modal-overlay-count" id="dialog-box" style="display:none;">
+                                    <div class="modal-container-view-milk modal-fix" id="dialog-box" role="dialog" aria-hidden="true">
+                                      
+                                      <div class="modal-inner">
+                                        Wishlist Delivery Status:
+                                        <span class="close-btn2" id="close-modal" onclick="remove_items_cal('#dialog-box')">Cls</span>
+                                        <div class="modal-title1">Note:Once you done you can't undo in any cost.</div>
+                                      </div>
+                                        <div class="message-form-des">
+                                        <div id="delivery_status">
+                                           
+                                        </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <!-- Corrected button code with the correct form ID and event parameter -->
+                                    <center>
+                                        <!-- <button type="submit" name="wishlist_form_submit" class="submit_btn" onclick="wishlist_form_submit('#wishlist_submit', event); return false;"">Submit</button> -->
+
+                                        <button type="submit" name="wishlist_form_submit" id="wishlist_submit_btn" class="submit_btn" style="display: none;">Submit</button>
+
+
+                                    </center>
+                                    </form>
+                                    <!-- form section for wishlist ended -->
+                                    </div>
+                                    <!-- here form for masterlist  -->
+
+                                    <div id="masterlist_forms" style="display: none;">
+
+                                     <div id="list_count" style="text-align: justify; font-size: 15px;">
+                                      <div class="card-content skeleton" style="margin-bottom: 10px;">
+                                      </div>
+                                     </div>
+                                      <!-- form start -->
+
+                                      <form method="post" id="master_list_submit" autocomplete="off">
+                                        <input type="hidden" id="already_m_submitted" value="">
+                                      <div id="masterlist_form">
+                                        <div class="message-content">
+                                          <div class="message-inner bg-grey">
+                                            <div id="loading_bar" class="d-none">
+                                              <div class="load_more"><div class="preloader preloader-center"></div></div></div>
+                                              <div class="profile-section d-none" id="profile_section">
+                                                <div class="profile-photo" id="profile_pic"><img src="" style="border: 3px solid #fff;"></div>
+                                              <div class="profile-details">
+                                                    <div class="profile-name" id="full_name">Customer Name</div>
+                                                    <div class="profile-username" id="uname">@username</div>
+                                                    <div class="profile-phone" id="p_num">+91 1234567890</div>
+                                                    <div class="profile-locality" id="locality">locality</div>
+                                                <input type="hidden" name="customer_id[]" id="customer_id" value="">
+                                                <input type="hidden" name="customer_uname[]" id="customer_uname" value="">
+                                                
+                                              </div>
+                                              <i class="fa fa-trash delete_icon" aria-hidden="true" onclick="delete_form('#masterlist_form')"></i>
+                                              </div>
+              
+                                                <div id="error_msg" class="w_error_msg d-none">Username or Phone not in your list or not registerd.</div>
+                                                <div id="search_forms"><div class="search-section">
+                                                  <input type="text" id="search_val_id" name="search_val[]" class="search-input" onkeyup="get_suggestion('customer_','#search_history','{$user_id}',this)" placeholder="Username or Phone">
+                                                  <button class="search-button" onclick="search_masterlist_user('#search_val_id', ['#full_name', '#uname','#p_num','#locality','#customer_id','#customer_uname','#profile_section','#profile_pic','#milk_about','#load-animals','#d_rate','#weight','#error_msg','#loading_bar','#search_forms','#form_section','#button_section'], event)">Search</button>
+                                                 
+                                                </div> <div id="search_history" style="position:absolute;z-index: 777; margin: -29px 10px;"></div></div>
+          
+                                                <div class="form-section d-none" id="form_section">
+                                                  <div class="column">
+                                                          <select class="select-box" id="milk_about" name="milk_about[]">
+                                                              <option value="0">Milk type</option><option value="1">Buy milk</option>
+                                                              <option value="2">Sale Milk</option>
+                                                          </select>
+                                                          <select class="select-box" id="load-animals" name="m_animal[]" onchange="load_rates('#milk_about', '#load-animals', '#d_rate')" required>
+                                                            <option value="0">select animal</option>
+                                                          </select>
+                                                  </div>
+                                                    <div class="column">
+                                                            <input type="number" class="input-box" id="d_rate" name="d_rate[]" placeholder="Direct Rate">
+                                                            <input type="number" class="input-box" id="weight" name="weight[]" placeholder="weight">
+                                                    </div></div>
+                                                    <div class="button-section d-none" id="button_section">
+                                                      <div class="form-checkbox">
+                                                      <input id="checkbox" type="checkbox" class="switch" onclick="update_checkbox(this,'#money_received')">
+                                                      <input type="hidden" id="money_received" name="money_received[]" value="0">
+                                                      <label for="checkbox"> Money Received?</label>
+                                                       </div>
+                                                       <div class="lock_checkbox">
+                                                            <input type="checkbox" class="Lock-green" id="islock_checkbox" style=" width: 40px !important" onclick="update_checkbox(this,'#islock')">
+                                                            <input type="hidden" id="islock" name="is_locked[]" value="0">
+                                                       </div>
+                                                      
+                                                    </div></div></div>
+
+                                                  </div>
+                                                  <div id="more_masterlist"></div>
+                                                  
+                                                  <div class="btn-wide btn-normal" onclick="more_masterlist_forms('#more_masterlist')">Add more</div>
+                                      <center><button type="submit" name="masterlist_form_submit" id="masterlist_submit_btn" class="submit_btn">Submit</button></center>
+                                     <!-- form ended -->
+                                     </form>
+
+
+
+                                         <!-- The dialog box HTML -->
+                                    <div class="modal-overlay-count" id="masterlist_dialog_box" style="display: none;">
+                                      <div class="modal-container-view-milk modal-fix" id="masterlist_dialog_box" role="dialog" aria-hidden="true">
+                                          <div class="modal-inner">
+                                              Masterlist Delivery Status:
+                                              <span class="close-btn2" id="close-modal" onclick="remove_items_cal('#masterlist_dialog_box')">Cls</span>
+                                              <div class="modal-title1">Once you Done you Can't Undo in any cost.</div>
+                                          </div>
+                                          <div class="message-form-des">
+                                            <div id="masterlist_delivery_status">
+                                                  <!-- The list of users will be dynamically inserted here using JavaScript -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                     
+                                    </div>  <!--   masterlist forms ended -->
+
+                                    </div>
+                                
+                             
+                            
+                        </div>
+                    </div>
+
+
+
+
+
+
+                            </div>
+                        </div>
+                            
+                        </div>
+                        
+                    </div>
+                
+            
+        
+        
+        
+        
+      
+        <script>
+
+
+
+
+$(document).ready(function() {
+  get_wishlist_history();
+  load_wishlist('#wishlist_submit','#load_wishlist','#list_count');
+  $("#master_list_submit").submit(function(event) {
+    event.preventDefault();
+    const formId = "#master_list_submit";
+    const Duplicate = checkDuplicateValues(formId);;
+    if (Duplicate) {
+      alert("We found Duplicate Name or Values Please Check And try Again.");
+    } else {
+      masterlist_form_submit(formId);
+    }
+  });
+});
+
+function update_checkbox(checkbox_id, id) {
+  const checkbox = $(checkbox_id); // Just use the ID without :checkbox
+  const hiddenInput = $(id + '[type="hidden"]');
+  
+  if (checkbox.prop("checked")) {
+    hiddenInput.val("1");
+  } else {
+    hiddenInput.val("0");
+  }
+}
+
+
+
+
+
+
+          // Function to submit the form using Ajax
+    async function masterlist_form_submit(form_id) {
+        var selected_records = $(form_id + " input[name='customer_id[]']").filter(function() { return $(this).val() !== ""; }).length;
+        // var total_records = $("input[name='customer_id[]']:not(fieldset[disabled])").length;;
+        var confirm = window.confirm("We want to confirm with you again. Once you click 'OK,' you cannot undo your actions under any circumstances. Please be sure. We have found "+selected_records+" records you want to edit in this masterlist, Do you want to confirm?");
+        if(confirm){
+          $('#masterlist_dialog_box').show();
+        if (!navigator.onLine) {
+                    var msg = "No Internet Connection";
+                    var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                    $('#masterlist_delivery_status').html(internet_error);
+                    return false; // Abort the AJAX request
+                }else{
+                  if(!$('#already_m_submitted').val()){
+                    var loader_msg = 'Please do not Exit while we process your Data';
+                    var processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>"+loader_msg+"</div>";
+                    $('#masterlist_delivery_status').html(processing);
+                       try {
+                         const deviceInfo = await getDeviceInfo();
+
+                        // Serialize the form data
+                        var formData = $(form_id).serialize();
+                         // Append device information to the serialized form data
+                        formData += '&DEVICE_TYPE=' + deviceInfo.DEVICE_TYPE;
+                        formData += '&DEVICE_SCREEN_RESOLUTION=' + deviceInfo.DEVICE_SCREEN_RESOLUTION;
+                        formData += '&RAM=' + deviceInfo.RAM;
+                        formData += '&STORAGE_PERMISSION=' + deviceInfo.STORAGE_PERMISSION;
+                        formData += '&CAMERA_PERMISSION=' + deviceInfo.CAMERA_PERMISSION;
+
+                        // Append language as a JSON string
+                        formData += '&LANGUAGE=' + JSON.stringify(deviceInfo.LANGUAGE);
+
+                        formData += '&VIEWPORT_WIDTH=' + deviceInfo.VIEWPORT_WIDTH;
+                        formData += '&BROWSER_INFO=' + JSON.stringify(deviceInfo.BROWSER_INFO);
+                        formData += '&TIME_ZONE=' + deviceInfo.TIME_ZONE;
+                        formData += '&DEVICE_TIME=' + deviceInfo.DEVICE_TIME;
+                        formData += '&DEVICE_MOUSE=' + deviceInfo.DEVICE_MOUSE;
+                        formData += '&DEVICE_TOUCH_SCREEN=' + deviceInfo.DEVICE_TOUCH_SCREEN;
+                        formData += '&LATITUDE=' + deviceInfo.LATITUDE;
+                        formData += '&LONGITUDE=' + deviceInfo.LONGITUDE;
+
+                      // Fetch location data separately
+                      const locationData = await reverseGeocode(deviceInfo.LATITUDE, deviceInfo.LONGITUDE);
+
+                      // Append location data as a JSON string
+
+                formData += '&LOCATION_DATA=' + JSON.stringify(locationData);
+                // Append more fields as needed
+                    $.ajax({
+                    url: baseUrl + "/request/api.php?query=use_masterlist",
+                    type: "POST",
+                    data: formData, // Serialize the form data
+                    dataType: "json",
+                    success: function (result) {
+                        if(result.status ===true){
+                             get_wishlist_history();
+                            $('#masterlist_delivery_status').html('<table><tr><td>You Selected</td><td>'+selected_records+'</td></tr><tr><td>Records Added</td><td>'+result.rows+'</td></tr><tr><td>Status</td><td>Success</td></tr></table><div class="success-container"><div class="circle"></div><div class="ring"></div><div class="checkmark"></div><div class="fading-circles"><div class="circle-animation circle1"></div><div class="circle-animation circle2"></div><div class="circle-animation circle3"></div><div class="circle-animation circle4"></div><div class="circle-animation circle5"></div><div class="circle-animation circle6"></div><div class="circle-animation circle7"></div><div class="circle-animation circle8"></div><div class="circle-animation circle9"></div><div class="circle-animation circle10"></div></div></div><div class="success-msg"><i class="fa fa-check"></i> Successfully Record Added</div>');
+                            $('#already_m_submitted').val('1');
+                        }else if(result.status ===false){
+                            $('#masterlist_delivery_status').html('<table><tr><td>You Selected</td><td>'+selected_records+'</td></tr><tr><tr><tr><td>Records Added</td><td>0</td></tr><td>Status</td><td>Error</td></tr></table><div class="error-msg"><i class="fa fa-times-circle"></i> '+result.error+'</div>');
+                            // Reset the form
+                            // Reset the form manually
+                  /* $(form_id).find(':input').each(function() {
+                      const elementType = this.tagName.toLowerCase();
+                      if (elementType === 'input') {
+                          $(this).val(''); // Clear input value
+                      } else if (elementType === 'select') {
+                          $(this).val('0'); // Set select box value to zero
+                       }
+                         }); */
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors here, if any
+                        $('#masterlist_delivery_status').html(xhr.responseText);
+                        console.error(xhr.responseText); // Log the error response for debugging
+                    }
+        });
+      } catch (error) {
+                // Handle error thrown by getDeviceInfo function
+                console.error('Error getting device info:', error);
+            }
+
+      }else{
+              $('#masterlist_dialog_box').show();
+              $('#masterlist_delivery_status').html('<table><tr><td>You Selected</td><td>'+selected_records+'</td></tr><tr><tr><tr><td>Records Added</td><td>0</td></tr><td>Status</td><td>Error</td></tr></table><div class="error-msg"><i class="fa fa-times-circle"></i> You are Already Submited these masterlist records if you want to another record submiting? you can refresh this page and Submit Again.</div>');
+      }
+                }
+              } // confrimation brackts closed.
+     
+    }
+    
+    function checkDuplicateValues(formId) {
+    const form = $(formId);
+    const customerIdsInput = form.find('[name="customer_id[]"]');
+
+    const customerIds = [];
+    customerIdsInput.each(function() {
+        const value = this.value.trim();
+        if (value !== '') {
+            customerIds.push(value);
+        }
+    });
+
+    const uniqueCustomerIds = new Set(customerIds);
+    return customerIds.length !== uniqueCustomerIds.size;
+}
+
+
+
+        function search_masterlist_user(terms_id, user_info, e) {
+           
+           e.preventDefault();
+           var full_name = user_info[0];
+           var uname = user_info[1];
+           var p_num = user_info[2];
+           var locality = user_info[3];
+           var customer_id = user_info[4];
+           var customer_uname = user_info[5];
+
+           var profile_section = user_info[6];
+           var profile_pic = user_info[7];
+           var milk_about = user_info[8];
+           var milk_animal = user_info[9];
+           var d_rate = user_info[10];
+           var weight = user_info[11];
+
+           var error_msg = user_info[12];
+           var loading_bar = user_info[13];
+           var search_section = user_info[14];
+           var form_section = user_info[15];
+           var button_section = user_info[16];
+           var search_terms = $(terms_id).val();
+           
+           
+           load_animal(milk_animal);
+           $(loading_bar).removeClass('d-none');
+           $.ajax({
+               url: baseUrl + "/request/api.php?query=use_masterlist&b=search_customers",
+               type: "POST",
+               data: {search_val: search_terms},
+               dataType: "json",
+               success: function(result) {
+                $(loading_bar).addClass('d-none');
+               if(result.rows==1){
+                 // Assuming "result" is the object received from the AJAX call
+                 let type = checkInputType(search_terms);
+                 put_into_local('customer_'+search_terms,type,'{$user_id}',search_terms);
+                 $(search_section).remove();
+                 $(profile_section).removeClass('d-none');
+                 $(form_section).removeClass('d-none');
+                 $(button_section).removeClass('d-none');
+                 $(error_msg).addClass('d-none');
+                 $(profile_pic + ' img').attr('src', baseUrl + '/image.php?src=' + result.data.profile_pic + '&t=c&h=100&w=100');
+                 
+                   // Update the text content of span elements
+                   $(full_name).text(result.data.fname+' '+result.data.lname);
+                   $(uname).text('@'+result.data.uname);
+
+                   $(p_num).text(result.data.p_number);
+
+                   $(locality).text(result.data.locality);
+                   $(customer_id).val(result.data.c_id);
+                   $(customer_uname).val(result.data.uname);
+
+                     $(milk_about).val(result.data.milk_about);
+                     $(milk_animal).val(result.data.milk_animal);
+                     $(d_rate).val(result.data.d_rate);
+                     $(weight).val(result.data.weight);
+
+                   
+                  
+               }else{
+                 $(profile_section).addClass('d-none');
+                 $(error_msg).removeClass('d-none');
+                 $(milk_about).val('0');
+                 $(milk_animal).val('0');
+                 $(d_rate).val('');
+                 $(weight).val('');
+               }
+              
+               // Process the received data or update the UI accordingly
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+               console.log("AJAX Error:", textStatus, errorThrown);
+               console.log("Response:", jqXHR.responseText);
+               }
+           });
+       }
+       function delete_form(form_id){
+        $(form_id).remove();
+       }
+       function load_animal(id){
+        $.ajax({
+					url: baseUrl+"/request/api.php?query=ad_setting&b=animal",
+          type: "POST",
+					dataType: "json",
+					success: function(data){
+            var optionHTML = '<option value="0">select animal</option>' + data.animal;
+						$(id).html(optionHTML);
+					}
+				});
+       }
+       function more_masterlist_forms(print_id){
+        var r_num = Math.floor(Math.random() * 900) + 100;
+        var html = `<br>
+                    <div id="masterlist_form${r_num}">
+                      <div class="message-content">
+                        <div class="message-inner bg-grey">
+                          <div id="loading_bar${r_num}" class="d-none">
+                            <div class="load_more"><div class="preloader preloader-center"></div></div></div>
+                            <div class="profile-section d-none" id="profile_section${r_num}">
+                              <div class="profile-photo" id="profile_pic${r_num}"><img src="" style="border: 3px solid #fff;"></div>
+                            <div class="profile-details">
+                                  <div class="profile-name" id="full_name${r_num}">Customer Name</div>
+                                  <div class="profile-username" id="uname${r_num}">@username</div>
+                                  <div class="profile-phone" id="p_num${r_num}">+91 1234567890</div>
+                                  <div class="profile-locality" id="locality${r_num}">locality</div>
+                                  <input type="hidden" name="customer_id[]" id="customer_id${r_num}" value="">
+                                  <input type="hidden" name="customer_uname[]" id="customer_uname${r_num}" value="">
+                              
+                            </div>
+                            <i class="fa fa-trash delete_icon" aria-hidden="true" onclick="delete_form('#masterlist_form${r_num}')"></i>
+                            </div>
+
+                              <div id="error_msg${r_num}" class="w_error_msg d-none">Username or Phone not in your list or not registerd.</div>
+                              <form method="post" autocomplete="off">
+                              <div id="search_forms${r_num}"><div class="search-section">
+                                <input type="text" id="search_val_id${r_num}" name="search_val[]" class="search-input" onkeyup="get_suggestion('customer_','#search_history${r_num}','{$user_id}',this)" placeholder="Username or Phone">
+                                <button class="search-button" onclick="search_masterlist_user('#search_val_id${r_num}', ['#full_name${r_num}', '#uname${r_num}','#p_num${r_num}','#locality${r_num}','#customer_id${r_num}','#customer_uname${r_num}','#profile_section${r_num}','#profile_pic${r_num}','#milk_about${r_num}','#load-animals${r_num}','#d_rate${r_num}','#weight${r_num}','#error_msg${r_num}','#loading_bar${r_num}','#search_forms${r_num}','#form_section${r_num}','#button_section${r_num}'], event)">Search</button>
+                              
+                              </div> <div id="search_history${r_num}" style="position:absolute;z-index: 777; margin: -29px 10px;">
+                              
+                              </div> </div></form>
+
+                              <div class="form-section d-none" id="form_section${r_num}">
+                                <div class="column">
+                                        <select class="select-box" id="milk_about${r_num}" name="milk_about[]">
+                                            <option value="0">Milk type</option><option value="1">Buy milk</option>
+                                            <option value="2">Sale Milk</option>
+                                        </select>
+                                        <select class="select-box" id="load-animals${r_num}" name="m_animal[]" onchange="load_rates('#milk_about${r_num}', '#load-animals${r_num}', '#d_rate${r_num}')" >
+                                          <option value="0">select animal</option>
+                                        </select>
+                                </div>
+                                  <div class="column">
+                                          <input type="number" class="input-box" id="d_rate${r_num}" name="d_rate[]" placeholder="Direct Rate">
+                                          <input type="number" class="input-box" id="weight${r_num}" name="weight[]" placeholder="weight">
+                                  </div></div>
+                                  <div class="button-section d-none" id="button_section${r_num}">
+                                    <div class="form-checkbox">
+                                    <input id="checkbox${r_num}" type="checkbox" class="switch" onclick="update_checkbox(this,'#ismoneyreceived${r_num}')">
+                                    <input type="hidden" id="ismoneyreceived${r_num}" name="money_received[]" value="0">
+                                    <label for="checkbox"> Money Received?</label>
+                                      </div>
+                                      <div class="lock_checkbox">
+                                          <input type="checkbox" class="Lock-green" style=" width: 40px !important"onclick="update_checkbox(this,'#islock${r_num}')">
+                                          <input type="hidden" id="islock${r_num}" name="is_locked[]" value="0">
+                                      </div>
+                                    
+                                  </div></div></div>
+
+                                </div>
+                                                `;
+                              $(print_id).append(html);
+       }
+$(document).ready(function() {
+    // Function to submit the form using Ajax
+    async function wishlist_form_submit(form_id) {
+        var total_records =  $(form_id + " input[name='customer_id[]']").filter(function() { return $(this).val() !== ""; }).length;
+
+        // var total_records = $("input[name='customer_id[]']:not(fieldset[disabled])").length;
+        var selected_records = $(form_id + " input[name='customer_id[]']:enabled").filter(function() { return $(this).val() !== "";}).length;
+        var confirm = window.confirm("We want to confirm with you again. Once you click 'OK,' you cannot undo your actions under any circumstances. Please be sure. We have found a total of "+total_records+" records in this wishlist, and you have selected "+selected_records+". Do you want to confirm?");
+        if(confirm){
+        $('#dialog-box').show();
+        if (!navigator.onLine) {
+                    var msg = "No Internet Connection";
+                    var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                    $('#delivery_status').html(internet_error);
+                    return false; // Abort the AJAX request
+                }else{
+                  if(!$('#already_submitted').val()){
+                    var loader_msg = 'Please do not Exit while we process your Data';
+                    var processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>"+loader_msg+"</div>";
+                    $('#delivery_status').html(processing);
+                       try {
+                         const deviceInfo = await getDeviceInfo();
+
+                        // Serialize the form data
+                        var formData = $(form_id).serialize();
+
+                         // Append device information to the serialized form data
+                        formData += '&DEVICE_TYPE=' + deviceInfo.DEVICE_TYPE;
+                        formData += '&DEVICE_SCREEN_RESOLUTION=' + deviceInfo.DEVICE_SCREEN_RESOLUTION;
+                        formData += '&RAM=' + deviceInfo.RAM;
+                        formData += '&STORAGE_PERMISSION=' + deviceInfo.STORAGE_PERMISSION;
+                        formData += '&CAMERA_PERMISSION=' + deviceInfo.CAMERA_PERMISSION;
+
+                        // Append language as a JSON string
+                        formData += '&LANGUAGE=' + JSON.stringify(deviceInfo.LANGUAGE);
+
+                        formData += '&VIEWPORT_WIDTH=' + deviceInfo.VIEWPORT_WIDTH;
+                        formData += '&BROWSER_INFO=' + JSON.stringify(deviceInfo.BROWSER_INFO);
+                        formData += '&TIME_ZONE=' + deviceInfo.TIME_ZONE;
+                        formData += '&DEVICE_TIME=' + deviceInfo.DEVICE_TIME;
+                        formData += '&DEVICE_MOUSE=' + deviceInfo.DEVICE_MOUSE;
+                        formData += '&DEVICE_TOUCH_SCREEN=' + deviceInfo.DEVICE_TOUCH_SCREEN;
+                        formData += '&LATITUDE=' + deviceInfo.LATITUDE;
+                        formData += '&LONGITUDE=' + deviceInfo.LONGITUDE;
+
+                      // Fetch location data separately
+                      const locationData = await reverseGeocode(deviceInfo.LATITUDE, deviceInfo.LONGITUDE);
+
+                      // Append location data as a JSON string
+
+                formData += '&LOCATION_DATA=' + JSON.stringify(locationData);
+                // Append more fields as needed
+                    $.ajax({
+                    url: baseUrl + "/request/api.php?query=wishlist_entery",
+                    type: "POST",
+                    data: formData, // Serialize the form data
+                    dataType: "json",
+                    success: function (result) {
+                        if(result.status ===true){
+                             get_wishlist_history();
+                            $('#delivery_status').html('<table><tr><td>Total Wishlist</td><td>'+total_records+'</td></tr><tr><td>You Selected</td><td>'+selected_records+'</td></tr><tr><td>Records Added</td><td>'+result.rows+'</td></tr><tr><td>Status</td><td>Success</td></tr></table><div class="success-container"><div class="circle"></div><div class="ring"></div><div class="checkmark"></div><div class="fading-circles"><div class="circle-animation circle1"></div><div class="circle-animation circle2"></div><div class="circle-animation circle3"></div><div class="circle-animation circle4"></div><div class="circle-animation circle5"></div><div class="circle-animation circle6"></div><div class="circle-animation circle7"></div><div class="circle-animation circle8"></div><div class="circle-animation circle9"></div><div class="circle-animation circle10"></div></div></div><div class="success-msg"><i class="fa fa-check"></i> Successfully Record Added</div>');
+                            $('#already_submitted').val('1');
+                        }else if(result.status ===false){
+                            $('#delivery_status').html('<table><tr><td>Total Wishlist</td><td>'+total_records+'</td></tr><tr><td>You Selected</td><td>'+selected_records+'</td></tr><tr><tr><tr><td>Records Added</td><td>0</td></tr><td>Status</td><td>Error</td></tr></table><div class="error-msg"><i class="fa fa-times-circle"></i> '+result.error+'</div>');
+                            // Reset the form
+                            // Reset the form manually
+                  /* $(form_id).find(':input').each(function() {
+                      const elementType = this.tagName.toLowerCase();
+                      if (elementType === 'input') {
+                          $(this).val(''); // Clear input value
+                      } else if (elementType === 'select') {
+                          $(this).val('0'); // Set select box value to zero
+                       }
+                         }); */
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors here, if any
+                        $('#dialog-box').show();
+                        console.error(xhr.responseText); // Log the error response for debugging
+                    }
+        });
+      } catch (error) {
+                // Handle error thrown by getDeviceInfo function
+                console.error('Error getting device info:', error);
+            }
+
+      }else{
+        $('#delivery_status').html('<table><tr><td>Total Wishlist</td><td>'+total_records+'</td></tr><tr><td>You Selected</td><td>'+selected_records+'</td></tr><tr><tr><tr><td>Records Added</td><td>0</td></tr><td>Status</td><td>Error</td></tr></table><div class="error-msg"><i class="fa fa-times-circle"></i> You are Already Submited these wishlist records if you want to another record submiting? you can refresh this page and Submit Again.</div>');
+      }
+                }
+              } // confrimation brackts closed.
+     
+    }
+
+    // Handling the form submission
+    $("#wishlist_submit").submit(function(e) {
+        e.preventDefault(); // Prevent default form submission
+        wishlist_form_submit("#wishlist_submit"); // Call the function to handle form submission
+    });
+});
+
+
+
+
+
+
+function generateTableRows(data) {
+    let html = '';
+    data.forEach((item, index) => {
+        // Convert the array to a space-separated string with "@" before each username
+        const usersString = item.c_uname.map(username => `@${username}`).join(' ');
+
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${item.type}</td>
+                <td>${item.date}</td>
+                <td>${item.total}</td>
+                <td><button class="submit_btn" onclick="openDialogBox('${usersString}')">View</button></td>
+            </tr>
+        `;
+    });
+    return html;
+}
+
+
+function formatUsernamesWithAtSign(users) {
+    if (typeof users === 'string') {
+        users = users.split(',').map(username => `@${username.trim()}`);
+        return users.join(' ');
+    } else if (Array.isArray(users)) {
+        return users.map(username => `@${username.trim()}`).join(' ');
+    }
+    return '';
+}
+
+function openDialogBox(users) {
+    // Format usernames with "@"
+    const formattedUsernames = formatUsernamesWithAtSign(users);
+
+    // Remove any double "@" symbols
+    const cleanedUsernames = formattedUsernames.replace(/@@/g, '@');
+
+    // Populate the dialog box with the list of cleaned usernames
+    const usersDiv = $('#users_unames');
+    usersDiv.empty();
+
+    const usernames = cleanedUsernames.split(' ');
+
+    for (let i = 0; i < usernames.length; i++) {
+        const username = usernames[i] +' ';
+        // const span = $('<span>').text(username);
+            const element = $('<span>').text(username);
+        element.addClass(i % 2 === 0 ? 'users-bg-red' : 'users-bg-blue');
+        
+        usersDiv.append(element);
+    }
+   
+    // Print the number of usernames
+    const countDiv = $('#count_uname');
+    const numberOfUsernames = usernames.length;
+    countDiv.text(`Numbers of username is ${numberOfUsernames}.`);
+    // Show the dialog box
+    $('#dialog-box-users').css('display', 'block');
+}
+
+
+
+
+function get_wishlist_history() {
+    $.ajax({
+        url: baseUrl + "/request/api.php?query=wishlist_entery&b=wishlist_history",
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            // Call the function to generate the table rows and insert them into the table
+            $('#history_loader').remove();
+            const tableBody = $('#wishlist_history_table');
+            tableBody.html(generateTableRows(data));
+        },
+        error: function (xhr, status, error) {
+            // Handle errors here, if any
+            console.error(xhr.responseText); // Log the error response for debugging
+        }
+    });
+}
+
+
+
+
+           
+            function load_wishlist(form_id,load_wishlist,print_list_count){
+              
+                $.ajax({
+                            url: baseUrl+"/request/api.php?query=list&b=get_wishlist",
+                            type: "POST",
+                            dataType: "json",
+                            success: function(data){
+                              $('#wishlist_submit_btn').show();
+                              $(load_wishlist).html(data);
+                              let list_count = $(form_id +" input[name='customer_id[]']").filter(function() { return $(this).val() !== ""; }).length;
+                              $(print_list_count).html('<font color="red">Note:</font> We would like to inform you that in the list created by you, there are <b>' + list_count + ' records</b>. If you make changes to a particular customer\'s record in that list and submit it, you can update that specific record with new data such as "<b>new entry</b>", "<b>money received</b>" or "<b>mark as not delivered (lock/unlock).</b>" Please note that once you submit it, you won\'t be able to undo or delete that record again after submitting it.');
+                            },
+                            error: function(xhr, status, error) {
+                              console.log('Ajax error:', error);
+                            }
+                        });
+
+                
+            }
+                 
+               // functions started
+              function ignore_inputs(checkbox, fieldsetId) {
+                var fieldset = $(fieldsetId);
+                if (checkbox.checked) {
+                // If checkbox is checked (value = 1), enable the fieldset
+                fieldset.prop("disabled", false);
+                } else {
+                // If checkbox is unchecked (value = 0), disable the fieldset
+                fieldset.prop("disabled", true);
+                }
+            }
+        function search_user(terms_id, user_info, e) {
+           
+            e.preventDefault();
+            var full_name = user_info[0]
+            var uname = user_info[1]
+            var p_num = user_info[2]
+            var locality = user_info[3]
+
+            var profile_section = user_info[4];
+            var profile_pic = user_info[5];
+            var milk_about = user_info[6];
+            var milk_animal = user_info[7];
+            var d_rate = user_info[8];
+            var weight = user_info[9];
+
+            var error_msg = user_info[10];
+            var loading_bar = user_info[11];
+            var submit_status = user_info[12];
+            var search_histoy = user_info[13];
+            var save_btn = user_info[14];
+            var delete_btn = user_info[15];
+            var search_terms = $(terms_id).val();
+            
+            $(search_histoy).html('');
+            load_animal(milk_animal);
+            $(loading_bar).removeClass('d-none');
+            $.ajax({
+                url: baseUrl + "/request/api.php?query=list&b=search_customers",
+                type: "POST",
+                data: {search_val: search_terms},
+                dataType: "json",
+                success: function(result) {
+                if(result.rows==1){
+                  // Assuming "result" is the object received from the AJAX call
+                 $(submit_status).html('');
+                  $(profile_section).removeClass('d-none');
+                  $(error_msg).addClass('d-none');
+                  $(profile_pic + ' img').attr('src', baseUrl + '/image.php?src=' + result.data.profile_pic + '&t=c&h=100&w=100');
+                  
+                    // Update the text content of span elements
+                    $(full_name).text(result.data.fname+' '+result.data.lname);
+                    $(uname).text('@'+result.data.uname);
+
+                    $(p_num).text(result.data.p_number);
+
+                    $(locality).text(result.data.locality);
+                    $('input[name="customer_id"]').val(result.data.c_id);
+
+                    let type = checkInputType(search_terms);
+                    put_into_local('customer_'+search_terms,type,'{$user_id}',search_terms);
+                    // if already user in list
+                    if(result.data.l_id){
+                      $(milk_about).val(result.data.milk_about);
+                      $(milk_animal).val(result.data.milk_animal);
+                      $(d_rate).val(result.data.d_rate);
+                      $(weight).val(result.data.weight);
+                      $(save_btn).text('Update');
+                      $(delete_btn).removeClass('d-none');
+
+                    }else{
+                      $(save_btn).text('Save record');
+                      $(delete_btn).addClass('d-none');
+                    }
+                    
+
+                }else{
+                  $(profile_section).addClass('d-none');
+                  $(error_msg).removeClass('d-none');
+                  $(milk_about).val('0');
+                  $(milk_animal).val('0');
+                  $(d_rate).val('');
+                  $(weight).val('');
+                }
+                $(loading_bar).addClass('d-none');
+                // Process the received data or update the UI accordingly
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                console.log("AJAX Error:", textStatus, errorThrown);
+                console.log("Response:", jqXHR.responseText);
+                }
+            });
+        }
+          </script>

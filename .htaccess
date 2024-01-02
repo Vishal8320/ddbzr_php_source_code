@@ -1,0 +1,33 @@
+RewriteEngine on
+
+RewriteCond %{request_filename} -f
+RewriteRule ^(.*) 											$1											[L]
+RewriteRule ^(([^/]*)+)?$									index.php?a=$1								[L]
+
+RewriteRule ^login/?$										index.php?a=login							[NC]
+RewriteRule ^register/?$									index.php?a=register						[NC]
+RewriteRule ^home/?$										index.php?a=home							[NC]
+RewriteRule ^home/([^/]+)/?$					            index.php?a=home&b=logout		            [NC]
+
+RewriteRule ^register/([^/]+)/?$						    index.php?a=register&b=$1				    [NC]
+
+RewriteRule ^settings/?$								    index.php?a=settings				    	[NC]
+RewriteRule ^settings/([^/]+)/?$							index.php?a=settings&b=$1			    	[NC]
+
+RewriteRule ^manage_user/?$								    index.php?a=manage_user				    	[NC]
+RewriteRule ^manage_user/([^/]+)/?$					        index.php?a=manage_user&b=$1		        [NC]
+
+
+RewriteRule ^list/?$								        index.php?a=list       				    	[NC]
+RewriteRule ^list/([^/]+)/?$					            index.php?a=list&b=$1		                [NC]
+
+RewriteRule ^info/?$										index.php?a=info					        [NC]
+RewriteRule ^info/([^/]+)/?$								index.php?a=info&b=$1						[NC]
+
+RewriteRule ^lng/([^/]+)/?$ index.php?lang=$1 [NC,L]
+
+RewriteRule ^recover/?$										index.php?a=recover							[NC]
+RewriteRule ^recover/do/?$									index.php?a=recover&r=1						[NC]
+RewriteRule ^image/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$		image.php?t=$1&w=$2&h=$3&src=$4				[NC]
+
+

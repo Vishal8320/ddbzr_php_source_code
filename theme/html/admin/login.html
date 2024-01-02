@@ -1,0 +1,84 @@
+<div class="row-page">
+	<div class="twelve columns">
+		<div class="page-login-container">
+			<div class="page-content">
+				<div class="page-header">{$lng->admin_login}</div>
+				{$message}
+                <div id="ajax-process"></div>
+                <div id="login-error"></div>
+				<form action="{$url}/index.php?a=admin" id="admin_form" method="post">
+					<div class="page-inner">
+						<div class="page-input-container">
+							<div class="page-input-title">{$lng->admin_user_name}</div>
+							<div class="page-input-content">
+								<input type="text" name="username" id="uname"><br>
+								<div class="page-input-sub">{$lng->desc_admin_user}</div>
+							</div>
+						</div>
+						<div class="page-input-container">
+							<div class="page-input-title">{$lng->admin_pass}</div>
+							<div class="page-input-content">
+								<input type="password" name="password" id="pass">
+								<div class="page-input-sub">{$lng->desc_admin_pass}</div>
+							</div>
+						</div>
+					</div>
+					<div class="message-divider"></div>
+					<div class="page-inner">
+						<div class="page-input-title"></div>
+						<div class="page-input-content">
+							<input type="submit" value="{$lng->login}" name="login">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#admin_form').submit(function(e) {
+    e.preventDefault(); // Prevent the form from submitting normally
+
+    // Get the form data
+    var formData = $(this).serialize();
+    // Make the AJAX request
+    if (!navigator.onLine) {
+              var msg = "{$lng->no_internet}";
+              var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+              $('#ajax-process').html(internet_error);
+              return false; // Abort the AJAX request
+            } else {
+              var loader_msg = '{$lng->ajax_process_msg}';
+              var loader = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+              $('#ajax-process').html(loader);
+           $.ajax({
+                url: baseUrl + "/request/api.php?query=check_admin",
+                type: "POST",
+                cache: false,
+                data: formData,
+                dataType: 'json',
+                success: function(data) {
+
+                if (data.status === true) {
+                   var url = '{$url}/index.php?a=global_admin';
+                   window.location.href = url;
+
+                } else if (data.status === false) {
+                    $('#login-error').html(data.message);
+                }
+                },
+
+                error: function(jqXHR, textStatus, errorThrown) {
+                  // Display the error code
+                  console.log('Error code: ' + jqXHR.status);
+                },
+                complete: function() {
+                    $('#ajax-process').empty();
+                }
+              });
+            }
+  });
+});
+
+</script>

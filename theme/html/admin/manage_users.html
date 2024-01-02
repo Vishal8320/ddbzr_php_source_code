@@ -1,0 +1,52 @@
+{$message}
+<div class="page-inner">
+	<div class="page-input-container">
+		<div class="page-input-title">{$lng->edit_user}</div>
+		<div class="page-input-content">
+			<form action="{$url}/index.php" method="GET">
+				<input type="hidden" name="a" value="admin">
+				<input type="hidden" name="b" value="users">
+				<input type="hidden" name="e" value="">
+				<input type="text" name="ef" value="" placeholder="{$lng->username_to_edit}"> &nbsp; <input type="submit" value="{$lng->admin_ttl_edit}">
+				<div class="page-input-sub">{$lng->username_to_edit_sub}</div>
+			</form>
+		</div>
+	<div class="container-all-users">
+		{$users}	
+	</div>
+	</div>
+</div>
+</div>
+
+<div id="users">
+
+<script>
+
+   
+
+	function load_mmen(start, filter,per_page) {
+	// filter for different type of user pending,reject, or else
+	jQuery('#more_users').html('<div class="load_more"><div class="preloader preloader-center"></div></div>');
+	
+	$.ajax({
+		type: "POST",
+		url: baseUrl+"/request/api.php?query=admin_update_user&b=load_mmen",
+		data: "start="+start+"&filter="+filter+"&per_page="+per_page+"&token_id="+token_id,
+		dataType: "html", // Specify the expected data type as HTML
+		cache: false,
+		success: function(html) {
+			jQuery('#more_users').remove();
+			
+			// Append the new comment to the div id
+			$('.container-all-users').append(html);
+			// jQuery('#users').append(html);
+		},
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', xhr.status, error);
+        }
+	});
+}
+
+
+
+</script>

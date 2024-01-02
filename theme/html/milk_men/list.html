@@ -1,0 +1,563 @@
+<style>
+    /* CSS Styles */
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .profile-details {
+      flex-grow: 1;
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .profile-username {
+      font-size: 16px;
+      color: #999;
+    }
+
+    .profile-phone {
+      font-size: 16px;
+      color: #999;
+    }
+
+    .profile-locality {
+      font-size: 16px;
+      color: #999;
+    }
+
+    .search-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .search-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #337ab7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .select-box {
+      width: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .input-box {
+      width: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .button-section {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .save-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #51b415;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .delete-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .custom-button {
+      display: inline-block;
+      width: 150px;
+      height: 40px;
+      background-color: #F5F5F5;
+      border: none;
+      border-radius: 3px;
+      margin: 0 auto;
+      color: #6B6B6B;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      line-height: 40px;
+      transition: background-color 0.3s ease;
+      outline: none;
+}
+
+
+    .custom-button:hover {
+      background-color: #E1E1E1;
+    }
+    .search-section input, .form-section input {
+        height: 30px;
+        font-size: 15px;
+        }
+    .form-section input{
+        width: 120px !important;
+    }
+    .form-section select{
+        height: 35px;
+    } 
+    #error_msg b {
+      font-weight: 500;
+      font-size: 16px;
+      color: #ff0000;
+    }
+    .w_error_msg{
+    font-weight: 500;
+    font-size: 16px;
+    color: #ff0000;
+    }
+    
+
+
+    .btn-wide {
+  width: 81px;
+  height: 20px;
+  padding: 10px 20px;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: #b0acac solid 1px;
+  font-size: 16px;
+  color: #708090;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-normal {
+  box-shadow: -3px -3px 7px #f5f5f5, 3px 3px 7px #bbc3cc;
+  margin: 10px auto;
+}
+
+.btn-normal:active {
+  box-shadow: -3px -3px 7px #f5f5f5 inset, 3px 3px 7px #bbc3cc inset;
+  font-size: 16px;
+  user-select: none;
+  margin: 10px auto;
+}
+
+  </style>
+
+<div class="row-body">
+    <div class="grid-container">
+    <div class="grid-content">
+        
+        <div class="message-container-self">
+                <div class="message-form-content">
+                    <div class="message-form-header">
+                        <div class="message-form-user">{$profile_pic}</div>
+                        Create a customer list (as your Wish) for the fastest milk delivery.
+                        <div class="message-form-private"></div>
+                        <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                        <div class="edit-menu" style="display: inline-block;">
+                          
+                              <div class="edit-menu-item edit-menu-item-active" id="load_analytics" onclick="changeTab(this, '#customer_list',['#add_into_list', '#customer_list'])">Customers list</div>
+                              <div class="edit-menu-item" id="edit-profile" onclick="changeTab(this, '#add_into_list',['#add_into_list', '#customer_list'])">Add New List</div>
+                        </div>
+                    </div>
+                    
+                        <div class='message-form-inner'>
+                            <div class="message-form-des">
+                              <!-- here all saved list -->
+                          <div id="customer_list">
+                           
+                          </div>
+                          <div id="add_into_list" style="display: none;">
+                          <!-- Here form for list       -->
+
+                         <form method="post" id="list_submit880" autocomplete="off">
+
+                          <div class="message-content">
+                            <div class="message-inner bg-grey">
+                              <div id="loading_bar880" class="d-none">
+                                <div class="load_more"><div class="preloader preloader-center"></div></div></div>
+                                <div class="profile-section d-none" id="profile_section880">
+                                  <div class="profile-photo" id="profile_pic880"><img src="http://localhost/doodhbazar/image.php?src=default.png&amp;t=mm&amp;w=100&amp;h=100"></div>
+                                <div class="profile-details">
+                                      <div class="profile-name" id="full_name880">Customer Name</div>
+                                      <div class="profile-username" id="uname880">@username</div>
+                                      <div class="profile-phone" id="p_num880">+91 1234567890</div>
+                                      <div class="profile-locality" id="locality880">locality</div>
+                                  <input type="hidden" name="customer_id" id="customer_id880" value="">
+                                </div></div>
+
+                                  <div id="error_msg880" class="w_error_msg d-none">No User Found try with correct username or Phone number</div>
+                                  <div id="search_forms880"><div class="search-section">
+                                    <input type="text" id="search_val_id880" name="search_val" class="search-input" onkeyup="get_suggestion('customer_','#search_history','{$user_id}',this)" placeholder="Username or Phone">
+                                    <button class="search-button" onclick="search_user('#search_val_id880', ['#full_name880', '#uname880','#p_num880','#locality880','#profile_section880','#profile_pic880','#milk_about880','#load-animals880','#d_rate880','#weight880','#error_msg880','#loading_bar880', '#submit_status880', '#search_history','#save_btn880','#delete_btn880'], event)">Search</button>
+                                   
+                                  </div> <div id="search_history" style="position:absolute;z-index: 777; margin: -29px 10px;"></div></div>
+
+                                  <div id="submit_status880"></div>
+                                  <div class="form-section">
+                                    <div class="column">
+                                            <select class="select-box" id="milk_about880" name="milk_about">
+                                                <option value="0">Milk type</option><option value="1">Buy milk</option>
+                                                <option value="2">Sale Milk</option>
+                                            </select>
+                                            <select class="select-box" id="load-animals880" name="m_animal" onchange="load_rates('#milk_about880', '#load-animals880', '#d_rate880')" >
+                                              <option value="0">select animal</option>
+                                            </select>
+                                    </div>
+                                      <div class="column">
+                                              <input type="number" class="input-box" id="d_rate880" name="d_rate" placeholder="Direct Rate">
+                                              <input type="number" class="input-box" id="weight880" name="weight" placeholder="weight">
+                                      </div></div>
+                                      <div class="button-section">
+                                              <button class="save-button" id="save_btn880" onclick="insert_list('#list_submit880', ['#customer_id880','#submit_status880','#search_forms880',], event)">Save record</button>
+                                              <button class="delete-button d-none" id="delete_btn880" onclick="delete_list('#customer_id880',['#milk_about880','#load-animals880','#d_rate880','#weight880','#submit_status880'],event)">Delete</button>
+                                      </div></div></div>
+
+                                    </form>
+
+                                    <!-- form ended -->
+
+                            <div id="all_forms"></div>
+                            <div class="btn-wide btn-normal" onclick="list_forms()">Add more</div>
+                          
+                          </div>
+                          
+                        </div>
+                    </div>
+                        
+                    </div>
+                    
+                </div>
+            
+        
+    
+    
+    </div>
+    
+  
+    </div>
+    </div>
+    <script>
+
+function load_list(start, per_page) {
+    // Append loader while AJAX is loading
+    $('#customer_list').append("<center><span class='loader-circle'></span></center><div class='loader-title'>We Are Loading your request</div>");
+
+    $.ajax({
+        url: baseUrl + "/request/api.php?query=list&b=fetch_list",
+        type: "POST",
+        data: { start: start, per_page: per_page },
+        dataType: "json",
+        success: function (data) {
+            // Remove loader when AJAX is complete
+            $('#customer_list').find('.loader-circle, .loader-title').remove();
+            $('#more_list').remove();
+            $('#customer_list').append(data);
+        }
+    });
+}
+
+function delete_list(by_id,user_info,event){
+        event.preventDefault();
+        var milk_about = user_info[0];
+        var milk_animal = user_info[1];
+        var d_rate = user_info[2];
+        var weight = user_info[3];
+        var submitStatus = user_info[4];
+
+        id = $(by_id).val();
+        
+        $.ajax({
+					url: baseUrl+"/request/api.php?query=list&b=delete_list",
+          type: "POST",
+          data: {customer_id:id},
+					dataType: "json",
+					success: function(response){
+            console.log(response);
+            if (response.status === true) {
+                      
+                    $(milk_about).val('0');
+                    $(milk_animal).val('0');
+                    $(d_rate).val('');
+                    $(weight).val('');
+
+                    $(submitStatus).html('<div class="success-msg"><i class="fa fa-check"></i> Successfully Deleted.</div>');
+                } else if (response.status === false) {
+                    $(submitStatus).html('<div class="warning-msg"><i class="fa fa-warning"></i> Something Went Wrong.</div>');
+                }
+					}
+				});
+}
+ load_list(0,20);
+       
+        function insert_list(formId, user_info, event) {
+         // Prevent default form submission
+          event.preventDefault();
+
+          // var customerId = $('input[name="' + customer_id + '"]').val();
+          var customerId = $(user_info[0]).val();
+          var submitStatus = $(user_info[1]);
+          var search_form = $(user_info[2]);
+          if (!customerId) {
+              $(submitStatus).html('<div class="warning-msg"><i class="fa fa-warning"></i> Could not find Customer.</div>');
+          } else {
+        // Create a new FormData object and append the form data
+        var formData = new FormData($(formId)[0]);
+
+        // Send data using AJAX
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "/request/api.php?query=list&b=insert", // Replace with the URL where you want to submit the data
+            data: formData,
+            processData: false, // Important: Prevent jQuery from processing the data (defaults to true for FormData)
+            contentType: false, // Important: Prevent jQuery from setting the content type (defaults to true for FormData)
+            success: function (response) {
+                if (response.status === true) {
+                    $(search_form).hide();
+                    $(submitStatus).html('<div class="success-msg"><i class="fa fa-check"></i> Setting Saved Successfully.</div>');
+                } else if (response.status === false) {
+                    $(submitStatus).html('<div class="warning-msg"><i class="fa fa-warning"></i> ' + response.error + '</div>');
+                }
+            },
+            error: function (error) {
+                // Handle errors (if any) during the AJAX request
+                console.error("AJAX Error:", error);
+            }
+              });
+          }
+      }
+
+       function load_animal(id){
+        $.ajax({
+					url: baseUrl+"/request/api.php?query=ad_setting&b=animal",
+          type: "POST",
+					dataType: "json",
+					success: function(data){
+            var optionHTML = '<option value="0">select animal</option>' + data.animal;
+						$(id).html(optionHTML);
+					}
+				});
+       }
+       function load_rates(milk_about_id,m_animal_id,d_rate){
+        var milk_about = $(milk_about_id).val();
+        var m_animal = $(m_animal_id).val();
+        if(milk_about){
+          $.ajax({
+					url: baseUrl+"/request/api.php?query=list&b=milk_rates",
+          type: "POST",
+          data: { milk_about: milk_about, m_animal: m_animal },
+					dataType: "json",
+					success: function(data){
+						if(data.dm){
+              $(d_rate).val(data.dm)
+            }
+					}
+				});
+        }else{
+          $(milk_about_id).css('border', '1px solid red');
+        }
+       
+       }
+       
+        function search_user(terms_id, user_info, e) {
+           
+            e.preventDefault();
+            var full_name = user_info[0]
+            var uname = user_info[1]
+            var p_num = user_info[2]
+            var locality = user_info[3]
+
+            var profile_section = user_info[4];
+            var profile_pic = user_info[5];
+            var milk_about = user_info[6];
+            var milk_animal = user_info[7];
+            var d_rate = user_info[8];
+            var weight = user_info[9];
+
+            var error_msg = user_info[10];
+            var loading_bar = user_info[11];
+            var submit_status = user_info[12];
+            var search_histoy = user_info[13];
+            var save_btn = user_info[14];
+            var delete_btn = user_info[15];
+            var search_terms = $(terms_id).val();
+            
+            $(search_histoy).html('');
+            load_animal(milk_animal);
+            $(loading_bar).removeClass('d-none');
+            $.ajax({
+                url: baseUrl + "/request/api.php?query=list&b=search_customers",
+                type: "POST",
+                data: {search_val: search_terms},
+                dataType: "json",
+                success: function(result) {
+                if(result.rows==1){
+                  // Assuming "result" is the object received from the AJAX call
+                 $(submit_status).html('');
+                  $(profile_section).removeClass('d-none');
+                  $(error_msg).addClass('d-none');
+                  $(profile_pic + ' img').attr('src', baseUrl + '/image.php?src=' + result.data.profile_pic + '&t=c&h=100&w=100');
+                  
+                    // Update the text content of span elements
+                    $(full_name).text(result.data.fname+' '+result.data.lname);
+                    $(uname).text('@'+result.data.uname);
+
+                    $(p_num).text(result.data.p_number);
+
+                    $(locality).text(result.data.locality);
+                    $('input[name="customer_id"]').val(result.data.c_id);
+
+                    let type = checkInputType(search_terms);
+                    put_into_local('customer_'+search_terms,type,'{$user_id}',search_terms);
+                    // if already user in list
+                    if(result.data.l_id){
+                      $(milk_about).val(result.data.milk_about);
+                      $(milk_animal).val(result.data.milk_animal);
+                      $(d_rate).val(result.data.d_rate);
+                      $(weight).val(result.data.weight);
+                      $(save_btn).text('Update');
+                      $(delete_btn).removeClass('d-none');
+
+                    }else{
+                      $(save_btn).text('Save record');
+                      $(delete_btn).addClass('d-none');
+                    }
+                    
+
+                }else{
+                  $(profile_section).addClass('d-none');
+                  $(error_msg).removeClass('d-none');
+                  $(milk_about).val('0');
+                  $(milk_animal).val('0');
+                  $(d_rate).val('');
+                  $(weight).val('');
+                }
+                $(loading_bar).addClass('d-none');
+                // Process the received data or update the UI accordingly
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                console.log("AJAX Error:", textStatus, errorThrown);
+                console.log("Response:", jqXHR.responseText);
+                }
+            });
+        }
+
+        function list_forms() {
+        // Get the HTML content from the hidden div
+        var r_num = Math.floor(Math.random() * 900) + 100;
+        var htmlContent = `<br><form method="post" id="list_submit${r_num}" autocomplete="off">
+                  <div class="message-content">
+                  <div class="message-inner bg-grey">
+                  <div id="loading_bar${r_num}" class="d-none">
+                  <div class="load_more"><div class="preloader preloader-center"></div></div>
+                  </div>
+                  <div class="profile-section d-none" id="profile_section${r_num}">
+                  <div class="profile-photo" id="profile_pic${r_num}">
+                  <img src="http://localhost/doodhbazar/image.php?src=default.png&t=mm&w=100&h=100">
+                  </div>
+                  <div class="profile-details">
+                  <div class="profile-name" id="full_name${r_num}">Customer Name</div>
+                  <div class="profile-username" id="uname${r_num}">@username</div>
+                  <div class="profile-phone" id="p_num${r_num}">+91 1234567890</div>
+                  <div class="profile-locality" id="locality${r_num}">locality</div>
+                  <input type="hidden" name="customer_id" id="customer_id${r_num}" value="">
+                  </div>
+                  </div>
+                  <div id="error_msg${r_num}" class="w_error_msg d-none">
+                  No User Found try with correct username or Phone number
+                  </div>
+                  <div id="search_forms${r_num}">
+                  <form method="post" autocomplete="off">
+                  <div class="search-section">
+                  <input type="text" id="search_val_id${r_num}" name="search_val" class="search-input" onkeyup="get_suggestion('customer_', '#search_history${r_num}', '{$user_id}', this)" placeholder="Username or Phone">
+                  <button class="search-button" onclick="search_user('#search_val_id${r_num}', ['#full_name${r_num}', '#uname${r_num}','#p_num${r_num}','#locality${r_num}','#profile_section${r_num}','#profile_pic${r_num}','#milk_about${r_num}','#load-animals${r_num}','#d_rate${r_num}','#weight${r_num}','#error_msg${r_num}','#loading_bar${r_num}','#submit_status${r_num}','#search_history${r_num}','#save_btn${r_num}','#delete_btn${r_num}'], event)">Search</button>
+                  </div>
+                  <div id="search_history${r_num}" style="position:absolute;z-index: 777; margin: -29px 10px;"></div>
+                  </form>
+                  </div>
+                  
+                  
+                  <div id="submit_status${r_num}"></div>
+                  <div class="form-section">
+                  <div class="column">
+                  <select class="select-box" id="milk_about${r_num}" name="milk_about">
+                  <option value="0">Milk type</option>
+                  <option value="1">Buy milk</option>
+                  <option value="2">Sale Milk</option>
+                  </select>
+                  <select class="select-box" id="load-animals${r_num}" name="m_animal" onchange="load_rates('#milk_about${r_num}', '#load-animals${r_num}', '#d_rate${r_num}')">
+                  <option value="0">select animal</option>
+                  </select>
+                  </div>
+                  <div class="column">
+                  <input type="number" class="input-box" id="d_rate${r_num}" name="d_rate" placeholder="Direct Rate">
+                  <input type="number" class="input-box" id="weight${r_num}" name="weight" placeholder="weight">
+                  </div>
+                  </div>
+                  <div class="button-section">
+                  <button class="save-button" id="save_btn${r_num}" onclick="insert_list(list_submit${r_num}, ['#customer_id${r_num}', '#submit_status${r_num}', '#search_forms${r_num}'], event)">Save record</button>
+                  <button class="delete-button d-none" id="delete_btn${r_num}" onclick="delete_list('#customer_id${r_num}', ['#milk_about${r_num}', '#load-animals${r_num}', '#d_rate${r_num}', '#weight${r_num}', '#submit_status${r_num}'], event)">Delete</button>
+                  </div>
+                  </div>
+                  </div>
+                  </form>`;
+
+        // Append the HTML content to the container
+        $('#all_forms').append(htmlContent);
+      }
+
+    
+
+
+    </script>

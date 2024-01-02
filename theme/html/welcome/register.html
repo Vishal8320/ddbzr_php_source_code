@@ -1,0 +1,1629 @@
+<style>
+    .cam-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cam-btn {
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+<div class="row-body">
+    <div class="grid-container">
+    <div class="grid-content">
+        
+        <div class="page-container">
+         <div class="page-content">   
+            
+                <div class="message-form-content">
+                    <div class="message-form-header" id="mmen_reg_window_scroll">
+                        <div class="message-form-user"></div>
+                        A Milkman Account Registration.
+                        <div class="message-form-private"></div>
+                        <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                        
+                    </div>
+                         {$message}
+                    <div class="page-inner">
+                        <div class="step-wizard">
+                            <ul class="step-wizard-list">
+                                <li id="item_1" class="step-wizard-item current-item">
+                                    <span class="progress-count ">1</span>
+                                    <span class="progress-label">Basic Info</span>
+                                </li>
+                                <li id="item_2" class="step-wizard-item">
+                                    <span class="progress-count">2</span>
+                                    <span class="progress-label">Contact Details</span>
+                                </li>
+                                <li id="item_3" class="step-wizard-item" >
+                                    <span class="progress-count">3</span>
+                                    <span class="progress-label">Address</span>
+                                </li>
+                                <li id="item_4" class="step-wizard-item">
+                                    <span class="progress-count">4</span>
+                                    <span class="progress-label">Profile Photo</span>
+                                </li>
+                                <li id="item_5" class="step-wizard-item">
+                                    <span class="progress-count">5</span>
+                                    <span class="progress-label">Verify contact</span>
+                                </li>
+                                <li id="item_6" class="step-wizard-item">
+                                    <span class="progress-count">6</span>
+                                    <span class="progress-label">Success</span>
+                                </li>
+                            </ul>
+                        </div>
+                       
+    
+                        <form action="" id="customer-form" method="post" autocomplete="off">
+                     <!-- customer 1st name -->
+                     
+                        <div id = "step_1" style="font-size: 16px;">
+                        <div id="step1_error"></div>    
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->fname}</div>
+                                <div class="page-input-content">
+                                    <input type="text" id="fname_id" limit="{$name}" placeholder="{$lng->fname}" name="fname" onkeyup="check_step1(1,{$name})">
+                                    <div class="page-input-sub-error" id="fname_error" style="font-size: 14px;"></div>
+                                <div class="page-input-sub">{$lng->fname_des}</div>
+                                </div>
+                            </div>
+    
+                            <!-- customer lname optional -->
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->lname}</div>
+                                <div class="page-input-content">
+                                    <input type="text" id="lname_id" limit="{$name}" placeholder="{$lng->lname_optional}" name="lname"onkeyup="check_step1(2,{$name})">
+                                    <div class="page-input-sub-error" id="lname_error" style="font-size: 14px;"></div>
+                                <div class="page-input-sub">{$lng->lname_des}</div>
+                                </div>
+                            </div>
+    
+                       <!-- customer gender is needed to recognise -->
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->select_gender}</div>
+                                <div class="page-input-content">
+                                    <select name="gender" id="gender_id">
+                                        <option value="">{$lng->select_gender}</option>
+                                        <option value="1">{$lng->male}</option>
+                                        <option value="2">{$lng->female}</option>
+                                        
+                                    </select>
+                                <div class="page-input-sub">{$lng->gender_des}</div>
+                                </div>
+                            </div>
+                            <div class="page-input-container">
+                                <div class="page-input-title">{$lng->enter_dob}</div>
+                                    <div class="page-input-content">
+                                    <select id="date_id" name="date">
+                                        {$days}
+                                    </select>
+                                    <select id="month_id" name="month">
+                                        {$months}
+                                    </select>
+                                    <select id="year_id" name="year">
+                                        {$years}
+                                    </select>
+                                    <div class="page-input-sub">{$lng->dob_des}</div>
+                                    </div>
+                                </div> 
+                            <center>
+                            <div class="next_btn" id="next_btn_1" onclick="next_btn(1,2,['#fname_id','#lname_id',{$name},'#gender_id','#date_id','#month_id','#year_id'])"><div class="c-w-icon-right arrow_next"></div>{$lng->next}</div>
+                            </center>
+                        </div>  <!---Step1 end-->
+                       
+                        
+    
+                        <!-- Step2 hear  -->
+                        <div id = "step_2" style="display:none">
+                            <!-- customer phone number -->
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->p_num}</div>
+                                <div class="page-input-content">
+                                    <input type="number" name="p_number" id="p_number_id" placeholder="{$lng->enter_p_num}"  onkeyup="check_step2(1)">
+                                    <div class="page-input-sub-error" id="p_number_error" style="font-size: 14px;"></div>
+                                    <div id="p_num_true" class="d-none"></div>
+                                <div class="page-input-sub">{$lng->p_num_des}</div>
+                                </div>
+                            </div>
+                            <!-- Username area -->
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->uname}</div>
+                                <div class="page-input-content">
+                                    <input type="text" name="uname" id="uname_id" placeholder="{$lng->enter_uname}" onkeyup="check_step2(2,{$uname})">
+                                    <div class="page-input-sub-error" id="uname_error" style="font-size: 14px;"></div>
+                                <div class="page-input-sub">{$lng->uname_des}</div>
+                                </div>
+                            </div>
+                            <!-- Password are -->
+                        <div class="page-input-container">
+                            <div class="page-input-title">{$lng->password}</div>
+                                <div class="page-input-content">
+                                    <input type="text" name="password" id="password_id" placeholder="{$lng->enter_pass}">
+                                    <div class="page-input-sub-error" id="password_error" style="font-size: 14px;"></div>
+                                <div class="page-input-sub">{$lng->pass_des}</div>
+                                </div>
+                            </div>
+                            
+                            <center>
+                                <div class="pre_btn" id="pre_btn_1" onclick="pre_btn(2,1)"><div class="c-w-icon-left arrow_pre"></div>{$lng->previous}</div>
+                                <div class="next_btn" id="next_btn_2" onclick="next_btn(2,3,['#p_number_id','#uname_id','#password_id',{$uname}])"><div class="c-w-icon-right arrow_next"></div>{$lng->next}</div>
+                            </center>
+                        </div>  <!---Step2 end-->
+    
+                                  <div id = "step_3" style="display:none">
+                                   <!-- City State and Sub-division Select -->
+    
+                                  <div class="page-input-container">
+                                    <div class="page-input-title">{$lng->select_city_state}</div>
+                                        <div class="page-input-content">
+                                            <select id="states" name="states">
+                                                <option value="">{$lng->select_states}</option>
+                                                {$state}
+                                                 </select>
+                                                 <div class="page-input-sub">{$lng->state_des}</div>
+                                                 <br>
+                                                 <select id="districts" name="districts">
+                                                    <option value="">{$lng->select_districts}</option>
+                                                 </select>
+                                                 <div class="page-input-sub">{$lng->district_des}</div>
+                                                 <br>
+                                        <select id="sub_districts" name="sub_districts" style="margin: 5px auto;">
+                                            <option value="">{$lng->select_sub_districts}</option>
+                                            </select>
+                                        <div class="page-input-sub">{$lng->sub_district_des}</div>
+                                        </div></div>
+                                    
+                                        <!-- Customer Zone -->
+                                        <div class="page-input-container">
+                                            <div class="page-input-title">{$lng->zone}</div>
+                                                <div class="page-input-content">
+                                                    <select id="area_id" name="area">
+                                                        <option value="">{$lng->select_zone}</option>
+                                                        <option value="1">{$lng->select_rural}</option>
+                                                        <option value="2">{$lng->select_urban}</option>
+                                                     </select>
+                                                
+                                                <div class="page-input-sub">{$lng->zone_des}</div>
+                                            </div>
+                                            </div>
+                                        <!-- Customer PinCode -->
+                                        <div class="page-input-container">
+                                            <div class="page-input-title">{$lng->pincode}</div>
+                                                <div class="page-input-content">
+                                                    <input type="number" id="pincode_id" name="pincode" placeholder="{$lng->enter-pincode}">
+                                                    <div id="pincode_error"></div>
+                                                   <div class="page-input-sub">{$lng->pincode_des}</div>
+                                                
+                                                 </div>
+                                               
+                                                </div>
+                                        <!-- Milk Diary Name -->
+                                        <div class="page-input-container">
+                                            <div class="page-input-title">{$lng->dairy_name}</div>
+                                                <div class="page-input-content">
+                                                    <input type="text" name="milk_dairy_name" id="dairy_id"  placeholder="{$lng->dairy_name}">
+                                                    <div id="dairy_name_error"></div>
+                                                <div class="page-input-sub">{$lng->dairy_name_des}</div>
+                                                </div>
+                                                
+                                                </div>
+                                        <!-- How Milk-men Milk Delivered or take -->
+                                        <div class="page-input-container">
+                                            <div class="page-input-title">{$lng->distribute_title}</div>
+                                                <div class="page-input-content">
+                                                    <select name="distribute_type" id="distribute_id">
+                                                        <option value="">{$lng->select_m_service}</option>
+                                                        <option value="1">{$lng->d2d_service}</option>
+                                                        <option value="2">{$lng->dairy_located_service}</option>
+                                                        <option value="3">{$lng->c_choice_service}</option>
+                                                        
+                                                    </select>
+                                                    <div id="distribute_error"></div>
+                                                <div class="page-input-sub">{$lng->distribute_type}</div>
+                                                </div>
+                                                
+                                                </div>
+                                            
+    
+                                            <!-- Here Customer Locality: -->
+                                            <div class="page-input-container">
+                                                <div class="page-input-title">{$lng->locality}</div>
+                                                    <div class="page-input-content">
+                                                        <input type="text" id="locality_id" name="locality" onkeyup="suggestions(1,'#states','#districts','#sub_districts','#area_id','#pincode_id','#locality_id')" placeholder="{$lng->enter_locality}">
+                                                        <div id="locality_error"></div>
+                                                        <div class="search-locality d-none" id="search-locality">
+                                                        <div class="notification-inner">
+                                                            
+                                                            <div id="locality_data">
+                                                          
+                                                            </div>
+                                                            </div>
+                                                        
+                                                       </div>
+                                                    <div class="page-input-sub">{$lng->locality_des}</div>
+                                                    </div>
+                                                </div>
+                                                <center>
+                                                    <div class="pre_btn" id="pre_btn_2" onclick="pre_btn(3,2)"><div class="c-w-icon-left arrow_pre"></div>{$lng->previous}</div>
+                                                    <div class="next_btn" id="next_btn_3" onclick="next_btn(3,4,['#states','#districts','#sub_districts','#area_id','#pincode_id','#dairy_id','#distribute_id','#locality_id'])"><div class="c-w-icon-right arrow_next"></div>{$lng->next}</div>
+                                                </center>
+                                            </div>  <!---Step3 end-->
+    
+                        
+                        <div id = "step_4" style="display:none">
+                           
+                                <center>Upload your Photo</center>
+                                <div class="page-input-sub" style="color:red">{$lng->profile_pic_note}</div>
+
+                                <div class="cam-container">
+                                    <div class="btn-wide btn-normal" id="profile_pic"><i class="fa-solid fa-camera" style="margin:0 10px"></i> Webcam</div>
+                                    <label class="btn-wide btn-normal">
+                                        <i class="fa-solid fa-camera" style="margin:0 5px"></i><b>+</b>
+                                        <i class="fa-solid fa-mobile-screen" style="margin:0 5px"></i>
+                                        <input type="file" accept="image/*" capture="camera" onchange="handleImage(this)" style="display: none;">
+                                        Device</label>
+                                  </div>
+
+                                    
+                                  <div class="cam-container" style="margin: 10px;">      
+                                    <div id="show-camera" class="cam-box d-none"></div>
+                                    <div id="show-photo" class="cam-box d-none"></div>
+                                    </div>
+
+                                    <input type="hidden" id="store_snap" name="store-snap" value=""> <!--  store snap -->
+
+                                    <div class="cam-container">
+                                        <div class="btn-wide btn-normal d-none" id="take_snap">{$lng->take_snap}</div>
+                                        <div class="btn-wide btn-normal d-none" id="reset_snap" style="width: 100px;">{$lng->reset}</div>
+                                    </div>
+                                       
+                                       
+                                <div class="modal-overlay-cal" style="z-index:11;display: none;">
+                                    <div class="modal-container modal-fix-cal" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-inner" style="text-align: center;">
+                                            <b>{$lng->confirmation}</b>
+                                            <div class="modal-title">{$lng->agree_registration}</div>
+                                        </div>
+                                        <div id="pic_submitted"></div>
+                                        <div id="otp_num"></div>
+    
+                                        <center>
+                                            <span class="bb" style="margin:9px; background-color:rgb(240, 74, 74); color:white;" id="close-modal" onclick="remove_items_cal('.modal-overlay-cal')">Close</span>
+                                            <!-- <button type="submit" id="submit" name="submit_form" style="margin:10px auto; background-color: rgb(84, 84, 234); color:white;" onclick="remove_items_cal('.modal-overlay-cal'),next_btn(4,5)">Verify & Send OTP</button> -->
+                                            <div class="next_btn" id="next_btn_5" onclick="remove_items_cal('.modal-overlay-cal'),next_btn(4,5),send_otp('#resend_otp')" style="margin-top: 8px;"><div class="c-w-icon-right arrow_next"></div>confirm & send OTP</div>
+                                        </center>
+                                        
+                                    </div> </div>  
+                           
+                           
+                            <center>
+                                <div class="pre_btn" id="pre_btn_4" onclick="pre_btn(4,3)"><div class="c-w-icon-left arrow_pre"></div>{$lng->previous}</div>
+                                <div class="next_btn" id="next_btn_5" onclick="step4('#pic_submitted','.modal-overlay-cal')"><div class="c-w-icon-right arrow_next"></div>{$lng->next}</div>
+                            </center>
+                            
+                        </div>  <!---Step4 end-->
+    
+    
+                        <!-- Here form to take Picture From Webcam for Customer -->
+                        <div id = "step_5" style="display:none">
+                            <div class="modal-axz fade-out">
+                                <div class="modal-content-axz slide-up">
+                                  <div class="modal-message-axz"></div>
+                                  <div class="loading-bar-container-axz">
+                                    <div class="loading-bar-axz"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            <div id="ajax-process"></div>  
+                            <div id="final-error"></div>
+                            <div class="page-input-container">
+                                <div class="page-input-title">{$lng->verification_code}</div>
+                                    <div class="page-input-content">
+                                        <input type="text" placeholder="{$lng->enter_code}" name="otp_val">
+                                    <div class="page-input-sub">{$lng->verificaiton_sent}</div>
+                                    </div><br>
+                                    <div class="page-input-title">{$lng->captcha_code}</div>
+                                    
+                                    <div class="page-input-content">
+                                    <input type="text" name="captcha" id="captcha_id" placeholder="{$lng->captcha}"  style="background-image: url({$url}/captcha/captcha.php)" class="welcome-captcha">
+                                    <div class="page-input-sub">{$lng->verify_captcha}</div>
+                                    </div>
+                                    <p>{$lng->not_receive}<span id="resend_otp" waiting_time="0" onclick="send_otp('#resend_otp')"><b>{$lng->resend_code}</b></span></p>
+                                    </div>
+                                
+                                <center>
+                                    <!-- <div class="pre_btn" id="pre_btn_4" onclick="pre_btn(5,4)"><div class="c-w-icon-left arrow_pre"></div>{$lng->previous}</div> -->
+                                    <button class="register-button-new" id="next_btn_5" onclick="create_c_acc('#customer-form')"><div class="c-w-icon-right arrow_next"></div>{$lng->create_acc}</button>
+                                </center>
+                        </div>  <!---Step5 end-->
+    
+                        <div id = "step_6" style="display:none">
+    
+                            <div class="page-input-container">
+                                <div id="created-success" style="display: none;">
+    
+                                    <div id="success-check"> </div>
+                                    <div class="c_reg_note">
+                                        <font color="#000">{$lng->acc_details}</font><br>
+                                        {$lng->acc_service_check_des}
+                                    </div>
+                                    <table style="margin: 16px auto; width: 287px;">
+            
+                                        <tr>
+                                            <th>{$lng->name}:</th>
+                                            <td id="td_name">NuLL</td>
+                                          </tr>
+                                          <tr>
+                                            <th>{$lng->login_uname}</th>
+                                            <td id="td_uname">NuLL</td>
+                                          </tr>
+                                          <tr>
+                                            <th>{$lng->login_phone}</th>
+                                            <td id="td_p_num">*********NuLL</td>
+                                          </tr>
+                                          <tr>
+                                            <th>{$lng->locality}</th>
+                                            <td id="td_locality">NuLL</td>
+                                          </tr>
+                                          <tr>
+                                            <th>Subscription</th>
+                                            <td id="td_password">1 month Free</td>
+                                          </tr>
+                                          <tr>
+                                            <th>{$lng->status}</th>
+                                            <td id="status">{$lng->pending}</td>
+                                          </tr>
+                                      </table>
+                                    <div class="success-title">
+                                        Account Created Successfully!
+                                    </div>
+                                    <center><span class="home_reg_btn"><a href="{$home_url}"><div class="c-w-icon-left arrow_next"></div>Going to home</a></span></center>
+                                </div>
+                                    
+                                </div>
+                        </div>  <!---Step6 end-->
+    
+                        
+                        <!-- <center><button type="submit" style="margin:10px auto;" name="crt-acc">{$lng->crt-c-acc} </button></center> -->
+                      </form>
+                    </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    
+    
+    
+    
+    <div class="grid-sidebar">
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">Milkmen From Haryana.</div>
+        <div class="sidebar-inner">Bhiwani(32)</div>
+        <div class="sidebar-inner">Charkhi Dadri(20)</div>
+        <div class="sidebar-inner">Faridabad(12)</div>
+        <div class="sidebar-inner">Jhajjar(19)</div>
+        <div class="sidebar-inner">Jind(37)</div>
+        <div class="sidebar-inner">Mahendragarh(29)</div>
+        <div class="sidebar-inner">Rohtak(19)</div>
+        <div class="sidebar-inner">Sonipat(39)</div>
+        
+    </div></div>
+    
+    {$sidebar1}
+    </div>
+    </div>
+    </div>
+
+    <script>
+
+        // function start_form(form_id) {
+        //   $('#' + form_id + ' :input').val('');
+        //   $('#step_2').hide();
+        //   $('#step_3').hide();
+        //   $('#step_4').hide();
+        //   $('#step_5').hide();
+        //   $('#step_6').hide();
+        //   $('#created-success').hide();
+        // }
+        
+        function create_c_acc(form_id) {
+          $(document).off('submit', form_id).on('submit', form_id, function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            var fname = $('#fname_id').val();
+            var lname = $('#lname_id').val();
+            var date = $('#date_id').val();
+            var month = $('#month_id').val();
+            var year = $('#year_id').val();
+            var p_num = $('#p_number_id').val();
+            var uname = $('#uname_id').val();
+            var locality = $('#locality_id').val();
+            var name = fname + ' ' + lname;
+            var dob = date + '-' + month + '-' + year;
+        
+            if (!navigator.onLine) {
+              var msg = "{$lng->no_internet}";
+              var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+              $('#ajax-process').html(internet_error);
+              return false; // Abort the AJAX request
+            } else {
+              var loader_msg = '{$lng->ajax_process_msg}';
+              var loader = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+              $('#ajax-process').html(loader);
+           $.ajax({
+                url: baseUrl + "/request/api.php?query=reg_mmen",
+                type: "POST",
+                cache: false,
+                data: formData,
+                dataType: 'json',
+                success: function(data) {
+                //   var responseData = JSON.parse(data.sms);
+                //   var returnStatus = responseData.return;
+                  if (data.status == true) {
+                    next_btn(5, 6);
+                    $('#td_name').text(name);
+                    $('#td_uname').text(uname);
+                    $('#td_p_num').text(p_num);
+                    $('#td_dob').text(dob);
+                    $('#td_locality').text(locality);
+        
+                    $('#created-success').show();
+                    $('#success-check').html(data.message);
+        
+                    // if (returnStatus === true) {
+                    //   $('#success').after("<div class='success-title'>Notify thought SMS.</div>");
+                    // }
+                  } else if (data.status == false) {
+                    $('#final-error').html(data.message);
+                    $('#captcha_id').val('');
+                     get_captcha();
+                    
+                  }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  // Display the error code
+                  console.log('Error code: ' + jqXHR.status);
+                },
+                complete: function() {
+                    $('#ajax-process').empty();
+                }
+              });
+            }
+          });
+        }
+        
+        
+        function filter_number(number) {
+          // Check if the number is valid and has at least 10 digits
+          if (typeof number !== 'string' || number.length < 10) {
+            return 'Invalid number';
+          }
+        
+          // Extract the first digit, last three digits, and middle number
+          var firstDigit = number.charAt(0);
+          var lastThreeDigits = number.slice(-3);
+          var middleNumber = number.slice(1, -3);
+        
+          // Replace the middle number with asterisks
+          var asterisks = '*'.repeat(middleNumber.length);
+        
+          // Concatenate the filtered number
+          var filteredNumber = firstDigit + asterisks + lastThreeDigits;
+        
+          return filteredNumber;
+        }
+        
+        
+        function handleImage(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const img = new Image();
+      img.src = e.target.result;
+
+      img.onload = function() {
+        const maxSizeBytes = 700 * 1024; // 700KB in bytes
+        const desiredResolution = 1024; // Desired resolution
+        const aspectRatio = img.width / img.height;
+        const targetWidth = Math.min(desiredResolution, img.width);
+        const targetHeight = targetWidth / aspectRatio;
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Reduce image quality iteratively to meet the target size
+        let quality = 0.9; // Start with high quality
+        let resizedDataUrl = canvas.toDataURL("image/jpeg", quality);
+        let base64String = resizedDataUrl.split(',')[1];
+
+        while (base64String.length > maxSizeBytes) {
+          quality -= 0.05; // Reduce quality by 5% in each iteration
+          resizedDataUrl = canvas.toDataURL("image/jpeg", quality);
+          base64String = resizedDataUrl.split(',')[1];
+        }
+
+        // Display the resized photo as an image
+        const imgElement = '<img src="' + resizedDataUrl + '" class="d-block" style="height: 240px;width: 320px;"/>';
+        $('#show-photo').html(imgElement);
+        $('#show-photo').removeClass('d-none');
+
+
+        $('#show-camera').removeClass('d-block');
+        $('#show-camera').addClass('d-none');
+
+        $('#take_snap').removeClass('d-block');
+        $('#take_snap').addClass('d-none');
+
+        $('#reset_snap').removeClass('d-block');
+        $('#reset_snap').addClass('d-none');
+
+        // Set the resized image base64 string as the value of the form field
+        $('#store_snap').val(base64String);
+      };
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+
+
+
+
+
+
+$(document).ready(function() {
+  Webcam.set({
+    width: 320,
+    height: 240,
+    image_format: 'png',
+    jpeg_quality: 100
+  });
+
+  $('#profile_pic').on('click', function() {
+    if (navigator.mediaDevices.getUserMedia) {
+      let constraints = {
+        video: true, // Remove facingMode parameter
+        audio: false
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+          attachCamera(stream);
+        })
+        .catch(function(err) {
+          console.log("Camera access denied");
+          alert("Please allow camera access to take profile picture.");
+          console.log('The following error occurred: ' + err);
+        });
+    } else {
+      console.log("getUserMedia is not supported by this browser");
+      alert('getUserMedia is not supported by this browser');
+    }
+  });
+
+  // Take snapshot function
+  $('#take_snap').on('click', take_snapshot);
+
+  // Reset snap function
+  $('#reset_snap').on('click', function() {
+    console.log("Resetting snap...");
+    $('#show-camera').addClass('d-block');
+    $('#show-camera').removeClass('d-none');
+    $('#show-photo').addClass('d-none');
+    $('#take_snap').addClass('d-block');
+    $('#take_snap').removeClass('d-none');
+    $('#reset_snap').addClass('d-none');
+    $('#reset_snap').removeClass('d-block');
+  });
+
+  function attachCamera(stream) {
+    Webcam.attach('#show-camera');
+    $("#show-camera").addClass("d-block");
+    $("#show-camera").removeClass("d-none");
+
+    $("#show-photo").addClass("d-none");
+
+    $("#float-container").removeClass("float-container");
+    $("#take_snap").removeClass("d-none");
+  }
+});
+
+
+function take_snapshot() {
+  // Get video element and canvas element
+  const video = document.querySelector('#show-camera video');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  // Set canvas dimensions to desired aspect ratio and resolution
+  const aspectRatio = 1; // 1:1 aspect ratio
+  const resolution = 1024; // High resolution max 2048 min 1024
+  canvas.width = resolution;
+  canvas.height = resolution * aspectRatio;
+
+  // Calculate scale factors for drawing video frame onto canvas
+  const scaleX = canvas.width / video.videoWidth;
+  const scaleY = canvas.height / video.videoHeight;
+
+  // Draw video frame onto canvas with desired scale factors
+  context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, canvas.width, canvas.height);
+
+  // Convert canvas image to base64 encoded string
+  let quality = 0.9; // Start with high quality
+  const maxSizeBytes = 700 * 1024; // 700KB in bytes
+  let dataURL, base64String;
+
+  do {
+    const resizedCanvas = document.createElement('canvas');
+    const resizedContext = resizedCanvas.getContext('2d');
+    resizedCanvas.width = canvas.width * quality;
+    resizedCanvas.height = canvas.height * quality;
+    resizedContext.drawImage(canvas, 0, 0, resizedCanvas.width, resizedCanvas.height);
+    
+    dataURL = resizedCanvas.toDataURL('image/jpeg', quality);
+    base64String = dataURL.split(',')[1];
+    
+    quality -= 0.05; // Reduce quality by 5% in each iteration
+  } while (base64String.length > maxSizeBytes);
+
+  // Display the captured photo as an image
+  const imgElement = '<img src="' + dataURL + '" class="d-block" style="height: 240px;width: 320px;"/>';
+  $('#show-photo').html(imgElement);
+
+  // Reset camera view and show captured photo
+  $('#show-camera').removeClass('d-block');
+  $('#show-camera').addClass('d-none');
+  $('#show-photo').removeClass('d-none');
+  $('#take_snap').removeClass('d-block');
+  $('#take_snap').addClass('d-none');
+  $('#reset_snap').removeClass('d-none');
+  $('#reset_snap').addClass('d-block');
+
+  // Set the base64 string as the value of the form field
+  $('#store_snap').val(base64String);
+}
+        
+            function load_state(type,data){
+               
+                   if(type==1){
+                    $.ajax({
+                        url: baseUrl+"/request/api.php?query=load_state&b=districts",
+                        type: "POST",
+                        data: {states:data},
+                        success: function(data){
+                               $("#districts").html(data);
+                            }
+                        });
+        
+                   }else if(type==2){
+                    $.ajax({
+                        url: baseUrl+"/request/api.php?query=load_state&b=sub_districts",
+                        type: "POST",
+                        data: {districts:data},
+                        success: function(data){
+                            $("#sub_districts").html(data);
+                        }
+                    });
+                   }
+                
+                  }
+                       $("#states").on("change",function(){
+                        suggestions(2,'#states','#districts','#sub_districts','#area_id','#locality_id');
+                        var states = $("#states").val();
+                        if(states != ""){
+                            load_state(1,states);
+                            $("#sub_districts").html("<option value=''>{$lng->select_sub_districts}</option>");
+                        }else{
+                          $("#districts").html("<option value=''>{$lng->select_districts}</option>");
+                          $("#sub_districts").html("<option value=''>{$lng->select_sub_districts}</option>");
+                        }
+                        
+                       })
+                $('#districts').on('change',function(){
+                    suggestions(2,'#states','#districts','#sub_districts','#area_id','#locality_id');
+                    var districts = $("#districts").val();
+                        if(districts != ""){
+                            load_state(2,districts);
+                        }else{
+                          $("#sub_districts").html("<option value=''>{$lng->select_sub_districts}</option>");
+                        }
+              
+                })
+                $('#sub_districts').on('change',function(){
+                    suggestions(2,'#states','#districts','#sub_districts','#area_id','#locality_id');
+              
+                })
+        
+         
+         /*
+          function take_snapshot() {
+            //take snapshot and get image data
+            Webcam.snap(function(data_uri) {
+                //display result image
+                $('#show-photo').html('<img src="' + data_uri + '" class="d-block"/>');
+        
+                var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+               
+                $('#store_snap').val(raw_image_data);
+            });
+        
+            $('#show-camera').removeClass('d-block');
+            $('#show-camera').addClass('d-none');
+        
+            $('#show-photo').removeClass('d-none');
+        
+            $('#take_snap').removeClass('d-block');
+            $('#take_snap').addClass('d-none');
+        
+            $('#reset_snap').removeClass('d-none');
+            $('#reset_snap').addClass('d-block');
+            }
+            
+            // old take snapshot function
+        */
+
+           function suggestions(type,state,districts,sub_districts,area,pincode,locality){
+        
+                var st = $(state).val();
+                var dis = $(districts).val();
+                var sub_dis = $(sub_districts).val();
+                var ar = $(area).val();
+                var pin = $(pincode).val();
+                var local = $(locality).val();
+        
+            if(type==1){
+                if(!st || !dis || !sub_dis || !ar || !pin){
+                    $('#search-locality').removeClass('d-none');
+                    if (!st ) {
+                        $('#locality_data').html('<div class="locality-error">{$lng->state_empty}</div>');
+                        $(state).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                }else if (!dis) {
+                    $('#locality_data').html('<div class="locality-error">{$lng->district_empty}</div>');
+                    $(districts).css({
+                        'border-color': 'red',
+                        'border-width': '2px',
+                        'border-style': 'solid'
+                    });
+                }else if (!sub_dis) {
+                    $('#locality_data').html('<div class="locality-error">{$lng->sub_district_empty}</div>');
+                    $(sub_districts).css({
+                        'border-color': 'red',
+                        'border-width': '2px',
+                        'border-style': 'solid'
+                    });
+                }else if (!ar) {
+                    $('#locality_data').html('<div class="locality-error">{$lng->area_empty}</div>');
+                    $(area).css({
+                        'border-color': 'red',
+                        'border-width': '2px',
+                        'border-style': 'solid'
+                    });
+                }else if (!pin) {
+                    $('#locality_data').html('<div class="locality-error">{$lng->pincode_empty}</div>');
+                    $(pincode).css({
+                        'border-color': 'red',
+                        'border-width': '2px',
+                        'border-style': 'solid'
+                    });
+                } 
+            
+            }
+             if(st || dis || sub_dis || ar || pin || local){
+        
+                        if(st){
+                            $(state).removeAttr('style');
+        
+                        }
+                        if(dis){
+        
+                            $(districts).removeAttr('style');
+        
+                        }
+                        if(sub_dis){
+                            $(sub_districts).removeAttr('style'); 
+        
+                        }
+                        if(ar){
+                            $(area).removeAttr('style');
+        
+                        }
+                        if(pin){
+                            $(pincode).removeAttr('style');
+        
+                        }
+                        if(local){
+                            $(locality).removeAttr('style');
+        
+                        }
+                    }
+                    if(st && dis && sub_dis && ar && pin){
+                            // showing suggestion results
+                            ajax_suggestion(state,districts,sub_districts,area,locality);
+                        }
+                }else if(type==2){
+                    if(st && dis && sub_dis && ar && pin && local){
+                        ajax_suggestion(state,districts,sub_districts,area,locality);
+                    }
+                }
+                }
+        
+                function ajax_suggestion(state,districts,sub_districts,area,locality){
+                            // if outside of element clicked suggestion will be hide
+                        let $searchHistory = $('#search-locality');
+                        $(document).on('click', function(event) {
+                            // Check if the clicked element is #search_history or one of its descendants
+                            if (!$searchHistory.is(event.target) && $searchHistory.has(event.target).length === 0) {
+                            // Clicked outside the search history element, clear it
+                            $searchHistory.addClass('d-none');
+                            }
+                        });
+                            var states = $(state).val();
+                            var districts = $(districts).val();
+                            var sub_districts = $(sub_districts).val();
+                            var area = $(area).val();
+                            var locality = $(locality).val();
+        
+                    $.ajax({
+                                url: baseUrl+"/request/api.php?query=locality",
+                                type: "POST",
+                                cache: false,
+                                data: {states:states,districts:districts,sub_districts:sub_districts,area_id:area,locality:locality},
+                                // beforeSend: function(){
+                                //     $('#search-locality').removeClass('d-none');
+                                //         $('#locality_data').html('<div class="preloader-center preloader"></div>')
+                                //         },
+                                success: function(data){
+        
+                                    if(data.rows > 0 || data.suggestion != ''){
+                                        var ht = '';
+                                        $('#search-locality').removeClass('d-none');
+                                        //var match = data.suggestion.match(/${locality}/);
+                                        $(data.suggestion).filter('div').each(function(i,e){
+                                            //$(e).data();
+                                            console.log($(e)[0].attributes[2].nodeValue);
+                                           // var aaaa = $(e)[0].attributes[2].nodeValue.replace(locality,'<b>'+locality+'</b>');
+                                           var aaaa = $(e)[0].innerText.replace(locality,'<b>'+locality+'</b>');
+                                            //console.log(aaaa);
+                                            $(e).html(aaaa);
+                                            ht += $(e)[0].outerHTML;
+                                        });
+                                        
+        
+                                        //var fdata = data.suggestion.replace(locality,('<b>'+locality+'</b>').toString())
+                                        $('#locality_data').html(ht);
+                                    }else{
+                                        $('#search-locality').addClass('d-none');
+                                    }
+                                
+                                }
+                            });
+                }
+                function fill_suggestion(getvalue, putvalue,count) {
+                        var sug_id = $(getvalue).attr('village_'+count); // Get the value of the clicked element
+                        $(putvalue).val(sug_id); // Set the value in the target element
+                        $('.search-locality').addClass('d-none');
+                }
+             function step3(state,district,sub_district,area,pincode,dairy_name,distribute_type,locality){
+                    var st = $(state).val();
+                    var dis = $(district).val();
+                    var sub_dis = $(sub_district).val();
+                    var ar = $(area).val();
+                    var pin = $(pincode).val();
+                    var loc = $(locality).val();
+                    var dairy = $(dairy_name).val();
+                    var distribute = $(distribute_type).val();
+                    var pinlen = {$pincode}
+                    var loclen = {$locality}
+                    var alphab = /^[A-Za-z0-9\s]+$/;
+        
+                    if(!st && !dis && !sub_dis || !ar || !pin || !dairy || !distribute_type || !loc ){
+                        // showing alert
+                        alert('{$lng->all_field_alert}');
+        
+                        if(!st){
+        
+                            $(state).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        }
+                        if(!dis){
+        
+                            $(district).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        } if(!sub_dis){
+                            $(sub_district).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        } if(!ar){
+        
+                            $(area).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        } if(!pin){
+        
+                            $(pincode).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        }if(!dairy){
+        
+                            $(dairy_name).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                          });
+                        }
+                         if(!distribute){
+        
+                            $(distribute_type).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        }
+                         if(!loc){
+                            $(locality).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        }
+                    }else{
+                    if (!$.isNumeric(pin)) {
+                        $(pincode).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        $('#pincode_error').html('<div class="step3-error">{$lng->pincode_numeric}</div>');
+                    }else if(pin.length != pinlen){
+                        $(pincode).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        $('#pincode_error').html('<div class="step3-error">{$lng->pincode_len}</div>');
+                    }else if (!loc.match(alphab)) {
+                        $(locality).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        $('#locality_error').html('<div class="step3-error">{$lng->locality_alphan}</div>');
+                    }else if(loc.length > loclen || loc.length < 3){
+                        $(locality).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        $('#locality_error').html('<div class="step3-error">{$lng->locality_len}</div>');
+                    }else if($.isNumeric(dairy)){
+                        $(dairy_name).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        $('#dairy_name_error').html('<div class="step3-error">Dairy Name cannot only be Numeric</div>');
+                    }else if(dairy.length > 50 || dairy.length < 10){
+                        $(dairy_name).css({
+                            'border-color': 'red',
+                            'border-width': '2px',
+                            'border-style': 'solid'
+                        });
+                        $('#dairy_name_error').html('<div class="step3-error">Dairy name length minimum 10 and maximum 50</div>');
+                    }else{
+                        $('#pincode_error').html('');
+                        $('#locality_error').html('');
+                        $('#locality_data').html('');
+                        $('#dairy_name_error').html('');
+
+
+                        $(state).removeAttr('style');
+                        $(district).removeAttr('style');
+                        $(sub_district).removeAttr('style');
+                        $(area).removeAttr('style');
+                        $(pincode).removeAttr('style');
+                        $(distribute_type).removeAttr('style');
+                        $(dairy_name).removeAttr('style');
+                        $(locality).removeAttr('style');
+                        
+        
+                        return 1;
+                    }
+                }
+             }
+         function step4(id,d_class){
+            $(d_class).css({'display':'block'});
+            var p_num = $('#p_number_id').val();
+            if ($("#show-photo").is(':empty') || ($("#show-photo img").attr("src") === undefined || $("#show-photo img").attr("src") === "")) {
+                       var profile_pic = 'null'; 
+                    }else{
+                        var profile_pic = 'notnull';
+                    }
+            if(profile_pic == 'nonull'){
+                $('#pic_submitted').html('<b style="color:green">You Choosed your Customer Profile Pic</b>');
+            }else if(profile_pic=='null'){
+                $('#pic_submitted').html('<b style="color:red">You do not Choosed your Customer Profile Photo. you have chance to upload it.</b>');
+            }
+            if(p_num){
+                $('#otp_num').html('<b style="color:green">confirm '+p_num+' is a correct mobile number.');
+            }else{
+                $('#otp_num').html('<b style="color:red">Sorry do not find your mobile number.<b>');
+            }     
+        
+         }
+        
+          
+        
+            function next_btn(hide_id,show_id,array){
+                var window_scroll = $("#mmen_reg_window_scroll");
+                
+                switch(hide_id){
+                    case 1:
+        
+                     var fname = $(array[0]).val();
+                     var lname = $(array[1]).val();
+                     var limit = array[2];
+                     var gender = $(array[3]).val();
+                     var date = $(array[4]).val();
+                     var month = $(array[5]).val();
+                     var year = $(array[6]).val();
+                     var step1_select = check_step1();
+                     var step1_fname = check_step1(1,limit);
+                     var step1_lname = check_step1(2,limit);
+        
+                     // checking last name 
+                       
+                     var isValid = /^[a-zA-Z]+(\s[a-zA-Z]+)*$/.test(lname.trim());
+            
+                        if ((lname != '') && !(lname.length > limit) && !(lname.length < 3) && (isValid) && !($.trim(fname) === $.trim(lname))) {
+                            x = 1;
+                        }else if(lname == ''){
+                            x = 2;
+                        }else{
+                            x = 0;
+                        }
+                        
+                     if((step1_fname ==1 && step1_select == 0) || (step1_fname ==0 && step1_select ==1) || (step1_fname ==0 && step1_select==0)){
+                       // alert('{$lng->alert_all_fields}');
+                     }else if(step1_fname && step1_select == 1  && (x == 1 || x == 2)){
+                        $.ajax({
+                        url: baseUrl+"/request/api.php?query=reg_mmen&b=step1",
+        
+                        type: "POST",
+                        data: {fname:fname,lname:lname,gender:gender,date:date,month:month,year:year},
+                        dataType: 'json',
+                        success: function(data){
+                            if(data != 1){
+                             $("#step1_error").html(data);
+                            }else{ 
+                            $("#item_"+hide_id).removeClass('current-item');
+                            $("#item_"+show_id).addClass('current-item');
+                            $("#step_"+hide_id).hide();
+                            $("#step_"+show_id).show();
+                            // scroll window to top
+                           }
+                                if (window_scroll.length > 0) {
+                                    $("html, body").animate({
+                                    scrollTop: window_scroll.offset().top
+                                    }, 300); // Animation duration in milliseconds (e.g., 1000 = 1 second)
+                                }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // Display the error code
+                            console.log('Error code: ' + jqXHR.status);
+                        }
+                    });
+        
+                     
+                    }else{
+                       alert('{$lng->alert_fix_error}');
+                    }
+                    
+                    break;
+                    case 2:
+                        
+                        var max_val = array[3];
+                        var step2_a = check_step2(1);
+                        var step2_b = check_step2(2,max_val);
+                        var p_num = $(array[0]).val();
+                        var uname = $(array[1]).val();
+                        var password = $(array[2]).val();
+                        var fname = $('#fname_id').val();
+                        step2_a.then(function(result) {
+                         step2_a_result = result;
+                         
+                        });
+        
+        
+                        Promise.all([step2_a, step2_b]).then(function(results) {
+                        var step2_a_result =  results[0];
+                        var step2_b_result = results[1];
+                       
+                        if(p_num == '' || uname == '' || password == ''){
+                          //  alert('{$lng->alert_all_fields}');
+                        }else if(step2_a_result == 1 && step2_b_result == 1){
+                             var check_pass = check_password(password,fname,p_num,array[2],'#password_error');
+                             if(check_pass == 1){
+                                $("#item_"+hide_id).removeClass('current-item');
+                                $("#item_"+show_id).addClass('current-item');
+                                $("#step_"+hide_id).hide();
+                                $("#step_"+show_id).show();
+                                if (window_scroll.length > 0) {
+                                    $("html, body").animate({
+                                    scrollTop: window_scroll.offset().top
+                                    }, 300); // Animation duration in milliseconds (e.g., 1000 = 1 second)
+                                }
+                             }else{
+                                return check_pass;
+                             }
+                            
+          
+                        }else if(step2_a_result == 2){
+                            alert("{$lng->alert_c_p_num_already}");
+                        }else{
+                            alert('{$lng->alert_fix_error}');
+                        }
+                    
+                    });
+                    break;
+        
+                    case 3:
+                   // Basic Adress Step
+                     var state = array[0];
+                     var dis = array[1];
+                     var sub_dis = array[2];
+                     var ar = array[3];
+                     var pin = array[4];
+                     var dairy_name = array[5];
+                     var distribute_type = array[6];
+                     var loc = array[7];
+                     
+                      if(step3(state,dis,sub_dis,ar,pin,dairy_name,distribute_type,loc)==1){
+                        $("#item_"+hide_id).removeClass('current-item');
+                        $("#item_"+show_id).addClass('current-item');
+                        $("#step_"+hide_id).hide();
+                        $("#step_"+show_id).show();
+                        if (window_scroll.length > 0) {
+                            $("html, body").animate({
+                            scrollTop: window_scroll.offset().top
+                            }, 300); // Animation duration in milliseconds (e.g., 1000 = 1 second)
+                        }
+                      }
+                      $("#item_"+hide_id).removeClass('current-item');
+                        $("#item_"+show_id).addClass('current-item');
+                        $("#step_"+hide_id).hide();
+                        $("#step_"+show_id).show();
+                    break;
+        
+                    case 4:
+                    var p_number = $("#p_number_id").val();
+        
+                    if ($.isNumeric(p_number) === false || p_number.length < 10 || p_number.length > 10 ){
+                        alert('{$lng->pnumber_validate}');
+                        
+                    }else if ($("#show-photo").is(':empty') || ($("#show-photo img").attr("src") === undefined || $("#show-photo img").attr("src") === "")){
+                        alert('profile pic is Empty please capture your photo');
+                    }else{
+                        $("#item_"+hide_id).removeClass('current-item');
+                        $("#item_"+show_id).addClass('current-item');
+                        $("#step_"+hide_id).hide();
+                        $("#step_"+show_id).show();
+                        if (window_scroll.length > 0) {
+                            $("html, body").animate({
+                            scrollTop: window_scroll.offset().top
+                            }, 300); // Animation duration in milliseconds (e.g., 1000 = 1 second)
+                        }
+                    }
+                    
+                    break;
+        
+                    case 5:
+                    $("#item_"+hide_id).removeClass('current-item');
+                     $("#step_"+hide_id).hide();
+                     $("#step_"+show_id).show();
+                     if (window_scroll.length > 0) {
+                            $("html, body").animate({
+                            scrollTop: window_scroll.offset().top
+                            }, 300); // Animation duration in milliseconds (e.g., 1000 = 1 second)
+                        }
+                    break;
+        
+                }
+                
+            }
+            function pre_btn(hide_id,show_id){
+                switch(hide_id){
+                    case 1:
+                    // $("#item_"+hide_id).removeClass('current-item');
+                    // $("#item_"+show_id).addClass('current-item');
+                    // $("#step_"+hide_id).hide();
+                    // $("#step_"+show_id).show();
+                    break;
+                    case 2:
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    break;
+                    case 3:
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    break;
+                    case 4:
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    break;
+                    case 5:
+                    $("#item_"+hide_id).removeClass('current-item');
+                    $("#item_"+show_id).addClass('current-item');
+                    $("#step_"+hide_id).hide();
+                    $("#step_"+show_id).show();
+                    break;
+                }
+                
+            }
+        
+          function check_step1(type,limit){
+            var fname = $("#fname_id").val();
+            var lname = $("#lname_id").val();
+            var gender = $("#gender_id").val();
+            var date = $("#day_id").val();
+            var month = $("#month_id").val();
+            var year = $("#year_id").val();
+            if(type==1){
+                var fname = fname.trim();  // Remove leading and trailing spaces
+                //var isValid = /^[a-zA-Z]+(\s+[a-zA-Z]+)*$/.test(fname); // Check if fname contains only alphabets and optional trailing spaces
+                var isValid = /^[a-zA-Z]+\s*$/.test(fname.trim()); // Check if fname contains only alphabets and optional trailing spaces
+            
+            if (fname.length > limit || fname.length < 3) {
+                $(this).css('border', '1px solid red');
+                $('#fname_error').text('{$lng->fname_min_max}');
+                return 0;
+            } else if (!isValid) {
+                $(this).css('border', '1px solid red');
+                $('#fname_error').text('{$lng->fname_contain}');
+                return 0;
+            } else if(fname != ''){
+                $(this).css('border', '');
+                $('#fname_error').text('');
+                return 1;
+              }
+            }else if(type==2){
+                var lname = lname.trim(); // Remove leading and trailing spaces
+                // var isValid = /^[a-zA-Z]+(\s+[a-zA-Z]+)*$/.test(lname);
+                var isValid =  /^[a-zA-Z]+(\s[a-zA-Z]+)*$/.test(lname.trim());
+            if (lname.length > limit || lname.length < 3) {
+                $(this).css('border', '1px solid red');
+                $('#lname_error').text('{$lng->lname_min_max}');
+                return 0;
+            } else if (!isValid) {
+                $(this).css('border', '1px solid red');
+                $('#lname_error').text('{$lng->lname_contain}');
+                return 0;
+            } else if(lname == '') {
+                $(this).css('border', '')
+                $('#lname_error').text('');
+                return 1;
+            } else if($.trim(fname) === $.trim(lname)){
+                $(this).css('border', '1px solid red');
+                $('#lname_error').text("{$lng->fname_lname_same}");
+            }else{
+                $(this).css('border', '')
+                $('#lname_error').text('');
+            }
+            }
+            if(gender,date,month,year !== ''){
+                return 1;
+            }else{
+                return 0;
+            }
+          }
+
+                function check_password(password, fname, p_num, border, error_id) {
+                if (!password || password.length < 6) {
+                    $(border).css('border', '1px solid red');
+                    $(error_id).text('{$lng->pass_length}');
+                } else if (password.includes(fname)) {
+                    console.log('name');
+                    $(border).css('border', '1px solid red');
+                    $(error_id).text('{$lng->pass_name}');
+                } else if (password.includes(p_num)) {
+                    console.log('p_num');
+                    $(border).css('border', '1px solid red');
+                    $(error_id).text('{$lng->pass_p_number}');
+                } else {
+                    $(border).css('border', '');
+                    $(error_id).text('');
+                    return 1;
+             }
+         }
+
+
+          function check_step2(type,max){
+            var deferred = $.Deferred();
+            var p_number = $("#p_number_id").val();
+            var uname = $("#uname_id").val();
+            var u_id = $("#uname_id");
+            var p_id = $("#p_number_id");
+            var p_error = $("#p_number_error");
+            var p_available = $("#p_num_true");
+            var u_error = $("#uname_error");
+            if(type==1){
+                    if ($.isNumeric(p_number) === false) {
+                    $(p_id).css('border', '1px solid red');
+                    $(p_error).text('{$lng->p_num_numeric}');
+        
+                  }else if(p_number.length < 10){
+                    $(p_available).addClass('d-none');
+                    $(p_id).css('border', '1px solid red');
+                    $(p_error).text('{$lng->p_num_less}');
+        
+                  }else if(p_number.length > 10){
+                    $(p_available).addClass('d-none');
+                  $(p_id).css('border', '1px solid red');
+                  $(p_error).text('{$lng->p_num_greater}');
+                }else{
+                    $.ajax({
+                        url:  baseUrl+"/request/api.php?query=reg_mmen&b=p_num",
+                        type: "POST",
+                        data: {p_number:p_number},
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data){
+                            if(data != 1 && data != 2){
+                             $(p_id).css('border', '1px solid red');
+                             $(p_available).addClass('d-none');  
+                             $(p_error).text(data);
+                             deferred.resolve(0);
+                            }else if(data == 2){
+                                $(p_id).css('border', '2px groove green');
+                                // $(p_available).removeClass('d-none');   
+                                $(p_error).text("{$lng->p_num_already_mmen}");
+                                deferred.resolve(2);
+                            }else{
+                                deferred.resolve(1);
+                            }
+                        },
+                    });
+        
+                    $(p_id).css('border', '');
+                    (p_error).text('');
+                }
+                // deferred.promise().done(function(result) {
+                //     console.log(result);
+                // });
+                return deferred.promise();   
+          
+            }else if(type==2){
+        
+            if (uname.length > max || uname.length < 3) {
+                $(u_id).css('border', '1px solid red');
+              $(u_error).text('{$lng->uname_max_less}');
+        
+             }else if(/^_+$/.test(uname)){
+                $(u_id).css('border', '1px solid red');
+              $(u_error).text('{$lng->uname_underscore}');
+        
+            }else if (!/^[a-zA-Z0-9_]+$/.test(uname)) {
+                $(u_id).css('border', '1px solid red');
+              $(u_error).text('{$lng->uname_contain_js}');
+        
+            }else if (/^\d+$/.test(uname)) {
+              $(u_id).css('border', '1px solid red');
+              $(u_error).text('{$lng->uname_numeric_js}');
+        
+           }else{
+            $.ajax({
+                        url:  baseUrl+"/request/api.php?query=reg_mmen&b=uname",
+                        type: "POST",
+                        data: {uname:uname},
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data){
+                            if(data != 1){
+                             $(u_id).css('border', '1px solid red');   
+                             $(u_error).html(data);
+                            }else{
+                                $(u_id).css('border', '');   
+                                $(u_error).html('<font color="green"><b>{$lng->uname_available}</b></h3>');
+                                deferred.resolve(1);
+                            }
+                        },
+                    });
+                }        
+          return deferred.promise();
+          }
+        
+        
+            }
+        
+        
+        // create_cookie("waiting_time", "5", 5);
+        
+        
+        // var waitingTime = parseInt(getCookie("waiting_time"));
+        
+        function getWaitingTime(element) {
+          const waitingTime = parseInt($(element).attr('waiting_time'));
+          if (!waitingTime || waitingTime <= 0) {
+            return false;
+          }
+          return waitingTime;
+        }
+        
+        function send_otp(resend_otp){
+          var waiting_time = getWaitingTime(resend_otp);
+          if (waiting_time == false) {
+            if (!$("#show-photo").is(':empty') && ($("#show-photo img").attr("src") !== undefined && $("#show-photo img").attr("src") !== "")) {
+                process_otp("#p_number_id", "#uname_id");
+                $(resend_otp).addClass('disabled');
+            }   
+        }
+        
+        }
+        function process_otp(num,name) {
+        
+            if (!navigator.onLine) {
+              var msg = "{$lng->no_internet}";
+              var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+              $('#final-error').html(internet_error);
+              return false; // Abort the AJAX request
+            } else {
+              var loader_msg = '{$lng->ajax_process_msg}';
+              var loader = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+              $('#final-error').html(loader);
+        
+        
+           var p_num = $(num).val();
+           var uname = $(name).val();
+          $.ajax({
+            url: baseUrl+"/request/api.php?query=reg_mmen&b=otp_verification",
+            type: "POST",
+            cache: false,
+            data: {p_number: p_num,uname:uname},
+            dataType: 'json',
+            success: function(data) {
+                  waiting_time = 120;
+                if(data.return == true){
+                    $('.modal-message-axz').html("OTP sent to <b>"+p_num+".</b> Please wait 5 to 60 seconds.");
+                    console.log('true');
+                    sms_pop(5000);
+                    get_captcha();
+                    start_countdown(waiting_time);
+                }else if(data.return == false){
+                    $('.modal-message-axz').html("<font color='red'>Could not Sent message it is our fault Error: "+data.status_code+ "</font>");
+                     sms_pop(5000);
+                     get_captcha();
+                }else{
+                    alert('May be Phone Number or Username Empty')
+                    sms_pop(5000);
+                    get_captcha();
+                    start_countdown(waiting_time)
+                }
+                
+               
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            // Display the error code
+            console.log('Error code: ' + jqXHR.status);
+            },complete: function() {
+                $('#final-error').empty();
+                }
+          });
+        }
+        }
+        
+        function start_countdown(remaining) {
+            $('#resend_otp').attr('waiting_time', remaining);
+          var timerOn = true;
+          function timer() {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+        
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+            var resendText = "{$lng->resend_otp_after}";
+            resendText = resendText.replace('%s', m).replace('%s', s);
+            $('#resend_otp').text(resendText);
+        
+            remaining -= 1;
+        
+            if (remaining >= 0 && timerOn) {
+              setTimeout(function() {
+                timer();
+              }, 1000);
+            //   if(remaining_old > remaining){
+            //     new_remaining = remaining_old - remaining;
+            //   }
+              return;
+            }
+            $('#resend_otp').removeClass('disabled');
+            $('#resend_otp').html('<b>{$lng->resend_otp}</b>');
+            $('#resend_otp').attr('waiting_time', 0);
+        
+          }
+        
+          timer();
+        }
+        
+        
+        
+        
+        
+        function getCookie(name) {
+          var cookieArr = document.cookie.split(";");
+          for (var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+            if (name == cookiePair[0].trim()) {
+              return decodeURIComponent(cookiePair[1]);
+            }
+          }
+          return null;
+        }
+        
+        
+          function setCookie(name, value, add_minutes) {
+          var expiry = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), new Date().getUTCHours(), new Date().getUTCMinutes() + add_minutes, new Date().getUTCSeconds()));
+          document.cookie = name + "=" + value + "; expires=" + expiry.toUTCString() + "; path=/";
+        }
+        
+        function sms_pop(duration) {
+            var modal = $(".modal-axz");
+            modal.show();
+            setTimeout(function() {
+                
+                modal.removeClass("fade-out");
+                modal.removeClass("slide-up");
+                setTimeout(function() {
+                    modal.addClass("fade-out");
+                    setTimeout(function() {
+                        modal.addClass("slide-up");
+                        setTimeout(function() {
+                            modal.hide();
+                        }, 300);
+                    }, 300);
+                }, duration);
+            }, 0);
+        }
+        function get_captcha(){
+                    $('#captcha_id').css('background-image', 'url(' + baseUrl + '/captcha/captcha.php?' +  new Date().getTime()+ ')');
+                }
+        
+        
+        
+            </script>        

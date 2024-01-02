@@ -1,0 +1,63 @@
+<div class="row-body{$content_class}">
+	<div class="grid-container">
+		<div class="grid-content" id="info">
+			<div class="page-container">
+				<div class="page-content">
+					<div class="page-header {$class}">{$title}</div>
+					<div class="page-inner">
+						<div class="row">
+                          
+                                <p id="description">{$description}</p>
+            <center><span class="logout_btn"><a href="{$logout_url}">Logout</a></span> </center>                
+                              
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-sidebar">
+			{$sidebar}
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+  var charLimit = 500; // Character limit to show full content
+
+  $(".row").each(function() {
+    var content = $(this).find("#description");
+    var fullContent = content.html(); // Store the full content in a variable
+    var truncatedText = fullContent.substr(0, charLimit);
+
+    if (fullContent.length > charLimit) {
+      content.addClass("collapsed");
+      content.html(truncatedText + "<span class='read-more'>...Read All</span>");
+    }
+
+    content.data("full-content", fullContent); // Store the full content in jQuery data
+  });
+
+  $(".row").on("click", ".read-more", function() {
+    var content = $(this).closest(".row").find("#description");
+    content.removeClass("collapsed");
+    content.html(content.data("full-content")); // Retrieve the full content from jQuery data
+    $(this).hide();
+    content.append("<span class='read-less'>...Show Less</span>");
+  });
+
+  $(".row").on("click", ".read-less", function() {
+    var content = $(this).closest(".row").find("#description");
+    var truncatedText = content.data("full-content").substr(0, charLimit);
+    content.addClass("collapsed");
+    content.html(truncatedText + "<span class='read-more'>...Read All</span>");
+    $(this).remove();
+  });
+});
+
+
+
+
+
+
+
+</script>

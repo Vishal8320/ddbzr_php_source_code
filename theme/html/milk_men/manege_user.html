@@ -1,0 +1,221 @@
+<div class="row-body">
+    <div class="grid-container">
+    <div class="grid-content">
+        
+        <div class="message-container">
+                <div class="message-form-content">
+                    <div class="message-form-header">
+                        <div class="message-form-user">{$profile_pic}</div>
+                        <!-- You have had prior associations with all the customers with whom you engaged in milk buying or selling transactions. -->
+                        Your all Milk Customers.
+                        <div class="message-form-private"></div>
+                        <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                        
+                    </div>
+                    <div id="error"></div>           
+                    
+                        <div class='message-form-inner'>
+                            <div class="message-form-des">
+
+                          <!-- Here All customer of Milkmen       -->
+                           <div class="table-data" id="table-data">    
+                            <table id="load_customers">
+                             <tbody>
+                                   <tr>
+                                    <th>Sr N.</th>
+                                    <th>Profile Pic</th>
+                                  <th>Name</th>
+                                  <th>Username</th>
+                                  <th>Phone</th>
+                                  <th>Locality</th>
+                                  <th>Action</th>
+                                </tr> 
+                                </tbody>
+                                          
+                            </table>
+                            <div id="preloader" class="d-none">
+                                <center><span class='loader-circle'></span></center><div class='loader-title' style="margin:5px auto;">Loading...</div>
+                                 </div> 
+                            <div id="no_more_data" class="no_more_data d-none">No More Data</div> 
+                           </div>
+
+                           <!-- Here Search Result -->
+                           <div class="search-data d-none" id="search-data">    
+                            <table id="single_customer">
+                             <tbody>
+                                   <tr>
+                                    <th>Profile Pic</th>
+                                  <th>Name</th>
+                                  <th>Username</th>
+                                  <th>Phone</th>
+                                  <th>Locality</th>
+                                  <th>Action</th>
+                                </tr> 
+                                </tbody>
+                                          
+                            </table>
+                            <div id="single_preloader" class="preloader-center preloader d-none"></div>
+                            <div id="single_no_more_data" class="no_more_data d-none">No More Data</div> 
+                           </div>
+
+
+                            <div class="modal-container d-none" id="dialog-box" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-inner" style="text-align: center;">
+                                Data is Loaded For 1 specific User:
+                                    <div class="modal-title">Here Customer Name:</div>
+                                </div>
+                                
+                                <div class="modal-inner">
+                                <div id="calculate_table"></div>    
+                                <div id="calculation"></div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    </div>
+                    
+                </div>
+            
+        
+    
+    
+    </div>
+    
+    <div class="grid-sidebar">
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">Search Your Customer</div>
+        
+        <!-- <div class="sidebar-inner" style="text-align: center;"><input type="text" id="search_val" name="p_num" placeholder="{$lng->c-phone_num}"></div>
+        <center><button type="submit" onclick="search()" style="margin:10px auto;" name="crt-acc">Search</button></center> -->
+        <div class="sidebar-inner">
+              <input type="text" id="search_terms" name="search_val" onkeyup="get_suggestion('customer_','#search_history','{$user_id}',this)" placeholder="Username or Phone Number"autocomplete="off">
+              <center><button type="submit" onclick="search('#search_terms')" >Search</button></center>
+          </div>
+          <div id="search_history" style="margin: -9px 45px 0; position: fixed;z-index: 777;"></div>
+          
+    </div></div>
+    
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">All Customers who has taken or given you milk.</div>
+        <div class="sidebar-inner" id="count_customers"></div>
+    </div></div>
+    
+    {$sidebar1}
+    </div>
+    </div>
+    </div>
+    <script>
+
+        
+         $(document).ready(function() {
+            
+             var load_flag = 0;
+             var finished = false;
+             loadmore(load_flag);
+           
+
+             function loadmore(start){
+                if(finished)
+                return;
+                jQuery.ajax({
+                    url: baseUrl+"/request/api.php?query=manage_customers",
+                    data: 'start='+start,
+                    type: 'post',
+                    cache: false,
+                    beforeSend: function() {
+                            // Show a message here
+                            $('#preloader').removeClass('d-none');
+                       },
+                    success: function(data){
+                        if(data == 'finished'){
+                            finished = true;
+                            $('#no_more_data').toggleClass('d-none');
+                        }else{
+                        jQuery('#load_customers').append(data);
+                        
+                        
+                        
+                        }
+                        
+                    },
+                    complete: function() {
+                        $('#preloader').fadeOut();
+                    }
+
+                });
+             }
+
+             $('.table-data').on('scroll', function() {
+                    
+                    if ( Math.ceil( $(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight) {
+                        load_flag +=10;
+                     loadmore(load_flag);
+                    }
+                });
+
+
+
+/*
+            $(".table-data").scroll(function() {
+
+                 var calculate = Math.ceil(scrolltop + innerHeight);
+                
+                console.log(calculate + ' >= ' +scrollHeight);
+            });
+*/
+            // this code hard to modify by me
+
+            //   $('.table-data').on('scroll', function() {
+                    
+            //         if ( Math.ceil( $(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight) {
+            //         console.log("End of scroll");
+                     
+            //         }
+            //     });
+               
+
+      
+
+
+               
+
+          
+     });
+       
+
+ 
+    
+
+    function search(search,e){
+
+        var search = $(search).val();
+        $.ajax({
+            url: baseUrl+"/request/api.php?query=manage_customers&b=search",
+            type: "POST",
+            data: {search_val : search},
+            dataType : "json",
+            cache: false,
+            success: function(data) {
+                $('#table-data').hide();
+                $('#search-data').removeClass('d-none');
+
+                $('#single_customer  tbody').after(data.row);
+                $('#single_no_more_data').addClass('d-none');
+                $('#search_history').html('');
+                
+            }
+
+             });
+   }
+   function milk_menu(id, type, close) {
+	// Close 1: Close the context menu
+	// Type 1: Open context for messages
+	// Type 2: Open sidebar context for groups
+	// Type 3: Open sidebar context for pages
+	// Type 4: Open context for comments
+	
+}
+    </script>

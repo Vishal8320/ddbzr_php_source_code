@@ -1,0 +1,1002 @@
+<div class="row-body">
+    <div class="grid-container">
+    <div class="grid-content">
+        
+        <div class="message-container">
+                <div class="message-form-content">
+                  <form method="post">
+                    <div class="message-form-header">
+                        <div id="view-milk-header"></div>
+
+                        <div class="message-form-private"></div>
+
+                        <div class="message-loader" style="visibility: hidden"><div class="preloader"></div></div>
+                       
+                    </div>
+                    <div class="date-div">
+                    <!-- date filter code start -->
+                      <div class="dt">
+                      <div class="date-input-wrapper">
+                        <label for="from_date">From:</label>
+                        <input type="text" class="date" id="from_date" name="from-date" value="{$past_date}" required="required"/>
+                      </div>
+                      <div class="date-input-wrapper">
+                        <label for="to_date">To:</label>
+                        <input type="text" class="date" id="to_date" name="to-date" value="{$current_date}" required="required"/>
+                      </div>
+                      <div class="button-8" id="total_amount" onclick="total_amount('#total_amount_data','#total_amount')"><span class="icon-left"></span>View total Amount<span class="icon-right"></span></div>
+                      </div>
+                    <!-- date fiter code end -->
+                    </div>
+                    
+                <div class ="view-milk-btn">
+                    <button type="button" role="switch" name="is_cleared" id="is_cleared" aria-checked="false" onclick="toggleButtonSwitch('is_cleared')">
+                      <div class="switch-adjust">
+                        <span class="label">Cleared:</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="36">
+                          <rect class="container" x="1" y="1" width="34" height="18" rx="4"></rect>
+                          <rect class="off" x="4" y="4" width="12" height="12" rx="4"></rect>
+                          <rect class="on" x="20" y="4" width="12" height="12" rx="4"></rect>
+                        </svg>
+                        <span class="on" aria-hidden="true">On</span>
+                        <span class="off" aria-hidden="true">Off</span>
+                        </div>
+                      </button>
+                      
+                <select class="milk-type" name="milk-type" id="milk-type">
+                  <option value="1">bought</option>
+                  <option value="2">sold</option>
+                </select>
+                <button name="filter-btn" id="apply-filter" class="filter-btn" role="button">Apply Filter</button>
+                <!-- <div class="filter_btn"></div> -->
+                </div>
+
+                <!-- Now Here total Amount Data is Loaded -->
+                <div id="total_amount_data" style="display:none">
+                  <div class='message-form-inner'>
+                    <div class="message-form-des">
+                    <div class="total-table-data" id="total-table-data">
+                      <table id="load_total_record">
+                        <thead>
+                            <tr>
+                                <th>Record</th>
+                                <th>Rupees(&#8377;)</th>
+                                <th>Quantity(ltr)</th>
+                            </tr>
+                           
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                          </table>
+                          
+                    </div>
+
+                     
+
+
+
+                    <!-- here modal box -->
+                    <div class="modal-overlay-count" id="dialog-box" style="display: none">
+                      <div class="modal-container-view-milk modal-fix" id="dialog-box" role="dialog" aria-hidden="true">
+                        
+                        <div class="modal-inner">
+                          confirmation:
+                          <span class="close-btn2" id="close-modal" onclick="remove_items_cal('#dialog-box')">Cls</span>
+                          <div class="modal-title1">We Confirm You Once Again</div>
+                        </div>
+                        <div id="success"></div>
+                          <div id="error"></div>
+                          <div class="message-form-des">
+                          <div id="confirmation"></div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    
+                    <!-- modal box end -->
+                    <div id="total_message"></div>
+                   
+                    
+                    <div class="page-input-history">The calculation cleared in the past has been shown through the table below.</div>
+                    <div id="history_cleared_total">
+                    
+                      <table id="load_cleared_history">
+                        <thead>
+                            <tr>
+                                <th>S.no</th>
+                                <th>Weight</th>
+                                <th>Total</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Cleared Date</th>
+                                <th>Cleared Time</th>
+                               
+
+                            </tr>
+                           
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                          </table>
+                          <div id="preloader-history" class="preloader-center preloader d-none"></div> 
+                    </div>
+                  </div> </div>
+                </div>
+
+                   <!-- Now Here Milk Data is Loaded -->
+                    <div id="milk_data" style="margin-top: 10px;">           
+                    
+                        <div class='message-form-inner'>
+                            <div class="message-form-des">
+                            <div class="table-data">    
+                            <table id="load_milk_data">
+                             <thead>
+                                   <tr>
+                                    <th>Sr N.</th>
+                                    <th>Type</th>
+                                    <th>DATE</th>
+                                    <th>time</th>
+                                  <th>DM RATE</th>
+                                  <th>FAT RATE</th>
+                                  <th>MACHINE FAT</th>
+                                  <th>WEIGHT</th>
+                                  <th>TOTAL</th>
+                                  <th>CLEAR?</th>
+                                  <th>Action</th>
+                                </tr> 
+                                </thead> 
+                                           
+                            </table>
+                            <div id="preloader" class="d-none">
+                            <center><span class='loader-circle'></span></center><div class='loader-title'>Loading...</div>
+                             </div> 
+                            </div>
+
+
+                             <!-- here modal box -->
+                      <div class="modal-overlay-count" id="edit-dialog-box" style="display: none">
+                        <div class="modal-container-view-milk modal-fix" id="edit-dialog-box" role="dialog" aria-hidden="true">
+                            <span class="close-btn2" id="close-modal" onclick="remove_items_cal('#edit-dialog-box')">Cls</span>
+                            <div class='modal-inner'>
+                              <b>Here Some Input Fileds:</b> 
+                                <div class='modal-title1'>You have Only Once Edit And Your Customers Can See Original & Edited Data</div>
+                            </div>
+                              <div id="edit-loader">
+                              </div>
+                              <div id="edit-success"></div>
+                              <div id="edit-error"></div>
+                              <div id="edit-dialog-content"></div>
+                            
+                          </div>
+                        </div>
+                      
+                      <!-- modal box end -->
+
+
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+            
+        
+    
+    
+    </div>
+    
+    <div class="grid-sidebar">
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">Search Your Customer</div>
+        
+        <div class="sidebar-inner"><input type="text" id="search_val" name="search_terms" onkeyup="get_suggestion('customer_','#search_history','{$user_id}',this)" placeholder="Username or Phone Number" autocomplete="off">
+          <div id="search_error" class="search_error"></div>
+        <center><button type="submit" onclick="search_view_milk('#search_val','#search_error')" style="margin:10px auto;" name="crt-acc">Search</button></center>
+        <div id="search_history" style="margin: -9px 45px 0; position: fixed;z-index: 777;"></div>
+        </div>
+    </div></div>
+    
+    <div class="sidebar-container widget welcome">
+        <div class="sidebar-content">
+        <div class="sidebar-header">All Customers who has taken or given you milk.</div>
+        <div class="sidebar-inner" id="count_customers"></div>
+    </div></div>
+    
+    {$sidebar1}
+    </div>
+    </div>
+    </div>
+<script>
+function about_customer(){
+  var c_id = get_cid();
+  if(c_id){
+
+    $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=manage_customers&b=about_customer",
+                data: {c_id:c_id},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+                  if(data){
+                    $('#view-milk-header').html(data);
+                  }
+                }
+              });
+  }
+}
+about_customer();
+function search_view_milk(search,error){
+    var val = $(search).val();
+    $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=manage_customers&b=search",
+                data: {search_val:val},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+                  if(data.c_id){
+                    // window.location.replace(data.url);
+                    liveLoad(data.url);
+
+                  }else{
+                    $(error).html(data.row);
+                  }
+                }
+              });
+
+  }
+              $(document).ready(function() {
+
+                $(function() {
+  $('input[name="from-date"]').daterangepicker({
+    // set the minimum year to 20 years ago
+    // minDate: moment().subtract(2, 'years'),
+    minDate: moment('2023-01-01'),
+    // set the maximum date to today's date
+    maxDate: moment(),
+    // set the date format
+    locale: {
+      format: 'DD-MM-YYYY'
+    },
+    // set the size of the datepicker
+    opens: 'center',
+    drops: 'down',
+    // startDate: moment('{$past_date}'),
+    // startDate: [
+    //   // moment('{$past_date}', 'DD-MM-YYYY'),
+    //   // moment('{$current_date}', 'DD-MM-YYYY')
+    //   moment($('input[name="from-date"]').val(), 'DD-MM-YYYY'),
+    //   moment($('input[name="to-date"]').val(), 'DD-MM-YYYY')
+    // ],
+    startDate: moment('{$past_date}'),
+    autoApply: false,
+    linkedCalendars: false,
+    showCustomRangeLabel: false,
+    singleDatePicker: true,
+  });
+});
+                $(function() {
+  $('input[name="to-date"]').daterangepicker({
+    // set the minimum year to 20 years ago
+    // minDate: moment().subtract(2, 'years'),
+    minDate: moment('2023-01-01'),
+    // set the maximum date to today's date
+    maxDate: moment(),
+    // set the date format
+    locale: {
+      format: 'DD-MM-YYYY'
+    },
+    // set the size of the datepicker
+    opens: 'center',
+    drops: 'down',
+    startDate: moment('{$current_date}'),
+    autoApply: false,
+    linkedCalendars: false,
+    showCustomRangeLabel: false,
+    singleDatePicker: true,
+    // ranges: {
+    //     'This Month': [moment().startOf('month'), moment().endOf('month')],
+    //     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+    //     'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
+    //     'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')],
+    //     'This Year': [moment().startOf('year'), moment().endOf('year')]
+    // }
+  });
+});
+
+
+
+
+
+
+
+                var load_flag = 0;
+                var finished = false;
+                var total_rows;
+                loadmore(load_flag);
+              
+              
+              $("#apply-filter").on("click",function(e){
+                $('#milk_data').show();
+                $('#total_amount_data').css('display', 'none');
+                $("#load_milk_data").find('tbody').each(function() {
+                  $(this).remove();
+                   });
+                
+                e.preventDefault();
+                load_flag = 0;
+                finished = false;
+
+                loadmore(load_flag);
+              });
+
+
+              
+
+
+              $('.table-data').on('scroll', function() {
+                   if ( Math.ceil( $(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight) {
+                     var finished = false;
+                     load_flag = load_flag + 10;
+                      //load_flag = $('#load_milk_data >tbody >tr').length;
+                    loadmore(load_flag);
+                    
+                   }
+               });
+
+             
+            function loadmore(start){
+              var past_date = jQuery("#from_date").val();
+              var current_date = jQuery("#to_date").val();
+              var isChecked = $('button[name="is_cleared"]').attr('aria-checked');
+              var milk_table = $("#milk-type").val();
+              var cId = get_cid();
+
+              var collect_data = {
+                start: start,
+                past_date:  past_date, 
+                current_date: current_date, 
+                isChecked: isChecked ,
+                milk_table: milk_table
+            };
+            var Data = $.param(collect_data);
+               if(finished)
+               return;
+               
+               jQuery.ajax({
+                   url: baseUrl+"/request/api.php?query=view-milk&c_id="+cId,
+                    // data: 'start='+start,
+                   data: Data,
+                   type: 'post',
+                   cache: false,
+                   beforeSend: function() {
+                           // Show a message here
+                           $('#preloader').removeClass('d-none');
+                      },
+                   success: function(data){
+                   
+                       
+                       if(!data.total_rows){
+                           finished = true;
+                           var check = isElementPresent("#load_milk_data >tbody");
+                           if(!check){
+                            var tbody = document.createElement('tbody');
+                            tbody.innerHTML = data.finished;
+                              
+                            $(tbody).insertAfter($("#load_milk_data >thead"));
+                           }
+                       }else{
+                        jQuery("#load_milk_data").append(data.rows);
+                       // console.log('next req row id '+ load_flag);
+                        total_rows = data.total_rows;
+                       }
+                       
+                 
+                   },
+                   complete: function() {
+                    $('#preloader').fadeOut();
+                  }
+
+               });
+            }
+
+           
+
+
+
+           
+
+            
+           
+              
+            });
+            function get_cid(){
+              var urlParams = {};
+                    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
+                      urlParams[key] = value;
+                    });
+                   var cId = urlParams['c_id'];
+                   return cId;
+            }
+            // function get_cid() {
+            //   var urlParams = new URLSearchParams(window.location.search);
+            //   console.log(urlParams);
+            //   var cId = urlParams.get('c_id');
+            //   return cId;
+            // }
+
+
+
+            var flag = 0;
+            var h_finished = false;
+            var h_total_rows;
+
+            function total_amount(id,disable_btn){
+              
+              // $(disable_btn).prop('disabled', true);
+              $(disable_btn).off('click');
+              $(disable_btn).addClass('disabled');
+
+              $('#milk_data').hide();
+              $(id).css('display', 'block');
+              total_table(1);
+              total_table(2);
+              
+
+              cleared_history(flag);
+              $('#history_cleared_total').on('scroll', function() {
+                
+                   if ( Math.ceil( $(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight) {
+                      flag = flag + 8;
+                      
+                   if(!h_finished){
+                    cleared_history(flag);
+                   }
+                    
+                   }
+               });
+              
+            }
+
+
+            function total_table(type){
+              var cId = get_cid();
+              if(type==1){
+                   $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=total_count",
+                data: {c_id:cId},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+              $("#load_total_record > tbody").html(data);
+
+                }
+              });
+            } if(type==2){
+              $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=total_count&b=head_message",
+                data: {c_id:cId},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+                  $("#total_message").html(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  console.log("Error: " + textStatus + " - " + errorThrown);
+                }
+                });
+            }
+
+            }
+
+            function cleared_history(start){
+
+              var cId = get_cid();
+
+              $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=total_count&b=cleared_history",
+                data: {c_id:cId,start:start},
+                beforeSend: function() {
+                           // Show a message here
+                           $('#preloader-history').removeClass('d-none');
+                           setTimeout(function() {
+                           $('#preloader-history').fadeOut();
+                           }, 5000);
+                      },
+                cache: false,
+                dataType: 'json',
+                success: function(response) {
+
+                  // if(response.rows > 0){
+                  //   $("#load_cleared_history > tbody").after(response.data);
+                  // }
+
+                       if(!response.rows){
+                           h_finished = true;
+                           var check = isElementPresent("#load_cleared_history > tbody");
+                           if(!check){
+                            var tbody = document.createElement('tbody');
+                            response_msg = response.finished;
+                            $(tbody).insertAfter($("#load_cleared_history >thead"));
+                           }
+                          }else{
+                        jQuery("#load_cleared_history > tbody").append(response.data);
+                        h_total_rows = response.rows;
+                       }
+                  
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  console.log("Error: " + textStatus + " - " + errorThrown);
+                }
+                });
+            }
+            function cleared_btn(id,cId){
+              $(id).css('display', 'block');
+        
+              $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=total_count&b=confirmation",
+                data: {c_id:cId},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+
+                  $('#confirmation').html(data);
+
+                    var successElement = $('#success');
+
+                    // Check if #success element already has HTML content
+                    if (successElement.html().trim() !== '') {
+                      successElement.html('<div class="failed-title">Record Already Submitted.</div>');
+                    }
+
+                
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  console.log("Error: " + textStatus + " - " + errorThrown);
+                }
+              });
+            }
+            function cleared_confirm(confirmation,success,cId){
+              $('#close-modal').show();
+              $('#success').empty();
+              $('#error').empty();
+              if (!navigator.onLine) {
+                            msg = "No Internet Connection";
+                            internet_error = " <svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                           $('#error').html(internet_error);
+                        return false; // Abort the AJAX request
+                        }else {
+              loader_msg = 'Please do not Exit while we process your Data';
+              loader = "<center><span class='loader-circle'></span></center><div class='loader-title'>"+loader_msg+"</div>";
+              $('#confirmation').html(loader);
+              $('#close-modal').hide();
+
+              $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=total_count&b=clear_record",
+                data: {c_id:cId},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+                  var responseData = JSON.parse(data.sms);
+                  var returnStatus = responseData.return;
+
+                  if(data.output){
+                    $('#close-modal').show();
+                 $('#success').html(data.output);
+                 total_table(1);
+                //  total_table(2);
+                 jQuery("#load_cleared_history > tbody").html("");
+                 cleared_history(flag);
+                  }else{
+                    $('#success').empty();
+                  }
+
+                  if(returnStatus === true){
+          
+                 $('#success').append("<div class='success-title'>SMS seccessfully Sent.</div>");
+                  }else{
+                    $('#error').html("<div class='failed-title'>Could Not send SMS.</div>");
+                  }
+                 
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  console.log("Error: " + textStatus + " - " + errorThrown);
+                },
+                complete: function() {
+                  $('#close-modal').show();
+                $('#confirmation').empty();
+              }
+              });
+            }
+          }
+            function edit_row(milk_table,milk_id){
+                var cId = get_cid();
+                $('#edit-dialog-box').show();
+                $('#edit-error').html('');
+                $('#edit-success').html('');
+                loader_msg = 'Loading... Please Wait';
+                processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>"+loader_msg+"</div>";
+                $('#edit-dialog-content').html(processing);
+
+                $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=view-milk&b=edit-milk&c_id="+cId,
+                data: {milk_table:milk_table,milk_id:milk_id},
+                cache: false,
+                dataType: 'json',
+                success: function(data) {
+                 $('#edit-dialog-content').html(data);
+                }
+              });
+            }
+
+            
+            function update_milk_data(milk_table,milk_type,id,to,print_id,error_id,loader,save_btn,items){
+              if (!navigator.onLine) {
+                            msg = "No Internet Connection";
+                            internet_error = " <svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                           $(error_id).html(internet_error);
+                        return false; // Abort the AJAX request
+                        }else {
+              $(error_id).html('');
+              $(print_id).html('');
+
+              loader_msg = 'Please do not Exit while we process your Data';
+              processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>"+loader_msg+"</div>";
+              $(loader).html(processing);
+              $('#close-modal').hide();
+              $(save_btn).hide();
+              var weight = $(items[1]).val();
+             if(milk_type == 'dm' ||milk_type == 'wishlist_dm'||milk_type == 'masterlist_dm' ){
+              var dm = $(items[0]).val();
+             }else{
+              var mf = $(items[0]).val();
+              var mfr =$(items[2]).val();
+             }
+
+              $.ajax({
+                method: 'post',
+                url: baseUrl+"/request/api.php?query=view-milk&b=update-milk",
+                data: {milk_table:milk_table,milk_type:milk_type,id:id,to:to,dm:dm,weight:weight,mf:mf,mfr:mfr},
+                cache: false,
+                async:true,
+                dataType: 'json',
+                success: function(data) {
+                  
+                  if(data.success){
+                   $(print_id).html(data.success);
+                   $('#edit-dialog-content').html('');
+                  }else if(data.failed){
+                    $(error_id).html(data.failed);
+                  }
+                },
+                  complete: function() {
+                  $('#close-modal').show();
+                  $(save_btn).show();
+                   $(loader).empty();
+              }
+              });
+            }
+            }
+
+            // modal overlay
+            $(document).on("click",'.modal-overlay',function(event) {
+              if (event.target === this) {
+              $(this).remove();
+              }
+            });
+            $(document).on("click",'.modal-overlay2',function(event) {
+              if (event.target === this) {
+              $(this).hide();
+              }
+            });
+            function remove_items(id){
+              $('.modal-overlay-update').remove();
+            }
+            // checking direct milk and validate it
+
+            function check_dm(val, min, max, error_id,button) {
+              val = $(val).val();
+              var $button = $(button);
+              var result = check_inputs(1,val,min,max);
+              if(result == 1){
+                $(error_id).removeClass('d-none');
+                $(error_id).text("Minimum Direct Milk Rate "+min+" Maximum "+max);
+                    $button.css({"opacity":"0.5","cursor":"not-allowed"});
+                    $button.prop("disabled", true);
+
+              }else{
+                $(error_id).addClass('d-none');
+               if ($button.prop("disabled") && $button.attr("style")) {
+                     $button.removeAttr("disabled");
+                     $button.removeAttr("style");
+                }
+
+                
+              }
+          }
+            function check_mfr(val, min, max, error_id,button) {
+              val = $(val).val();
+              var $button = $(button);
+              var result = check_inputs(3,val,min,max);
+              if(result == 1){
+                $(error_id).removeClass('d-none');
+                $(error_id).text("Minimum Fat Rate "+min+".0 Maximum "+max+".0");
+                    $button.css({"opacity":"0.5","cursor":"not-allowed"});
+                    $button.prop("disabled", true);
+
+              }else if(result == 2){
+                $(error_id).removeClass('d-none');
+                $(error_id).text("After Decimal Point only 1 Digit allowed.");
+                $button.css({"opacity":"0.5","cursor":"not-allowed"});
+               $button.prop("disabled", true);
+              }else{
+                $(error_id).addClass('d-none');
+               if ($button.prop("disabled") && $button.attr("style")) {
+                     $button.removeAttr("disabled");
+                     $button.removeAttr("style");
+                }
+
+                
+              }
+          }
+            function check_mf(val, min, max, error_id,button,print_id,mf,weight) {
+              val = $(val).val();
+              var $button = $(button);
+              var result = check_inputs(3,val,min,max);
+              if(result == 1){
+                $(error_id).removeClass('d-none');
+                $(error_id).text("Minimum Fat "+min+".0 Maximum "+max+".0");
+                    $button.css({"opacity":"0.5","cursor":"not-allowed"});
+                   $button.prop("disabled", true);
+
+              }else if(result == 2){
+                $(error_id).removeClass('d-none');
+                $(error_id).text("After Decimal Point only 1 Digit allowed.");
+                $button.css({"opacity":"0.5","cursor":"not-allowed"});
+               $button.prop("disabled", true);
+              }else{
+                $(error_id).addClass('d-none');
+               if ($button.prop("disabled") && $button.attr("style")) {
+                    $button.removeAttr("disabled");
+                     $button.removeAttr("style");
+                }
+
+                
+              }
+          }
+
+          function check_weight(val,min,max,error_id,button){
+            val = $(val).val();
+            var $button = $(button);
+
+            var result = check_inputs(2,val,min,max);
+            
+            if(result == 1){
+              $(error_id).removeClass('d-none');
+                $(error_id).text("Number is less than "+min+"."); // display the error message
+                $button.css({"opacity":"0.5","cursor":"not-allowed"});
+               $button.prop("disabled", true);             
+            }else if(result == 2){
+              $(error_id).removeClass('d-none');
+                $(error_id).text("Number has more than 3 digits after decimal point.");
+                $button.css({"opacity":"0.5","cursor":"not-allowed"});
+               $button.prop("disabled", true);
+            }else if(result == 3){
+              $(error_id).removeClass('d-none');
+                $(error_id).text("Number is greater than "+max+".");
+                $button.css({"opacity":"0.5","cursor":"not-allowed"});
+                $button.prop("disabled", true);
+            }else{
+              $(error_id).addClass('d-none');
+                $(error_id).text("");
+                if ($button.prop("disabled") && $button.attr("style")) {
+                    $button.removeAttr("disabled");
+                     $button.removeAttr("style");
+                }
+            }
+
+          }
+
+         function calculate_inputs(type,print_id,dm,mf,weight){
+          // type 1 checking direct milk
+          // type 2 checking milk fat
+          weight = $(weight).val();
+          dm = $(dm).val();
+          mf = $(mf).val();
+
+          if(weight != ''){
+            if(type == 1){
+              if(dm != ''){
+                var total = formtDecimal(dm*weight);
+                if(isIdUsedInInput(print_id) == 1){
+                  $(print_id).val(total);
+                }else{
+                  $(print_id).text(total);
+                }
+              }
+              return false;
+              }else{
+                // code for milk fat
+              }
+            }
+            return false;
+          }
+  
+          function do_total(type,items,check_items,print_id){
+
+            if(type == 'dm' || type == 'wishlist_dm' || type == 'masterlist_dm'){
+             dm = $(items[0]).val();
+             weight = $(items[1]).val();
+
+             dm_min = check_items[0];
+             dm_max = check_items[1];
+             weight_min = check_items[2];
+             weight_max = check_items[3];
+
+             var new_dm, new_weight;
+             var calculate, total;
+             // checking weight
+             checking_weight = check_inputs(2,weight,weight_min,weight_max);
+             if(checking_weight==0){
+              new_weight = weight;
+             }
+             // checking direct milk 
+             checking_dm = check_inputs(1,dm,dm_min,dm_max);
+             if(checking_dm==0){
+              new_dm = dm;
+             }
+             // calculate total
+
+             if(new_dm,new_weight){
+                calculate = new_dm*new_weight;
+                 total = formatDecimal(calculate);
+             }
+             // print result
+             if(total){
+              $(print_id).text('₹ '+total);
+            }else{
+              $(print_id).text('May be Some fields Are Empty or Invalid');
+            }
+
+
+            }else if(type == 'mf'){  // code if milk by fat rate
+              weight = $(items[0]).val();
+              mf = $(items[1]).val();
+              mfr = $(items[2]).val();
+
+             weight_min = check_items[0];
+             weight_max = check_items[1];
+             mf_min = check_items[2];
+             mf_max = check_items[3];
+             mfr_min = check_items[4];
+             mfr_max = check_items[5];
+
+             var new_weight,new_mf,new_mfr;
+
+            checking_weight = check_inputs(2,weight,weight_min,weight_max);
+             if(checking_weight==0){
+              new_weight = weight;
+             }
+            
+            checking_mf = check_inputs(3,mf,mf_min,mf_max);
+             if(checking_mf==0){
+              new_mf = mf;
+             }
+            checking_mfr = check_inputs(4,mfr,mfr_min,mfr_max);
+             if(checking_mfr==0){
+              new_mfr = mfr;
+             }
+               // code started
+          var calculate;
+          var total;
+         if(new_mfr,new_weight,new_mf) {
+                 calculate = new_mf*new_weight*new_mfr;
+                 total = formatDecimal(calculate);
+                
+            }
+            if(total){
+              $(print_id).text('₹ '+total);
+
+            }else{
+              $(print_id).text('May be Some fields Are Empty or Invalid');
+            }
+
+            }
+          }
+
+
+        function check_inputs(type,val,min,max){
+            // type 1 checking direct Milk Rate Value
+            // type 2 checking Weight
+            // type 3 checking Fat Recieve from Machine
+            // type 4 checking Fat Rate
+
+            // dm = $(dm).val();
+            // mf = $(mf).val();
+            // mfr = $(mfr).val();
+            // weight = $(weight).val();
+
+           if(type == 1){
+                if(val < min || val > max) {
+                return 1;
+                }else{
+                    return 0;
+                }
+            }else if(type == 2){
+                if (val < min) {
+                    return 1;
+                }else if (val <= max) {
+                if ((val % 1 === 0) || ((val.toString().split('.')[1] || []).length <= 3)) {
+                    // number is not greater than 500 and has no more than 3 digits after the decimal point
+                    return 0;
+                } else  {
+                    // number have more digit after decimal point
+                    return 2;
+                }
+                } else {
+                    // greater then 500 
+                    return 3;
+                }
+            }else if(type == 3){
+            //     var decimalPlaces = (val.split('.')[1] || '').length;
+                if (val < min || val > max) {
+                    return 1;
+                }
+
+                var decimalIndex = val.indexOf('.');
+                if (decimalIndex >= 0) {
+                    var decimalPlaces = val.substring(decimalIndex + 1).length;
+                    if (decimalPlaces > 1) {
+                        return 2; // Decimal point is present and has more than 1 digit
+                    }
+                }
+                return 0; // Decimal point is present and has at most 1 digit
+
+            }else if(type == 4){
+                var decimalPlaces = (val.split('.')[1] || '').length;
+                if (val < min || val > max || decimalPlaces > 1) {
+                    return 1;
+                } else {
+                    return 0;
+             } 
+            }
+            }
+
+        function formatDecimal(value) {
+            if (!isNaN(parseFloat(value)) && parseFloat(value) % 1 !== 0) { // Check if value is a decimal number
+                var decimalPlaces = value.toString().split(".")[1].length; // Get the number of decimal places
+                if (decimalPlaces > 2) { // Check if there are more than 2 decimal places
+                value = parseFloat(value).toFixed(2); // Round the value to 2 decimal places
+                }
+            }
+            return value;
+            }   
+ 
+
+
+
+
+
+  function isElementPresent(selector) {
+    
+  const element = $(selector).length;
+ 
+  return Boolean(element);
+}
+
+
+
+
+
+
+</script>

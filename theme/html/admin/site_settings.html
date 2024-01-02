@@ -1,0 +1,228 @@
+{$message}
+<form action="{$url}/index.php?a=admin&b=site_settings" method="post" enctype="multipart/form-data">
+<div class="page-inner pt-0 pb-0">
+	<div class="edit-menu">
+		<!-- <div class="edit-menu-item edit-menu-item-active" id="edit-general">{$lng->general_link}</div>
+		<div class="edit-menu-item" id="edit-limits">{$lng->limits}</div>
+		<div class="edit-menu-item" id="edit-emails">{$lng->emails}</div> -->
+		<div class="edit-menu-item edit-menu-item-active" id="edit-general" onclick="changeTab(this,'.edit-general',['.edit-general', '.edit-limits', '.edit-emails'])">{$lng->general_link}</div>
+<div class="edit-menu-item" id="edit-limits" onclick="changeTab(this,'.edit-limits',['.edit-general', '.edit-limits', '.edit-emails'])">{$lng->limits}</div>
+<div class="edit-menu-item" id="edit-emails" onclick="changeTab(this,'.edit-emails',['.edit-general', '.edit-limits', '.edit-emails'])">{$lng->emails}</div>
+	</div>
+</div>
+<div class="edit-general" style="display: block">
+	<div class="page-inner pt-0">
+		{$token_input}
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->title}</div>
+			<div class="page-input-content">
+				<input type="text" name="title" value="{$current_title}">
+				<div class="page-input-sub">{$lng->admin_sub_title}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->logo}</div>
+			<div class="page-input-content">
+				<input type="file" name="logo">
+				<div class="page-input-sub">{$lng->admin_sub_logo}</div>
+			</div>
+		</div>
+	</div>
+	<div class="message-divider"></div>
+	<div class="page-inner">
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->admin_ttl_timezone}</div>
+			<div class="page-input-content">
+				<select name="timezone">
+					{$timezone_list}
+				</select>
+				<div class="page-input-sub">{$lng->admin_sub_timezone}</div>
+			</div>
+		</div>
+	</div>
+	<div class="message-divider"></div>
+	<div class="page-inner">
+		
+	</div>
+	<div class="message-divider"></div>
+	<div class="page-inner">
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->admin_ttl_permalinks}</div>
+			<div class="page-input-content">
+				<select name="permalinks">
+					<option value="0" {$permaoff}>{$lng->off}</option>
+					<option value="1" {$permaon}>{$lng->on}</option>
+				</select>
+				<div class="page-input-sub">{$lng->admin_sub_permalinks}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->admin_ttl_captcha}</div>
+			<div class="page-input-content">
+				<select name="captcha">
+					<option value="0" {$off}>{$lng->off}</option>
+					<option value="1" {$on}>{$lng->on}</option>
+				</select>
+				<div class="page-input-sub">{$lng->admin_sub_captcha}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->email_providers}</div>
+			<div class="page-input-content">
+				<input type="text" name="email_provider" value="{$email_provider}">
+				<div class="page-input-sub">{$lng->sub_email_providers}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->admin_ttl_aperip}</div>
+			<div class="page-input-content">
+				<input type="text" name="aperip" value="{$aperip}">
+				<div class="page-input-sub">{$lng->admin_sub_aperip}</div>
+			</div>
+		</div>
+	</div>
+	<div class="message-divider"></div>
+	<div class="page-inner">
+		
+	</div>
+</div>
+
+<div class="edit-limits" style="display: none;">
+	<div class="page-inner pt-0">
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->d_rate_minimum}</div>
+			<div class="page-input-content">
+				<input type="number" name="perpage" value="{$d_rate_minimum_setting}">
+				<div class="page-input-sub">{$lng->d_rate_minimum_sub_msg}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->d_rate_maximum}</div>
+			<div class="page-input-content">
+				<input type="number" name="cperpage" value="{$d_rate_maximum_setting}">
+				<div class="page-input-sub">{$lng->d_rate_maximum_sub_msg}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->f_rate_minimum}</div>
+			<div class="page-input-content">
+				<input type="number" name="mperpage" value="{$f_rate_minimum_setting}">
+				<div class="page-input-sub">{$lng->f_rate_minimum_sub_msg}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->f_rate_maximum}</div>
+			<div class="page-input-content">
+				<input type="number" name="nperpage" value="{$f_rate_maximum_setting}">
+				<div class="page-input-sub">{$lng->f_rate_maximum_sub_msg}</div>
+			</div>
+		</div>
+
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->mf_minimum_admin}</div>
+			<div class="page-input-content">
+				<input type="number" name="mperpage" value="{$mf_minimum_setting}">
+				<div class="page-input-sub">{$lng->mf_minimum_sub_msg}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->mf_maximum_admin}</div>
+			<div class="page-input-content">
+				<input type="number" name="nperpage" value="{$mf_maximum_setting}">
+				<div class="page-input-sub">{$lng->mf_maximum_sub_msg}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->weight_minimum}</div>
+			<div class="page-input-content">
+				<input type="number" name="nperwidget" value="{$weight_minimum_setting}">
+				<div class="page-input-sub">{$lng->weight_minimum_sub_msg}</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-inner">	
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->weight_maximum}</div>
+			<div class="page-input-content">
+				<input type="number" name="message" value="{$weight_maximum_setting}">
+				<div class="page-input-sub">{$lng->weight_maximum_sub_msg}</div>
+			</div>
+		</div>
+
+	
+	</div>
+</div>
+
+<div class="edit-emails" style="display: none;">
+	<div class="page-inner pt-0">
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_emails}</div>
+			<div class="page-input-content">
+				<select name="smtp_email">
+					<option value="0" {$smtpoff}>{$lng->off}</option>
+					<option value="1" {$smtpon}>{$lng->on}</option>
+				</select>
+				<div class="page-input-sub">{$lng->smtp_sub_emails}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_host}</div>
+			<div class="page-input-content">
+				<input type="text" name="smtp_host" value="{$smtp_host}">
+				<div class="page-input-sub">{$lng->smtp_sub_host}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_port}</div>
+			<div class="page-input-content">
+				<input type="text" name="smtp_port" value="{$smtp_port}">
+				<div class="page-input-sub">{$lng->smtp_sub_port}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_secure}</div>
+			<div class="page-input-content">
+				<select name="smtp_secure">
+					<option value="0" {$ssoff}>{$lng->off}</option>
+					<option value="tls" {$sstls}>TLS</option>
+					<option value="ssl" {$ssssl}>SSL</option>
+				</select>
+				<div class="page-input-sub">{$lng->smtp_sub_secure}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_auth}</div>
+			<div class="page-input-content">
+				<select name="smtp_auth">
+					<option value="0" {$smtpaoff}>{$lng->off}</option>
+					<option value="1" {$smtpaon}>{$lng->on}</option>
+				</select>
+				<div class="page-input-sub">{$lng->smtp_sub_auth}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_username}</div>
+			<div class="page-input-content">
+				<input type="text" name="smtp_username" value="{$smtp_username}">
+				<div class="page-input-sub">{$lng->smtp_sub_username}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->smtp_password}</div>
+			<div class="page-input-content">
+				<input type="password" name="smtp_password" value="{$smtp_password}">
+				<div class="page-input-sub">{$lng->smtp_sub_password}</div>
+			</div>
+		</div>
+	</div>
+	</div>
+<div class="message-divider"></div>
+<div class="page-inner">
+	
+	<div class="page-input-title"></div>
+	<br>
+	<input type="submit" name="submit" value="{$lng->save_changes}">
+</div>
+</form>

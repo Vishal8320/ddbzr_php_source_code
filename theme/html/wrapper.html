@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="{$lng->lang_dir}" dir="{$lng->lang_dir}">
+<head>
+<meta charset="UTF-8" />
+<title>{$title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" href="{$url}/theme/icon.png">
+<meta name="description" content="{$description}">
+  <meta name="keywords" content="{$keywords}">
+  <meta name="author" content="{$author}">
+  <meta name="language" content="{$lng->language_name}">
+
+<link href="{$url}/theme/style.css" rel="stylesheet" type="text/css">
+<link href="{$url}/theme/style2.css" rel="stylesheet" type="text/css">
+<link href="{$url}/theme/style3.css" rel="stylesheet" type="text/css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">baseUrl = "{$url}"; token_id = "{$token_id}"; </script>
+<!-- <script type="text/javascript" src="{$url}/theme/js/jquery.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$url}/theme/js/webcam.min.js"></script>
+<script type="text/javascript" src="{$url}/theme/js/functions.js"></script>
+<script type="text/javascript" src="{$url}/theme/js/ajax-functions.js"></script>
+
+<!-- cdn script for date picker -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{$url}/theme/datepicker.css" />
+
+<!-- cdn script for date picker ended -->
+
+
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css"> -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script> -->
+
+
+</head>
+<body>
+<div id="loading-bar"><dd></dd><dt></dt></div>
+<div class="topbar">
+	<div class="header">
+		<a href="{$url_logo}" rel="loadpage"><div class="menu_btn logo-container"><div class="header-container"><div class="logo"><p class="header-title">[doodh-bazar]</p></div></div></div></a>
+		<!-- <div class="search-input"><input type="text" id="search" onkeyup="search_m_customer('#search','#search-container')" placeholder="Search Customer" autocomplete="off" value="{$current_search}"></div> -->
+		
+	</div>
+	<div id="search-container" style="display:block"></div>
+	{$top_menus}
+</div>
+<div id="content">
+	{$content}
+</div>
+<div class="modal-background"></div>
+<div class="footer cursor-default">
+	<div class="footer-container">
+		<div class="footer-links">
+			{$info_urls}
+			<span></span>
+		</div>
+		<div class="footer-languages">
+			{$lng->language} : {$language}
+		</div>
+		<div class="footer-copyright">
+			
+			Copyright &copy; {$year} {$footer}(beta). {$powered_by}
+		</div>
+		<div class="message-divider"></div>
+		<div class="footer-head_office">{$head_office}</div>
+		
+	</div>
+</div>
+{$tracking_code}
+</body>
+</html>

@@ -1,0 +1,466 @@
+{$message}
+<div class="page-inner">
+	<center>
+		<span class="photo_frame">
+		{$profile_pic}
+		</span>
+		{$user}
+	   </center>
+<div class="users-button button-normal"></div></div>
+<div class="message-divider float-inherit"></div>
+
+<div class="page-inner pt-0 pb-0">
+	<div class="edit-menu">
+		<div class="edit-menu-item edit-menu-item-active" id="edit-profile" onclick="changeTab(this, '.edit-profile',['.edit-profile', '.load_analytics', '.acc_status', '.subscription'])">{$lng->edit_profile}</div>
+        <div class="edit-menu-item" id="load_analytics" onclick="changeTab(this, '.load_analytics',['.edit-profile', '.load_analytics', '.acc_status', '.subscription'])">{$lng->analytics}</div>
+        <div class="edit-menu-item" id="acc_status" onclick="changeTab(this, '.acc_status',['.edit-profile', '.load_analytics', '.acc_status', '.subscription'])">{$lng->status}</div>
+        <div class="edit-menu-item" id="subscription" onclick="changeTab(this, '.subscription',['.edit-profile', '.load_analytics', '.acc_status', '.subscription'])">{$lng->subscription}</div>
+		<!-- <div class="edit-menu-item edit-menu-item-active" id="edit-profile" onclick="changeTab2('edit-profile')">{$lng->edit_profile}</div>
+		<div class="edit-menu-item" id="load_analytics" onclick="changeTab2('load_analytics')">{$lng->analytics}</div>
+		<div class="edit-menu-item" id="acc_status" onclick="changeTab2('acc_status')">{$lng->status}</div>
+		<div class="edit-menu-item" id="load_other" onclick="changeTab2('load_other')">{$lng->other}</div> -->
+	</div>
+</div>
+<div class="edit-profile" style="display: block">
+	<form id="mmen_update_acc" method="post">
+		{$token_input}
+	<div class="page-inner pt-0">
+
+		<div class="modal-overlay-count" id="dialog-box" style="display: none;">
+			<div class="modal-container-view-milk modal-fix" id="dialog-box" role="dialog" aria-hidden="true">
+			  
+			  <div class="modal-inner">
+				Submit Status:
+				<span class="close-btn2" id="close-modal" onclick="remove_items_cal('#dialog-box')">Cls</span>
+				<div class="modal-title1">Hold your Status</div>
+			    </div>
+			  <div id="ajax-process_edit_profile"></div>
+		      <div id="edit_profile_response"></div>
+				<div class="message-form-des">
+				</div>
+				
+			  </div>
+			</div>
+		
+	
+		<input name="uname" type="hidden" value="{$username}">
+		<input name="user_id" type="hidden" value="{$id}">
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->fname}</div>
+			<div class="page-input-content">
+				<input type="text" name="first_name" value="{$currentFirstName}">
+				<div class="page-input-sub">{$lng->fname_des}</div>
+			</div>
+		</div>
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->lname}</div>
+			<div class="page-input-content">
+				<input type="text" name="last_name" value="{$currentLastName}">
+				<div class="page-input-sub">{$lng->lname_des}</div>
+			</div>
+		</div>
+
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->p_num}</div>
+			<div class="page-input-content">
+				<input type="text" name="p_number" id="p_number" onkeyup="admin_check_p_num('#p_number','#p_num_error','#p_num_available')" value="{$current_p_num}">
+				<div id="p_num_error" class="page-input-sub-error"></div>
+				<div id="p_num_available"></div>
+				<div class="page-input-sub">{$lng->p_num_des}</div>
+			</div>
+		</div>
+		
+		<div class="page-input-container">
+		<div class="page-input-title">{$lng->enter_dob}</div>
+			<div class="page-input-content">
+			<select name="day">
+				{$days}
+			</select>
+			<select name="month">
+				{$months}
+			</select>
+			<select name="year">
+				{$years}
+			</select>
+			<div class="page-input-sub">{$lng->dob_des}</div>
+			</div>
+		</div>
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->gender}</div>
+			<div class="page-input-content">
+			<select name="gender">
+				<option value="0" {$ngender}>{$lng->select_gender}</option>
+				<option value="1" {$mgender}>{$lng->male}</option>
+				<option value="2" {$fgender}>{$lng->female}</option>
+			</select>
+			<div class="page-input-sub">{$lng->gender_des}</div>
+			</div>
+		</div>
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->state_des}</div>
+			<div class="page-input-content">
+			<select name="state">
+				<option value="0">{$lng->select_states}</option>
+				{$state}
+			</select>
+			<div class="page-input-sub">{$lng->sub_interested_in}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->district_des}</div>
+			<div class="page-input-content">
+			<select name="district">
+				{$district}
+			</select>
+			<div class="page-input-sub">{$lng->sub_interested_in}</div>
+			</div>
+		</div>
+
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->sub_district_des}</div>
+			<div class="page-input-content">
+			<select name="sub_district">
+				{$sub_district}
+			</select>
+			<div class="page-input-sub">{$lng->sub_interested_in}</div>
+			</div>
+		</div>
+
+ <!-- Zone -->
+ <div class="page-input-container">
+	<div class="page-input-title">{$lng->zone}</div>
+		<div class="page-input-content">
+			<select name="area">
+				<option value="" {$no_area} >{$lng->select_zone}</option>
+				<option value="1"{$rural_area}>{$lng->select_rural}</option>
+				<option value="2"{$urban_area}>{$lng->select_urban}</option>
+			 </select>
+		
+		<div class="page-input-sub">{$lng->zone_des}</div>
+	</div>
+	</div>
+
+
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->enter_locality}</div>
+			<div class="page-input-content">
+				<input type="text" name="locality" value="{$currentLocality}">
+				<div class="page-input-sub">{$lng->locality_des}</div>
+			</div>
+		</div>
+
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->c-enter_pincode}</div>
+			<div class="page-input-content">
+				<input type="text" name="pincode" value="{$pincode}">
+				<div class="page-input-sub">{$lng->pincode_des}</div>
+			</div>
+		</div>
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->distribute_title}</div>
+				<div class="page-input-content">
+					<select name="distribute_type" id="distribute_id">
+						<option value=""{$no_distribute}>{$lng->select_m_service}</option>
+						<option value="1" {$d2d_service}>{$lng->d2d_service}</option>
+						<option value="2"{$dairy_located}>{$lng->dairy_located_service}</option>
+						<option value="3"{$customer_choice}>{$lng->c_choice_service}</option>
+						
+					</select>
+					<div id="distribute_error"></div>
+				<div class="page-input-sub">{$lng->distribute_type}</div>
+				</div>
+				
+				</div>
+		
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->dairy_name}</div>
+			<div class="page-input-content">
+				<input type="text" name="dairy_name" value="{$currentDairy_name}">
+				<div class="page-input-sub">{$lng->dairy_name_des}</div>
+			</div>
+		</div>
+
+	<div class="message-divider"></div>
+
+	<div class="page-inner">
+		<div class="page-input-container">
+			<div class="page-input-title">{$lng->join_date}</div>
+			<div class="page-input-content"><input type="text" name="date" value="{$join_date}" disabled>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="message-divider"></div>
+<div class="page-inner">
+	<div class="page-input-title"></div><input type="submit" value="{$lng->save_changes}">
+</div>
+</form>
+</div>
+
+<div class="load_analytics" style="display: none;">
+<div class="page-inner pt-0">
+
+ <!-- here analytics code soon -->
+
+
+</div>
+</div>
+<div class="acc_status" style="display: none;">
+
+	<div class="page-inner pt-0">
+		<div class="page-input-container">
+			<div id="ajax-process"></div>
+			<div id="response"></div>
+			<div class="page-input-title">{$lng->acc_status}</div>
+			<div class="page-input-content">
+			
+			<select name="acc_status" id="status" onchange="update_acc_status('#status',{$id})">
+				<option>select status</option>
+				<option value="0" {$pending}>{$lng->pending}</option>
+				<option value="1" {$active}>{$lng->active}</option>
+				<option value="2" {$reject}>{$lng->reject}</option>
+				<option value="3" {$re-submit}>{$lng->re-submit}</option>
+				<option value="4" {$temp_block}>{$lng->temp_block}</option>
+			</select>
+		  
+			<div class="page-input-sub">{$lng->acc_status_des}</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<div class="subscription" style="display: none;">
+
+
+	
+	<div class="page-inner pt-0">
+		<div id="subs_ajax-process"></div>
+		<div id="subs_response"></div>
+		<div class="page-inner">
+			<div class="page-input-container">
+				<div class="page-input-title">Account Subscription</div>
+				<div class="page-input-content">
+					<input type="text" name="subs_time" id="subs_time" placeholder="{$subs_date}" autocomplete="off">
+					<div class="page-input-sub">Enter Subsciption like (+30 days) to inscrease subscription and (-) to decrease</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="page-inner">
+			<div class="page-input-container">
+				<div class="page-input-title">Subsciption Type</div>
+				<div class="page-input-content">
+				
+				<select name="subs_type" id="subs_type" style="
+				    width: 178px !important;">
+					<option>subscription type</option>
+					<option value="0" {$not_subscribe}> Not subscription</option>
+					<option value="1" {$subscribe}>Subscription</option>
+					<option value="2" {$subs_free_trial}>Free trial</option>
+					<option value="3" {$subs_free}>Free subscription</option>
+				</select>
+			  
+				<div class="page-input-sub">Choose subscription type subscription,free trial,permanant free</div>
+				</div>
+			</div>
+	
+		</div>
+		<div class="message-divider"></div>
+		<div class="page-inner">
+			<div class="page-input-title"></div><input type="submit" value="{$lng->save_changes}" onclick="submit_subs('#subs_time','#subs_type',{$id},event)">
+		</div>
+
+
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+  // Handle form submission
+  $('#mmen_update_acc').submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
+	// $('html, body').animate({
+    //   scrollTop: $('#ajax-process_edit_profile').offset().top
+    // }, 400);
+	var targetId = "#ajax-process_edit_profile";
+
+    // Scroll to the target element
+    $(window).scrollTop($(targetId).offset().top);
+
+	if (!navigator.onLine) {
+		            $('#dialog-box').show();
+                    msg = "No Internet Connection";
+                    internet_error = " <svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                    $('#ajax-process_edit_profile').html(p_num_error);
+                return false; // Abort the AJAX request
+                }else{
+    // Create FormData object and append form data
+    var formData = new FormData(this);
+	var old_url = baseUrl+"/request/api.php?query=admin_update_user&b=mmen&c=update_profile";
+    // Perform AJAX request
+    $.ajax({
+      url: old_url,
+      type: 'POST',
+      data: formData,
+	  dataType: 'json',
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        // Handle success response
+		$('#dialog-box').show();
+        if (data.message === null) {
+				if (data.status === 1) {
+					$('#edit_profile_response').html('<div class="success-title">Setting Saved Successfully.');
+
+			  }else if(data.status===0){
+				$('#edit_profile_response').html('<div class="failed-title">Nothing Changed.</div>');
+			  }else if(data.status===2){
+				$('#edit_profile_response').html('<div class="failed-title">Query Failed</div>');
+			  }
+			}else{
+				$('#edit_profile_response').html('<div class="failed-title">'+data.message+'</div>');
+			}
+      },
+      error: function(xhr, status, error) {
+        // Handle error response
+        console.error(error);
+      }
+    });
+}
+  });
+});
+
+	function admin_check_p_num(p_num,p_num_error,p_num_available){
+		 // Check internet connectivity
+		 
+		    var p_number = $(p_num).val();
+
+		 if (!navigator.onLine) {
+                    msg = "No Internet Connection";
+                    internet_error = " <svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                    $('#ajax-process').html(p_num_error);
+                return false; // Abort the AJAX request
+                }else{
+					$.ajax({
+                        url:  baseUrl+"/request/api.php?query=reg_mmen&b=p_num",
+                        type: "POST",
+                        data: {p_number:p_number},
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data){
+							console.log(data);
+                            if(data != 1 && data != 2){
+                             $(p_num).css('border', '2px solid red');
+                             $(p_num_available).addClass('d-none');  
+                             $(p_num_error).text(data);
+                            }else if(data == 2){
+                                $(p_num).css('border', '2px groove red');  
+                                $(p_num_error).text("{$lng->p_num_already_mmen}");
+                            }else{
+								$(p_num).css('border', '2px solid black');
+								$(p_num_error).text('');
+								$(p_num_available).removeClass('d-none');
+								$(p_num_available).text('Available');
+							}
+                        },
+                    });
+            }
+	}
+
+	function update_acc_status(status, userid,) {
+    // Check internet connectivity
+    if (!navigator.onLine) {
+        msg = "No Internet Connection";
+        internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+        $('#ajax-process').html(internet_error);
+        return false; // Abort the AJAX request
+    } else {
+        loader_msg = 'Please do not Exit while we process your Data';
+        processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+        $('#ajax-process').html(processing);
+
+        new_status = $(status).val();
+
+        $.post(baseUrl + "/request/api.php?query=admin_update_user&b=mmen", {
+            acc_status: new_status,
+            user_id: userid
+        }, "json")
+            .done(function (data) {
+				if (data.message === null) {
+				if (data.status === 1) {
+					$('#response').html('<div class="success-title">Setting Saved Successfully.');
+
+			  }else if(data.status===0){
+				$('#response').html('<div class="failed-title">Nothing Changed.</div>');
+			  }else if(data.status===2){
+				$('#response').html('<div class="failed-title">Query Failed</div>');
+			  }
+			}else{
+				$('#response').html('<div class="failed-title">'+data.message+'</div>');
+			}
+
+
+
+		   })
+            .fail(function (xhr, status, error) {
+                console.log("AJAX Error Code: " + xhr.status);
+                console.log("Error: " + error);
+            })
+            .always(function () {
+                $('#ajax-process').empty();
+            });
+    }
+}
+function submit_subs(subs_time, subs_type,id, e) {
+  e.preventDefault();
+
+  // Check internet connectivity
+  if (!navigator.onLine) {
+    var msg = "No Internet Connection";
+    var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+    $('#subs_ajax-process').html(internet_error);
+    return false; // Abort the AJAX request
+  } else {
+    var loader_msg = 'Please do not Exit while we process your Data';
+    var processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+    $('#subs_ajax-process').html(processing);
+
+    var new_subs_time = $(subs_time).val();
+    var new_subs_type = $(subs_type).val();
+    
+    $.post(baseUrl + "/request/api.php?query=admin_update_user&b=mmen&c=subs_update", {
+      acc_subs_time: new_subs_time,
+      acc_subs_type: new_subs_type,
+	  user_id:id
+    }, "json")
+    .done(function (data) {
+      if (data.message === null) {
+        if (data.status === 1) {
+          $('#subs_response').html('<div class="success-title">Setting Saved Successfully.</div>');
+        } else if (data.status === 0) {
+          $('#subs_response').html('<div class="failed-title">Nothing Changed.</div>');
+        } else if (data.status === 2) {
+          $('#subs_response').html('<div class="failed-title">Query Failed</div>');
+        }
+      } else {
+        $('#subs_response').html('<div class="failed-title">' + data.message + '</div>');
+      }
+    })
+    .fail(function (xhr, status, error) {
+      console.log("AJAX Error Code: " + xhr.status);
+      console.log("Error: " + error);
+      $('#subs_response').html('<div class="failed-title">An error occurred during the request.</div>');
+    })
+    .always(function () {
+      $('#subs_ajax-process').empty();
+    });
+  }
+}
+
+
+</script>

@@ -1,0 +1,710 @@
+<style>
+.form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  #search_terms {
+    padding: 5px;
+    margin: 1px 0px 9px 24px;
+    margin-right: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 17px;
+    width: 187px !important;
+    max-width: 250px;
+  }
+
+  .button-container {
+    border: none;
+    outline: none;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    margin: -1px 0px 7px -1px;
+  }
+
+ 
+  
+  .button-container:hover {
+    background-color: #2980b9;
+  }
+  
+ 
+    
+    .button-container:hover {
+      background-color: #2980b9;
+    }
+    
+  </style>
+  <!-- row stated -->
+<div class="row-body"> 
+    <!-- grid container stated -->
+    <div class="grid-container">
+      <div class="grid-content">
+        <div class="message-container-self">
+          <div class="message-form-content">
+            <div class="message-form-header">
+              <div class="message-form-user">{$profile_pic}</div> Calculate Your MIlk. <div class="message-form-private"></div>
+              <div class="message-loader" style="visibility: hidden">
+                <div class="preloader"></div>
+              </div>
+            </div>
+            <div class="message-form-inner">
+                <!-- form start here -->
+              <form action="" method="post" id="form-id" autocomplete="off">
+                <!-- taking/ giving select box -->
+                <div class="message-form-des">1 <select name="take_give" id="buy_sale_id">
+                    <option value="0">Select milk</option>
+                    <option value="1">buy milk</option>
+                    <option value="2">sale milk</option>
+                  </select>
+                </div>  
+               <!-- taking/ giving select box ended -->
+
+                <!-- start div -->
+                <div class="message-form-des" id="load_animal_class">2 
+                  <select name="animals" id="load-animals">
+                    <option value="">Select animal</option>
+                  </select>
+                </div>
+                <!-- div ended -->
+
+                <!-- div started -->
+                <div class="message-form-des" id="buying_milk_class">3
+                    <select name="buying_milk" id="buying_milk_id">
+                    <option value="">Select milk type</option>
+                    <option value="b_dm">buy Direct Milk</option>
+                    <option value="b_mfr">buy Milk by Fat</option>
+                  </select>
+                </div>
+                <!-- div ended -->
+
+                <!-- div started -->
+                <div class="message-form-des" id="selling_milk_class">3 
+                    <select name="selling_milk" id="selling_milk_id">
+                    <option value="">Select milk type</option>
+                    <option value="s_dm">sale Direct Milk</option>
+                    <option value="s_mfr">sale Milk by Fat</option>
+                  </select>
+                </div>
+                <!-- div ended -->
+
+
+
+                <!-- here a dialog box apear only when the rates is not uploaded to advance settings -->
+                <div class="modal-overlay-update" id="dialog-box" style="display:none;">
+                  <div class="modal-container-view-milk modal-fix" id="dialog-box" role="dialog" aria-hidden="true">
+                    <div class="modal-inner">
+                      <b>Update your Milk Rate Setting:</b> <span class="close-btn2" id="close-modal" onclick="remove_items_cal('#dialog-box')">Cls</span>
+                      <div class="modal-title1">You have do not permission to upload records you need to update your rates in advanced settings</div>
+                    </div>
+                    <div class="message-for-des">
+                      <table style="width: 90%; margin: 10px auto;">
+                        <tbody>
+                          <tr>
+                            <th title="milk_type">title null</th>
+                            <td>NuLL</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div style="width: 87%;
+                                  margin: 10px auto;
+                                  font-size: 17px;
+                                  padding: 5px;
+                                  color: #5e5656;"> Its look like you are not saved your rates please go to milk rate setting and save your rates after that try again. </div>
+                      <div id="ad_stg_link"></div>
+                    </div>
+                  </div>
+                </div>
+            
+            <!-- dialog box code ending -->
+
+
+            <!-- search code started -->
+            <div class="message-form-des" style="display: none;" id="customer-search_terms">
+              <div class="form-container">
+                <div class="input-container">
+                  <input type="text" name="customer_search_terms" id="search_terms" onkeyup="get_suggestion('customer_','#search_history','{$user_id}',this)" placeholder="Username or Phone" autocomplete="off">
+                </div>
+                <button class="button-container" id="search_btn" onclick="checking_milk_rate(['#buying_milk_id','#selling_milk_id'],'#load-animals',event)"> Search </button>
+              </div>
+              <div id="search_history" style="margin: -6px 22px"></div>
+            </div>
+
+            <!-- search bar ended -->
+            <div id="more_messages"></div>
+            <div id="search-error"></div>
+            <div id="messages"></div>
+            <div id="data-inserted"></div>
+            <div class="message-form-inner">
+              <div id="input_fields"></div>
+            </div>
+            <center>
+              <span class="check_inputs" id="check_inputs" style="display: none;">Check inputs <i class="fa-solid fa-right-long fa-beat-fade" style="color: #f0f2f4;"></i>
+              </span>
+            </center>
+            <div class="modal-overlay-cal" style="display: none;">
+              <div class="modal-container modal-fix-cal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-inner" style="text-align: center;"> Check Your Calculation Before final Submit <div class="modal-title">Calculate</div>
+                </div>
+                <div id="calculate_table"></div>
+                <div id="calculation"></div>
+                <!-- switch checkbox  -->
+                <div id="checkbox">
+                  <div class="cal_checkbox-ad">
+                    <i id="cal_receive_icon" class="fa-solid fa-hand-holding-dollar fa-flip fa-3x" style="margin-right: 10px; color: red;"></i>
+                    <div class="switch-container">
+                      <input type="checkbox" id='switch' name="cal_money_receive" value="1">
+                      <div class="switch-color"></div>
+                      <label for="switch"></label>
+                    </div>
+                    <div class="label-cal_checkbox">Money Recevied?</div>
+                  </div>
+                </div>
+                <center>
+                  <button type="submit" id="submit" class="submit_cal" name="submit_form" style="margin:10px auto; background-color: rgb(84, 84, 234); color:white;" onclick="remove_items_cal('.modal-overlay-cal')">Submit</button>
+                  <span class="bb" style="margin:9px; background-color:rgb(240, 74, 74); color:white;" id="close-modal" onclick="remove_items_cal('.modal-overlay-cal')">Close</span>
+                </center>
+              </div>
+            </div>
+            <!-- inner end -->
+          
+        
+        </form>
+    
+        <!-- here was form ended-->
+    </div>
+    </div>
+    </div>
+      </div>
+    </div>
+  </div>   
+  <!-- row body ended -->
+ 
+
+    <script>
+     
+    $(document).ready(function() {
+
+
+
+        // remove disabled attribute if checked box is checked
+
+        $(document).delegate("#personal_rate","change",function(){
+                    if(this.checked) {
+                    $('#dm_id, #mfr_id').prop('disabled', false).css('background-color', '#ECFFDC');
+                    } else {
+                    $('#dm_id, #mfr_id').prop('disabled', true).css('background-color', '');
+                    }
+                });
+        $(document).delegate("#switch","change",function(){
+                    if(this.checked) {
+                    $('#cal_receive_icon').css({'color': '#00e676'})
+                    // alert('It means you receive or give money hand to hand');
+                    } else {
+                        $('#cal_receive_icon').css({'color': 'red'})
+                    }
+                });
+            
+
+         // Submit Calculation here
+
+            $('#submit').on('click', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            submitForm(); // Call a function to handle the form submission
+            });
+
+                function submitForm() {
+                // Check internet connectivity
+                if (!navigator.onLine) {
+                    var msg = "No Internet Connection";
+                    var internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'> <circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/> <line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>"+msg+"</div>";
+                    $('#more_messages').html(internet_error);
+                    return false; // Abort the AJAX request
+                } else {
+                    var loader_msg = 'Please do not Exit while we process your Data';
+                    var processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>"+loader_msg+"</div>";
+                    $('#more_messages').html(processing);
+
+                    $('#dm_id, #mfr_id').prop('disabled', false);
+                    $('#check_inputs').prop('disabled', true);
+                    $('#search_btn').prop('disabled', true);
+
+                    var data = new FormData($('#form-id')[0]);
+                    // var data = $('#form-id').serialize();
+                    console.log(data);
+
+                    $.ajax({
+                    url: baseUrl+"/request/api.php?query=calculate&b=submit",
+                    type: "POST",
+                    contentType: false,
+                    data: data,
+                    dataType: "json",
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        if (data.submited) {
+                        $('#data-inserted').html(data.submited);
+                        $('#input_fields').html('');
+                        $('#check_inputs').hide();
+                        $('#search_terms').val('');
+                        $('#switch').prop('checked', false);
+                        } else if (data.submit_error) {
+                        $('#data-inserted').html(data.submit_error);
+                        }
+                    },
+                    complete: function() {
+                        $('#check_inputs').prop('disabled', false);
+                        $('#search_btn').prop('disabled', false);
+                        $('#more_messages').empty();
+                    }
+                    });
+                }
+                }
+
+
+
+
+         
+        $("#selling_milk_class").hide();
+        $("#buying_milk_class").hide();
+        $("#load_animal_class").hide();
+
+            $("#buy_sale_id").on("change",function(){
+              // var t_g =  $("#buy_sale_id").val();
+              // if(t_g == 1){    
+              //   $("#buying_milk_class").show();
+              //   $("#selling_milk_id").val('');
+              //   $("#selling_milk_class").hide();
+
+              // }else if(t_g==2){
+              //   $("#selling_milk_class").show();
+              //   $("#buying_milk_id").val('');
+              //   $("#buying_milk_class").hide();
+              // }
+
+              // here code
+                $("#check_inputs").hide();
+                $("#load-animals").val('');
+                $("#buying_milk_class").hide();
+                $("#selling_milk_class").hide();
+                $("#calculate_table").hide();
+                $("#buying_milk_id").val('');
+                $("#selling_milk_id").val('');
+                
+                $("#load_animal_class").show();
+                $("#p_num").val('');
+                $("#customer-search_terms").hide();
+                $("#input_fields").hide();
+                jQuery('#messages').val('');
+                $("#load-animals").change(function(){
+                    if($(this).val() == ''){
+                        $("#check_inputs").hide();
+                        $("#input_fields").hide();
+                        $("#selling_milk_id").val('');
+                        $("#buying_milk_id").val('');
+
+                        $("#selling_milk_class").hide();
+                        $("#buying_milk_class").hide();
+                        $("#season_class").addClass('d-none');
+                        $("#customer-search_terms").hide();
+                    }else{
+                    var t_g =  $("#buy_sale_id").val();
+                    if(t_g == 1){
+                $("#load-animals").val();      
+                $("#buying_milk_class").show();
+                $("#selling_milk_id").val('');
+                $("#selling_milk_class").hide();
+                
+                // $("#season_id").val('');
+                // $("#season_class").addClass('d-none');
+              }else if(t_g==2){
+                $("#selling_milk_class").show();
+                $("#buying_milk_id").val('');
+                $("#buying_milk_class").hide();
+                
+              }else{
+                $("#selling_milk_id").val('');
+                $("#selling_milk_class").hide();
+
+                $("#buying_milk_id").val('');
+                $("#buying_milk_class").hide();
+
+                $("#season_class").addClass('d-none');
+                $("#p_num").val('');
+                $("#customer-search_terms").hide();
+
+              }
+            }
+                });
+              
+            
+            });
+            $("#buying_milk_id,#selling_milk_id").on("change",function(){
+                if(this.value != ''){
+                    // $("#p_num").val('');
+                    $("#customer-search_terms").show();
+                }else{
+                  $("#messages").hide();
+                    $("#check_inputs").hide();
+                    $("#input_fields").hide();
+                    $("#p_num").val('');
+                    $("#customer-search_terms").hide();
+                }
+
+            });
+
+
+            // Load Animal Select-box
+            $.ajax({
+					url: baseUrl+"/request/api.php?query=ad_setting&b=animal",
+          type: "POST",
+					dataType: "json",
+					success: function(data){
+						$("#load-animals").append(data.animal);
+					}
+				});
+
+
+            
+            // Load calculation in dialog Box
+           
+
+         // Validate Direct Milk Rate
+
+         
+         
+
+         var dm,mf,fat,fg,weight = '';
+         $("#check_inputs").on("click",function(){
+            //var output = '';
+            mfr = $("#mfr_id").val();
+            fat = $("#fat_id").val();
+            dm = $("#dm_id").val();
+            weight = $("#weight_id").val();
+            
+            if(dm,weight !='' && mfr,fat == null && check_inputs(dm,1) != 0 && check_inputs(weight,2) == true){
+                $(".modal-overlay-cal").show();
+                var calculate = dm*weight;
+                var total = formatDecimal(calculate);
+
+                $("#calculation").html("<div class='message-form-des'><table style='width:100%'><tr><th>Your Direct Milk Rate:</th><td>"+dm+"</td></tr><tr><th>Weight</th><td>"+weight+"</td></tr><tr><th>Total:</th><td>&#8377; "+total+"</td></tr></table></div>");
+            }else if(mfr,weight,fat != '' && dm == null && check_inputs(weight,2) == true && check_inputs(fat,3) == true && check_inputs(mfr,4)==true){
+                $(".modal-overlay-cal").show();
+                var calculate = fat*weight*mfr;
+                var total = formatDecimal(calculate);
+                $("#calculation").html("<div class='message-form-des'><table style='width:100%'><tr><th>Your Milk Fat Rate:</th><td>"+mfr+"</td></tr><tr><th>Weight:</th><td>"+weight+"</td></tr><tr><th>Fat From Machine:</th><td>"+fat+"</td></tr><tr><th>Total:</th><td>&#8377; "+total+"</td></tr></table></div>");
+            }else{
+              alert('all fields required');
+            }
+
+           var table = $("#calculate_table").html(); 
+           $("#user_table").html(table);
+
+         });
+ 
+         // functions started------------------
+
+
+            function formatDecimal(value) {
+            if (!isNaN(parseFloat(value)) && parseFloat(value) % 1 !== 0) { // Check if value is a decimal number
+                var decimalPlaces = value.toString().split(".")[1].length; // Get the number of decimal places
+                if (decimalPlaces > 2) { // Check if there are more than 2 decimal places
+                value = parseFloat(value).toFixed(2); // Round the value to 2 decimal places
+                }
+            }
+            return value;
+            }
+
+         function check_inputs(value,type){
+            // type 1 checking direct Milk Rate Value
+            // type 2 checking Weight
+            // type 3 checking Fat Recieve from Machine
+            // type 4 checking Fat Rate
+
+           if(type == 1){
+                if(value < 20 || value > 200) {
+                return 0;
+                }else{
+                    return 1;
+                }
+            }else if(type == 2){
+                if (value < 0.01) {
+                    return false;
+                }else if (value <= 500) {
+                if ((value % 1 === 0) || ((value.toString().split('.')[1] || []).length <= 3)) {
+                    // number is not greater than 500 and has no more than 3 digits after the decimal point
+                    return true;
+                } else  {
+                    // number have more digit after decimal point
+                    return false;
+                }
+                } else {
+                    // greater then 500 
+                    return false;
+                }
+            }else if(type == 3){
+                var decimalPlaces = (value.split('.')[1] || '').length;
+                if (value < 1.0 || value > 12.0 || decimalPlaces > 1) {
+                    return false;
+                } else {
+                    return true;
+             }
+            }else if(type == 4){
+                var decimalPlaces = (value.split('.')[1] || '').length;
+                if (value < 1.0 || value > 15.0 || decimalPlaces > 1) {
+                    return false;
+                } else {
+                    return true;
+             } 
+            }
+            }
+//   function check_fat(id,print_id){
+//     var value = $(id).val();
+//     var decimalPlaces = (value.split('.')[1] || '').length;
+//     if (value < 1.0 || value > 12.0 || decimalPlaces > 1) {
+//       $(print_id).text("Please enter a number between 1.0 and 12.0 with at most 1 decimal place.");
+// 	  $(id).css("border","#ff0000 solid 1px");
+//     } else {
+//       $(print_id).text("");
+// 	  $(id).css("border","black solid 1px");
+//     }
+
+//   }
+
+
+         
+       // here function ended-------------------
+      });
+      
+      function search_user(terms_id,e){
+                e.preventDefault();
+                $("#input_fields").show();
+                $("#check_inputs").show();
+                // var search_terms = $(terms_id).val();
+                // var data = $('#form-id').serialize();
+                var data = new FormData($('#form-id')[0]);
+                let inputVal = $('#search_terms').val().trim().toLowerCase();
+
+
+                // var data = $('#form-id').serialize() + '&' + $.param({ search_terms: search_terms });
+                // var data = $('#form-id').serialize() + '&' + search_terms;
+
+                // Trim the values before adding them to FormData
+                for (var pair of data.entries()) {
+                    data.set(pair[0], pair[1].trim());
+                }
+                
+                jQuery('#more_messages').html('<div class="load_more"><div class="preloader preloader-center"></div></div>');
+                $.ajax({
+
+                url: baseUrl+"/request/api.php?query=calculate",
+                type: "POST",
+                data: data, 
+                dataType : "json",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                jQuery('#more_messages').empty();
+                $('#search_history').html('');
+                if(data.table){
+                    jQuery('#messages').html(data.table);
+                    $("#search-error").empty();
+                    $('#data-inserted').empty();
+                    jQuery('#input_fields').html(data.input_fields);
+                    $("#check_inputs").show();
+                    $("#buying_milk_id,#selling_milk_id").on("change",function(){
+                        jQuery('#messages').html("<div style='font-size: 18px;color:red; font-weight:600; margin: -10px,0px,0px,40px;'>Please Search Again</div>");
+                        $("#check_inputs").hide();
+                         jQuery('#input_fields').empty();
+
+                    });
+
+                    let type = checkInputType(inputVal);
+                    put_into_local('customer_'+inputVal,type,'{$user_id}',inputVal);
+                   
+                }else if(data.error){
+                    jQuery('#search-error').html("<div style ='font-size:16px'>"+data.error+"</div>"); 
+                    $("#messages").empty();
+                    $('#data-inserted').empty();
+                    jQuery('#input_fields').empty();
+                    jQuery('#check_inputs').hide();
+                    // setTimeout(function() {
+					// 			$("#search-error").empty();
+					// 		}, 10000);
+                }
+			
+			
+			// Append the new comment to the div id
+			
+		
+		}
+	});
+            }
+        function checking_inputs(type,id,settings,error){
+            if(type=='dm'){
+                dm = $(id).val();
+                dm_min = settings[0];
+                dm_max = settings[1];
+
+                if(dm < dm_min || dm > dm_max) {
+            $("#dm_msg").hide();      
+            $("#dm_error").text("Please enter a number between "+dm_min+" and "+dm_max);
+            $(id).css("border","#ff0000 solid 1px");
+            } else {
+                $("#dm_msg").show();  
+            $("#dm_error").text("");
+            $(id).css("border","black solid 1px");
+            }
+
+            }else if(type == 'weight'){
+                weight = $(id).val();
+                weight_min = settings[0];
+                weight_max = settings[1];
+
+                if (weight < weight_min) { // check if the number is less than 0.01
+                $("#weight_msg").hide();
+                $("#weight_error").text("Number is less than "+weight_min+"0"); // display the error message
+                $(id).css("border", "#ff0000 solid 1px");
+            } else if (weight <= weight_max) {
+                if ((weight % 1 === 0) || ((weight.toString().split('.')[1] || []).length <= 3)) {
+                // number is not greater than 500 and has no more than 3 digits after the decimal point
+                $("#weight_error").text("");
+                $("#weight_msg").show();
+                $(id).css("border", "black solid 1px");
+                } else {
+                $("#weight_msg").hide();
+                $("#weight_error").text("Weight has more than 3 digits after decimal point.");
+                $(id).css("border", "#ff0000 solid 1px");
+                }
+            } else {
+                $("#weight_msg").hide();
+                $("#weight_error").text("Weight is greater than "+weight_max);
+                $(id).css("border", "#ff0000 solid 1px");
+            }
+            }else if(type=='mf'){
+                mf = $(id).val();
+                mf_min = settings[0];
+                mf_max = settings[1];
+
+               var decimalPlaces = (mf.split('.')[1] || '').length;
+                if (mf < mf_min || mf > mf_max || decimalPlaces > 1) {
+                    $("#fat_msg").hide();     
+                        $("#fat_error").text("Milk Fat Should be between "+mf_min+".0 and "+mf_max+".0");
+                        $(id).css("border","#ff0000 solid 1px");
+                } else {
+                    $("#fat_error").text("");
+                    $(id).css("border", "black solid 1px");
+                    $("#fat_msg").show();
+             } 
+
+            }else if(type == 'mfr'){
+                mfr = $(id).val();
+                mfr_min = settings[0];
+                mfr_max = settings[1];
+            var decimalPlaces = (mfr.split('.')[1] || '').length;
+                if (mfr < mfr_min|| mfr > mfr_max || decimalPlaces > 1) {
+                    $("#mfr_msg").hide();     
+                        $("#mfr_error").text("Milk Fat Rate Should be between "+mfr_min+".0 and "+mfr_max+".0");
+                        $(this).css("border","#ff0000 solid 1px");
+                } else {
+                    $("#mfr_error").text("");
+                    $(id).css("border", "black solid 1px");
+                    $("#mfr_msg").show();
+
+                }
+           } 
+       }
+       
+       function checking_milk_rate(array,animal,e){
+             e.preventDefault();
+           var values = $.map(array, function(id) {
+            return $(id).val();
+            });
+               if (values[0] !== '' && values[1] === '') {
+                   type = values[0];
+                } else if (values[1] !== '' && values[0] === '') {
+                    type = values[1];
+                }
+                milk_type = type;
+                milk_animal = $(animal).val();
+                switch (milk_animal) {
+                case '1':
+                   animal_name = '<font color="#e0723e;">Buffalo</font>';
+                    break;
+                case '2':
+                    animal_name = '<font color="#e0723e;">Cow</font>';
+                    break;
+                } 
+
+                switch (type) {
+                case 'b_dm':
+                    title = 'Buying Direct Milk Rate for '+animal_name;
+                    break;
+                case 'b_mfr':
+                     title = 'Buying Milk Fat Rate for '+animal_name;
+                    break;
+                case 's_dm':
+                     title = 'Selling Direct Milk Rate for '+animal_name;
+                    break;
+                case 's_mfr':
+                     title = 'Selling Milk Fat Rate for '+animal_name;
+                    break;
+                }
+                var element_milk_type = $('th[title="milk_type"]');   
+                // var element_animal_name = $('th[title="animal_name"]');  
+           
+
+        if (!navigator.onLine) {
+        msg = "No Internet Connection";
+        internet_error = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle class='path circle' fill='none' stroke='#D06079' stroke-width='6' stroke-miterlimit='10' cx='50' cy='50' r='47'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='26' y1='28' x2='74' y2='72'/><line class='path line' fill='none' stroke='#D06079' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' x1='74' y1='28' x2='26' y2='72'/></svg><div class='failed-title'>" + msg + "</div>";
+        $('#ajax-process').html(internet_error);
+        return false; // Abort the AJAX request
+    } else {
+        loader_msg = 'Please do not Exit while we process your Data';
+        processing = "<center><span class='loader-circle'></span></center><div class='loader-title'>" + loader_msg + "</div>";
+        $('#ajax-process').html(processing);
+
+        $.post(baseUrl + "/request/api.php?query=ad_setting&b=checking_milk_rate", {
+            milk_type: milk_type,
+            milk_animal: milk_animal,
+        }, "json")
+            .done(function (data) {
+				if (data.status !== 1) {
+				  $('.modal-overlay-update').show();
+                  element_milk_type.html(title);
+                  $('#ad_stg_link').html("<a href='"+data.url+"' rel='loadpage'><span class='redirect_btn'><i class='fa-solid fa-right-long fa-beat-fade' style='color: #f0f2f4;'></i> Milk Rate Setting</span></a>");
+			    }else{
+            //load search bar here
+            search_user('#search_terms',event)
+          }
+
+
+
+		   })
+            .fail(function (xhr, status, error) {
+                console.log("AJAX Error Code: " + xhr.status);
+                console.log("Error: " + error);
+            })
+            .always(function () {
+                $('#ajax-process').empty();
+            });
+    }
+       }
+
+
+
+
+
+        </script>
+    
